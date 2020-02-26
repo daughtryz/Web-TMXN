@@ -24,6 +24,18 @@
         {
         }
         public DbSet<Team> Teams { get; set; }
+
+        public DbSet<TMXNUser> TMXNUsers { get; set; }
+        public DbSet<Award> Awards { get; set; }
+
+
+        public DbSet<Player> Players { get; set; }
+
+        public DbSet<NewsFeed> NewsFeeds { get; set; }
+
+        public DbSet<Tournament> Tournaments { get; set; }
+
+
         public DbSet<Setting> Settings { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
@@ -49,7 +61,7 @@
         {
             // Needed for Identity models configuration
             base.OnModelCreating(builder);
-
+            builder.Entity<PlayerNewsFeed>().HasKey(x => new { x.PlayerId, x.NewsFeedId });
             ConfigureUserIdentityRelations(builder);
 
             EntityIndexesConfiguration.Configure(builder);
@@ -96,6 +108,8 @@
                 .HasForeignKey(e => e.UserId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
+
+          
         }
 
         private static void SetIsDeletedQueryFilter<T>(ModelBuilder builder)
