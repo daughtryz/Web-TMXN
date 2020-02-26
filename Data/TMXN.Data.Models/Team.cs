@@ -13,10 +13,11 @@
         public Team()
         {
             this.Id = Guid.NewGuid().ToString();
-            this.Users = new HashSet<User>();
+          
+            this.ApplicationsUsers = new HashSet<ApplicationUser>();
             this.CreatedOn = DateTime.UtcNow;
         }
-        public string Id { get; set; }
+       
 
         [Required]
         [MaxLength(20)]
@@ -27,10 +28,9 @@
         [Required]
         [MaxLength(6)]
         public string Tag { get; set; }
-        [Required]
-        public DateTime CreatedOn { get; set; }
+       
         
 
-        public ICollection<User> Users { get; set; }
+        public ICollection<ApplicationUser> ApplicationsUsers { get; set; }
     }
 }
