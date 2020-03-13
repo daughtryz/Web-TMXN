@@ -35,7 +35,7 @@
 
         public DbSet<Tournament> Tournaments { get; set; }
 
-
+        public DbSet<MigTest> MigTests { get; set; }
         public DbSet<Setting> Settings { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
