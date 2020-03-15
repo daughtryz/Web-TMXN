@@ -13,6 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1">
       <PrivateAssets>all</PrivateAssets>
@@ -26,6 +28,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\TMXN.Data.Common\TMXN.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\TMXN.Data.Models\TMXN.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Web\TMXN.Web.ViewModels\TMXN.Web.ViewModels.csproj" />
     <ProjectReference Include="..\TMXN.Services.Mapping\TMXN.Services.Mapping.csproj" />
   </ItemGroup>
 

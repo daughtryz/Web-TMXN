@@ -1,0 +1,21 @@
+﻿@model TMXN.Web.ViewModels.Teams.TeamsListViewModel
+
+@{
+    this.ViewData["Title"] = "Teams";
+}
+
+<h1>@this.ViewData["Title"]</h1>
+
+<div class="row">
+@foreach (var team in this.Model.Teams)
+{
+<div class="col-md-3 media">
+    <img class="mr-3" src="@team.Logo" width ="100" alt="Generic placeholder image">
+    <div class="media-body">
+        <h5 class="mt-0">@team.Name</h5>
+       @team.Tag
+    </div>
+</div>
+}
+</div>
+
