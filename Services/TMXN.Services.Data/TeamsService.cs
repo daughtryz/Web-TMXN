@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using TMXN.Data.Common.Repositories;
 using TMXN.Data.Models;
 using TMXN.Services.Mapping;
@@ -16,6 +17,19 @@ namespace TMXN.Services.Data
         {
             this.teamsRepository = teamsRepository;
         }
+
+        public async Task AddAsync(string name,string logo,string tag)
+        {
+
+           await this.teamsRepository.AddAsync(new Team
+            {
+                Name = name,
+                Logo = logo,
+                Tag = tag,
+            });
+            await this.teamsRepository.SaveChangesAsync();
+        }
+
         public IEnumerable<T> GetAll<T>()
         {
             return this.teamsRepository.All().To<T>().ToList();
