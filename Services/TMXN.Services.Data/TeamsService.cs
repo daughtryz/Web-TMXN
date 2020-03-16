@@ -12,21 +12,27 @@ namespace TMXN.Services.Data
     public class TeamsService : ITeamsService
     {
         private readonly IDeletableEntityRepository<Team> teamsRepository;
+       
 
         public TeamsService(IDeletableEntityRepository<Team> teamsRepository)
         {
             this.teamsRepository = teamsRepository;
+           
         }
 
         public async Task AddAsync(string name,string logo,string tag)
         {
-
-           await this.teamsRepository.AddAsync(new Team
+            var team = new Team
             {
                 Name = name,
                 Logo = logo,
-                Tag = tag,
-            });
+                Tag = tag,              
+            };
+
+            
+            
+           await this.teamsRepository.AddAsync(team);
+           
             await this.teamsRepository.SaveChangesAsync();
         }
 

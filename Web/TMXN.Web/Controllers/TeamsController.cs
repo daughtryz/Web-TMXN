@@ -32,14 +32,15 @@ namespace TMXN.Web.Controllers
 
 
         [HttpPost]
-        public IActionResult Add(TeamInputModel model)
+        public async Task<IActionResult> Add(TeamInputModel model)
         {
             if(!this.ModelState.IsValid)
             {
                 throw new Exception("Invalid model state!");
             }
 
-            this.teamsService.AddAsync(model.Name, model.Logo, model.Tag);
+            await this.teamsService.AddAsync(model.Name, model.Logo, model.Tag);
+            
             return this.Redirect("/Home/Index");
         }
     }

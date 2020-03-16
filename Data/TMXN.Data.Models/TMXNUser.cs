@@ -16,6 +16,8 @@ namespace TMXN.Data.Models
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.Teams = new HashSet<Team>();
+
+
         }
 
 

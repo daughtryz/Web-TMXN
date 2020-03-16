@@ -7,7 +7,7 @@
 
     using TMXN.Data.Common.Models;
 
-    public class Team : BaseDeletableModel<string>
+    public class Team : BaseDeletableModel<string>, IDeletableEntity
     {
 
         public Team()
