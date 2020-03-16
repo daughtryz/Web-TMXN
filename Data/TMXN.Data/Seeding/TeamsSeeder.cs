@@ -48,7 +48,7 @@ namespace TMXN.Data.Seeding
                 {
                     Name = team.Name,
                     Logo = team.Logo,
-                    Tag = team.Tag
+                    Tag = team.Tag,
                     
                 });
 
