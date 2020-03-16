@@ -5,14 +5,28 @@
     using TMXN.Web.ViewModels;
 
     using Microsoft.AspNetCore.Mvc;
+    using TMXN.Services.Data;
+    using TMXN.Web.ViewModels.News;
 
     public class HomeController : BaseController
     {
+        private readonly INewsFeedsService newsFeedsService;
+
+        public HomeController(INewsFeedsService newsFeedsService)
+        {
+            this.newsFeedsService = newsFeedsService;
+        }
         public IActionResult Index()
         {
-            return this.View();
+            var viewModel = new NewsFeedsListViewModel();
+            var all = this.newsFeedsService.GetAll<NewsViewModel>();
+            viewModel.News = all;
+
+
+            return this.View(viewModel);
         }
 
+       
         public IActionResult Privacy()
         {
             return this.View();

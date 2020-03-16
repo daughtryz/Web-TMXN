@@ -1,11 +1,28 @@
-﻿@using TMXN.Common
+﻿
+@model TMXN.Web.ViewModels.News.NewsFeedsListViewModel
+
+@using TMXN.Common
 @{
     this.ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
+    <div class="text-center">
 
-    <h1 class="display-4">Welcome to @GlobalConstants.SystemName WebSite!</h1>
+        <h1 class="display-4">Welcome to @GlobalConstants.SystemName WebSite!</h1>
+        <div class="row">
+            @foreach (var news in this.Model.News)
+            {
 
-    
-</div>
+                <div class="media m-4">
+                    <img class="mr-3" src="@news.ImageUrl" width="100" alt="Generic placeholder image">
+                    <div class="media-body">
+                        <h5 class="mt-0">@news.Title</h5>
+                        @news.Content
+                    </div>
+
+                </div>
+
+            }
+        </div>
+
+    </div>

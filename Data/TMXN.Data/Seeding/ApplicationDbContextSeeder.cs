@@ -27,6 +27,7 @@
                           {
                               new RolesSeeder(),
                               new TeamsSeeder(),
+                              new NewsFeedsSeeder(),
                               new SettingsSeeder(),
                           };
 

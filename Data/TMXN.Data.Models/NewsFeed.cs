@@ -23,7 +23,6 @@ namespace TMXN.Data.Models
         [Required]
         public string ImageUrl { get; set; }
 
-        [Required]
         public DateTime Date { get; set; }
 
        
