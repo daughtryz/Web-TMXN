@@ -17,6 +17,12 @@ namespace TMXN.Data.Models
         [Required]
         [MaxLength(50)]
         public string Title { get; set; }
+
+        [Required]
+        public string Content { get; set; }
+        [Required]
+        public string ImageUrl { get; set; }
+
         [Required]
         public DateTime Date { get; set; }
 
