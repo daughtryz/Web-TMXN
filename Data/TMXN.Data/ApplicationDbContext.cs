@@ -25,7 +25,7 @@
         }
         public DbSet<Team> Teams { get; set; }
 
-        public DbSet<TMXNUser> TMXNUsers { get; set; }
+        
         public DbSet<Award> Awards { get; set; }
 
 

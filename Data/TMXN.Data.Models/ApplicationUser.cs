@@ -16,6 +16,7 @@ namespace TMXN.Data.Models
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
+           
         }
 
         // Audit info
@@ -33,5 +34,9 @@ namespace TMXN.Data.Models
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
 
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
+
+        public string TeamId { get; set; }
+
+        public virtual Team Team { get; set; }
     }
 }
