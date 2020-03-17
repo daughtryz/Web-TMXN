@@ -1,7 +1,17 @@
-﻿@model TMXN.Web.ViewModels.Settings.SettingsListViewModel
+﻿@model TMXN.Web.ViewModels.News.NewsViewModel
 
 @{
-    this.ViewData["Title"] = "Settings";
+    this.ViewData["Title"] = "Details";
 }
 
 <h1>@this.ViewData["Title"]</h1>
+
+
+<div class="media m-4">
+    <img class="mr-3" src="@Model.ImageUrl" width="100" alt="Generic placeholder image">
+    <div class="media-body">
+        <h5 class="mt-0">@Model.Title</h5>
+        @Model.Content
+    </div>
+
+</div>

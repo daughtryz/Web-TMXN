@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TMXN.Web.ViewModels.News;
 
 namespace TMXN.Services.Data
 {
@@ -8,5 +9,7 @@ namespace TMXN.Services.Data
     {
 
         IEnumerable<T> GetAll<T>();
+
+        NewsViewModel GetNewsById(string newsId);
     }
 }
