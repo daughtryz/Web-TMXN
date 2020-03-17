@@ -8,21 +8,19 @@
 
     <div class="text-center">
 
-        <h1 class="display-4">Welcome to @GlobalConstants.SystemName WebSite!</h1>
-        <div class="row">
-            @foreach (var news in this.Model.News)
-            {
-
-                <div class="media m-4">
-                    <img class="mr-3" src="@news.ImageUrl" width="100" alt="Generic placeholder image">
-                    <div class="media-body">
-                        <h5 class="mt-0">@news.Title</h5>
-                        @news.Content
-                    </div>
-
-                </div>
-
-            }
+        <h1 class="display-4">@GlobalConstants.NewsFeeds!</h1>
+        <div class="media" >
+        @foreach (var news in this.Model.News)
+        {
+    <div class="card mr-4" style="width: 18rem;">
+        <img class="card-img-top" src="@news.ImageUrl" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">@news.Title</h5>
+            
+            <a href="#" class="btn btn-primary">Info</a>
         </div>
-
     </div>
+                }
+            </div>
+
+           

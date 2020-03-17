@@ -44,8 +44,4 @@
     <ProjectReference Include="..\TMXN.Web.Infrastructure\TMXN.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\TMXN.Web.ViewModels\TMXN.Web.ViewModels.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\News\" />
-  </ItemGroup>
 </Project>
