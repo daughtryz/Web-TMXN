@@ -14,8 +14,9 @@
         {
             this.Id = Guid.NewGuid().ToString();
           
-            this.ApplicationsUsers = new HashSet<ApplicationUser>();
+           
             this.CreatedOn = DateTime.UtcNow;
+            this.Awards = new HashSet<Award>();
         }
        
 
@@ -28,9 +29,12 @@
         [Required]
         [MaxLength(6)]
         public string Tag { get; set; }
-       
-        
 
-        public ICollection<ApplicationUser> ApplicationsUsers { get; set; }
+
+
+        public virtual ApplicationUser User { get; set; }
+
+        public string UserId { get; set; }
+        public ICollection<Award> Awards { get; set; }
     }
 }

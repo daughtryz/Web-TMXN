@@ -11,6 +11,9 @@ namespace TMXN.Services.Data
 
         public IEnumerable<T> GetAll<T>();
 
-        public Task AddAsync(string name, string logo, string tag);
+        public Task AddAsync(string name, string logo, string tag,string userId);
+
+
+        
     }
 }

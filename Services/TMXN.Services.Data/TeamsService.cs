@@ -20,20 +20,21 @@ namespace TMXN.Services.Data
            
         }
 
-        public async Task AddAsync(string name,string logo,string tag)
+        public async Task AddAsync(string name,string logo,string tag,string userId)
         {
             var team = new Team
             {
                 Name = name,
                 Logo = logo,
-                Tag = tag,              
+                Tag = tag,  
+                UserId = userId,
             };
-
-            
-            
-           await this.teamsRepository.AddAsync(team);
+  
+            await this.teamsRepository.AddAsync(team);
            
             await this.teamsRepository.SaveChangesAsync();
+
+            
         }
 
         public IEnumerable<T> GetAll<T>()

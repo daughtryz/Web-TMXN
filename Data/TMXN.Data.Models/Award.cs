@@ -17,7 +17,9 @@ namespace TMXN.Data.Models
         public string Name { get; set; }
         public bool IsDeleted { get ; set ; }
         public DateTime? DeletedOn { get ; set ; }
-        public string PlayerId { get; set; }
-        public Player Player { get; set; }
+
+        public string TeamId { get; set; }
+
+        public virtual Team Team { get; set; }
     }
 }

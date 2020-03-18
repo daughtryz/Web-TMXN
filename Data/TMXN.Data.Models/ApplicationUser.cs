@@ -35,8 +35,8 @@ namespace TMXN.Data.Models
 
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
 
-        public string TeamId { get; set; }
+        
 
-        public virtual Team Team { get; set; }
+
     }
 }

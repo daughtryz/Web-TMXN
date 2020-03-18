@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TMXN.Common.InputModels;
+using TMXN.Data.Common.Repositories;
+using TMXN.Data.Models;
 using TMXN.Services.Data;
 using TMXN.Web.ViewModels.Teams;
 
@@ -12,10 +15,12 @@ namespace TMXN.Web.Controllers
     public class TeamsController : BaseController
     {
         private readonly ITeamsService teamsService;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public TeamsController(ITeamsService teamsService)
+        public TeamsController(ITeamsService teamsService,UserManager<ApplicationUser> userManager)
         {
             this.teamsService = teamsService;
+            this.userManager = userManager;
         }
         public IActionResult ShowAll()
         {
@@ -36,12 +41,15 @@ namespace TMXN.Web.Controllers
         {
             if(!this.ModelState.IsValid)
             {
-                throw new Exception("Invalid model state!");
+                return this.View(model);
             }
-
-            await this.teamsService.AddAsync(model.Name, model.Logo, model.Tag);
+            var user = await this.userManager.GetUserAsync(this.User);
             
-            return this.Redirect("/Home/Index");
+       await this.teamsService.AddAsync(model.Name, model.Logo, model.Tag,user.Id);
+
+            return this.RedirectToAction(nameof(this.ShowAll));
         }
+
+       
     }
 }
