@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,11 +13,15 @@ namespace TMXN.Services.Data
     public class TeamsService : ITeamsService
     {
         private readonly IDeletableEntityRepository<Team> teamsRepository;
-       
+        
+        private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
+   
 
         public TeamsService(IDeletableEntityRepository<Team> teamsRepository)
         {
             this.teamsRepository = teamsRepository;
+            
+            this.userRepository = userRepository;
            
         }
 
@@ -29,9 +34,11 @@ namespace TMXN.Services.Data
                 Name = name,
                 Logo = logo,
                 Tag = tag,  
-                UserId = userId,
+               
             };
-  
+            var currentUser = this.userRepository.All().Where(x => x.Id == userId).FirstOrDefault();
+
+            team.ApplicationUsers.Add(currentUser);
             await this.teamsRepository.AddAsync(team);
            
             await this.teamsRepository.SaveChangesAsync();
@@ -44,14 +51,6 @@ namespace TMXN.Services.Data
             return this.teamsRepository.All().To<T>().ToList();
         }
 
-        public async Task LeaveAsync(string userId)
-        {
-            var currentTeam = this.teamsRepository.All()
-                .Where(x => x.UserId == userId)
-                .FirstOrDefault();
-            currentTeam.UserId = null;
-            this.teamsRepository.Update(currentTeam);
-            await this.teamsRepository.SaveChangesAsync();
-        }
+   
     }
 }

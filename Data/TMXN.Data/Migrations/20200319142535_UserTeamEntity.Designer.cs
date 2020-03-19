@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TMXN.Data;
 
 namespace TMXN.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200319142535_UserTeamEntity")]
+    partial class UserTeamEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -221,9 +223,6 @@ namespace TMXN.Data.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TeamId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -242,8 +241,6 @@ namespace TMXN.Data.Migrations
                         .IsUnique()
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.HasIndex("TeamId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -463,11 +460,16 @@ namespace TMXN.Data.Migrations
                     b.Property<int?>("TournamentId")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
 
                     b.HasIndex("TournamentId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Teams");
                 });
@@ -501,29 +503,6 @@ namespace TMXN.Data.Migrations
                     b.HasIndex("IsDeleted");
 
                     b.ToTable("Tournaments");
-                });
-
-            modelBuilder.Entity("TMXN.Data.Models.UserTeam", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("TeamId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.HasKey("UserId", "TeamId");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.HasIndex("TeamId");
-
-                    b.ToTable("UsersTeams");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -577,13 +556,6 @@ namespace TMXN.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TMXN.Data.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("TMXN.Data.Models.Team", "Team")
-                        .WithMany("ApplicationUsers")
-                        .HasForeignKey("TeamId");
-                });
-
             modelBuilder.Entity("TMXN.Data.Models.Award", b =>
                 {
                     b.HasOne("TMXN.Data.Models.Player", null)
@@ -622,21 +594,10 @@ namespace TMXN.Data.Migrations
                     b.HasOne("TMXN.Data.Models.Tournament", null)
                         .WithMany("Teams")
                         .HasForeignKey("TournamentId");
-                });
-
-            modelBuilder.Entity("TMXN.Data.Models.UserTeam", b =>
-                {
-                    b.HasOne("TMXN.Data.Models.Team", "Team")
-                        .WithMany()
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
 
                     b.HasOne("TMXN.Data.Models.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

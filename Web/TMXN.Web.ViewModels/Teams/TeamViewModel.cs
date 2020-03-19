@@ -8,13 +8,15 @@ namespace TMXN.Web.ViewModels.Teams
 {
     public class TeamViewModel : IMapFrom<Team>
     {
+
+        public string Id { get; set; }
         public string Name { get; set; }
 
         public string Tag { get; set; }
 
         public string Logo { get; set; }
 
-        public string UserId { get; set; }
+        public ICollection<ApplicationUser> ApplicationUsers { get; set; }
 
     }
 }

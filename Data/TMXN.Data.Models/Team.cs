@@ -13,8 +13,8 @@
         public Team()
         {
             this.Id = Guid.NewGuid().ToString();
-          
-           
+
+            this.ApplicationUsers = new HashSet<ApplicationUser>();
             this.CreatedOn = DateTime.UtcNow;
             this.Awards = new HashSet<Award>();
         }
@@ -30,12 +30,7 @@
         [MaxLength(6)]
         public string Tag { get; set; }
 
-
-
-        public virtual ApplicationUser User { get; set; }
-
-        public string UserId { get; set; }
-
+        public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
 
         public ICollection<Award> Awards { get; set; }
     }

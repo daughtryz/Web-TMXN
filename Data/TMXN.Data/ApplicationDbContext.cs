@@ -33,6 +33,7 @@
 
         public DbSet<NewsFeed> NewsFeeds { get; set; }
 
+        public DbSet<UserTeam> UsersTeams { get; set; }
         public DbSet<Tournament> Tournaments { get; set; }
 
         public DbSet<MigTest> MigTests { get; set; }
@@ -62,6 +63,8 @@
             // Needed for Identity models configuration
             base.OnModelCreating(builder);
             builder.Entity<PlayerNewsFeed>().HasKey(x => new { x.PlayerId, x.NewsFeedId });
+            builder.Entity<UserTeam>().HasKey(x => new { x.UserId, x.TeamId });
+
             ConfigureUserIdentityRelations(builder);
 
             EntityIndexesConfiguration.Configure(builder);

@@ -1,4 +1,8 @@
 ﻿@model TMXN.Web.ViewModels.Teams.TeamsListViewModel
+@using Microsoft.AspNetCore.Identity
+@using TMXN.Data.Models
+@inject UserManager<ApplicationUser> userManager
+
 
 @{
     this.ViewData["Title"] = "Teams";
@@ -10,25 +14,31 @@
 
 <h4><button onclick="location.href='@Url.Action("Add", "Teams")'" type="button" class="btn btn-primary center-block">Create your own team!</button></h4>
 <div class="row">
+    
     @foreach (var team in this.Model.Teams)
     {
 
-    <div class="card mr-3" style="width: 15rem;">
-        <img class="card-img-top" src="@team.Logo" alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">@team.Name</h5>
-            <h2 class="card-title">@team.Tag</h2>
-            @if (team.UserId == null)
-            {
-                <a type="button" class="btn btn-primary center-block">Join us!</a>
-            }
-            else
-            {
-                <a href="/Teams/Leave?userId=@team.UserId" type="button" class="btn btn-primary center-block">Leave!</a>
-            }
+        <div class="card mr-3" style="width: 15rem;">
+            <img class="card-img-top" src="@team.Logo" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">@team.Name</h5>
+                <h2 class="card-title">@team.Tag</h2>
+               
+                @{string userId = userManager.GetUserId(this.User);}
 
+                @if (team.ApplicationUsers.Any(x => x.Id == userId))
+                {
+                    <a href="/Teams/Leave?teamId=@team.Id" type="button" class="btn btn-primary center-block">Leave!</a>
+                }
+                else
+                {
+                    <a href="/Teams/Join?teamId=@team.Id" type="button" class="btn btn-primary center-block">Join us!</a>
+                }
+
+
+
+            </div>
         </div>
-    </div>
 
     }
 </div>

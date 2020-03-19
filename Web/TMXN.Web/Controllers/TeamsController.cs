@@ -17,12 +17,14 @@ namespace TMXN.Web.Controllers
         private readonly ITeamsService teamsService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IDeletableEntityRepository<Team> teamsRepository;
+        private readonly IUsersService usersService;
 
-        public TeamsController(ITeamsService teamsService,UserManager<ApplicationUser> userManager,IDeletableEntityRepository<Team> teamsRepository)
+        public TeamsController(ITeamsService teamsService,UserManager<ApplicationUser> userManager,IDeletableEntityRepository<Team> teamsRepository,IUsersService usersService)
         {
             this.teamsService = teamsService;
             this.userManager = userManager;
             this.teamsRepository = teamsRepository;
+            this.usersService = usersService;
         }
         public IActionResult ShowAll()
         {
@@ -46,11 +48,11 @@ namespace TMXN.Web.Controllers
                 return this.View(model);
             }
             var user = await this.userManager.GetUserAsync(this.User);
-            var isUserAlreadyInTeam = this.teamsRepository.All().Where(x => x.UserId == user.Id).FirstOrDefault();
+            var isUserAlreadyInTeam = this.teamsRepository.All().Where(x => x.ApplicationUsers.Any(x => x.Id == user.Id)).FirstOrDefault();
             if(isUserAlreadyInTeam != null)
             {
               
-               // TODO: Error view 
+                //TODO: Error view 
                 throw new Exception("You are already in a team!");
             }
            
@@ -60,12 +62,23 @@ namespace TMXN.Web.Controllers
             return this.RedirectToAction(nameof(this.ShowAll));
         }
 
-       public async Task<IActionResult> Leave(string userId)
+        public async Task<IActionResult> Leave(string teamId)
         {
-            await this.teamsService.LeaveAsync(userId);
+            var user = await this.userManager.GetUserAsync(this.User);
+            await this.usersService.LeaveAsync(teamId, user.Id);
 
             return this.RedirectToAction(nameof(this.ShowAll));
 
+        }
+
+        public async Task<IActionResult> Join(string teamId)
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            await this.usersService.JoinAsync(teamId, user.Id);
+
+
+            return this.RedirectToAction(nameof(this.ShowAll));
         }
     }
 }
