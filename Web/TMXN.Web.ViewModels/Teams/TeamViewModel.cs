@@ -14,5 +14,7 @@ namespace TMXN.Web.ViewModels.Teams
 
         public string Logo { get; set; }
 
+        public string UserId { get; set; }
+
     }
 }

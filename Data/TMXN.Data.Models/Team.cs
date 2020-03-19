@@ -7,7 +7,7 @@
 
     using TMXN.Data.Common.Models;
 
-    public class Team : BaseDeletableModel<string>, IDeletableEntity
+    public class Team : BaseDeletableModel<string>
     {
 
         public Team()
@@ -35,6 +35,8 @@
         public virtual ApplicationUser User { get; set; }
 
         public string UserId { get; set; }
+
+
         public ICollection<Award> Awards { get; set; }
     }
 }

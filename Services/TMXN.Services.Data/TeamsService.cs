@@ -22,6 +22,8 @@ namespace TMXN.Services.Data
 
         public async Task AddAsync(string name,string logo,string tag,string userId)
         {
+
+
             var team = new Team
             {
                 Name = name,
@@ -40,6 +42,16 @@ namespace TMXN.Services.Data
         public IEnumerable<T> GetAll<T>()
         {
             return this.teamsRepository.All().To<T>().ToList();
+        }
+
+        public async Task LeaveAsync(string userId)
+        {
+            var currentTeam = this.teamsRepository.All()
+                .Where(x => x.UserId == userId)
+                .FirstOrDefault();
+            currentTeam.UserId = null;
+            this.teamsRepository.Update(currentTeam);
+            await this.teamsRepository.SaveChangesAsync();
         }
     }
 }

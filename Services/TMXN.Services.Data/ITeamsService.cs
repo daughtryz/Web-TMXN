@@ -13,7 +13,7 @@ namespace TMXN.Services.Data
 
         public Task AddAsync(string name, string logo, string tag,string userId);
 
-
+        public Task LeaveAsync(string userId);
         
     }
 }

@@ -18,8 +18,15 @@
         <div class="card-body">
             <h5 class="card-title">@team.Name</h5>
             <h2 class="card-title">@team.Tag</h2>
+            @if (team.UserId == null)
+            {
+                <a type="button" class="btn btn-primary center-block">Join us!</a>
+            }
+            else
+            {
+                <a href="/Teams/Leave?userId=@team.UserId" type="button" class="btn btn-primary center-block">Leave!</a>
+            }
 
-            <a type="button" class="btn btn-primary center-block">Join us!</a>
         </div>
     </div>
 
