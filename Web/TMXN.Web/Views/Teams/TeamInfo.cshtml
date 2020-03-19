@@ -1,0 +1,20 @@
+﻿
+@model TMXN.Web.ViewModels.Teams.TeamInfoViewModel
+@{
+    this.ViewData["Title"] = "Team Info";
+}
+
+<h1>@this.ViewData["Title"]</h1>
+
+<img class="card-img-top" src="@Model.Logo" alt="Card image cap">
+<h2>Team name: @Model.Name.</h2>
+<h2>Awards count: @Model.AwardsCount.</h2>
+
+<h2>Participated tournaments: --></h2>
+
+@foreach (var tournament in Model.Tournaments)
+{
+    <h3>@tournament.Name</h3>
+
+
+}

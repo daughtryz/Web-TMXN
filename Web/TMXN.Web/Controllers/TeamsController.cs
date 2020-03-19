@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ using TMXN.Web.ViewModels.Teams;
 
 namespace TMXN.Web.Controllers
 {
+    [Authorize]
     public class TeamsController : BaseController
     {
         private readonly ITeamsService teamsService;
@@ -26,6 +28,7 @@ namespace TMXN.Web.Controllers
             this.teamsRepository = teamsRepository;
             this.usersService = usersService;
         }
+      
         public IActionResult ShowAll()
         {
             var viewModel = new TeamsListViewModel();
@@ -33,14 +36,14 @@ namespace TMXN.Web.Controllers
             viewModel.Teams = all;
             return this.View(viewModel);
         }
-
+     
         public IActionResult Add()
         {
             return this.View();
         }
 
 
-        [HttpPost]
+        [HttpPost] 
         public async Task<IActionResult> Add(TeamInputModel model)
         {
             if(!this.ModelState.IsValid)
@@ -62,6 +65,7 @@ namespace TMXN.Web.Controllers
             return this.RedirectToAction(nameof(this.ShowAll));
         }
 
+       
         public async Task<IActionResult> Leave(string teamId)
         {
             var user = await this.userManager.GetUserAsync(this.User);
@@ -70,7 +74,7 @@ namespace TMXN.Web.Controllers
             return this.RedirectToAction(nameof(this.ShowAll));
 
         }
-
+        
         public async Task<IActionResult> Join(string teamId)
         {
             var user = await this.userManager.GetUserAsync(this.User);
@@ -79,6 +83,13 @@ namespace TMXN.Web.Controllers
 
 
             return this.RedirectToAction(nameof(this.ShowAll));
+        }
+
+        public IActionResult TeamInfo(string teamId)
+        {
+            var viewModel = this.teamsService.GetInfo<TeamInfoViewModel>(teamId);
+            
+            return this.View(viewModel);
         }
     }
 }

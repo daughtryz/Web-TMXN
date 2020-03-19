@@ -11,7 +11,7 @@ namespace TMXN.Data.Models
 
         public Tournament()
         {
-            this.Teams = new HashSet<Team>();
+           
         }
         [Required]
         [MaxLength(20)]
@@ -21,10 +21,13 @@ namespace TMXN.Data.Models
         [Required]
         public DateTime CreatedOn { get; set; }
 
-        public virtual ICollection<Team> Teams { get; set; }
+        public string TeamId { get; set; }
+
+        public virtual Team Team { get; set; }
 
         public bool IsDeleted { get  ; set ; }
         public DateTime? DeletedOn { get ; set ; }
+
 
 
     }

@@ -17,6 +17,7 @@
             this.ApplicationUsers = new HashSet<ApplicationUser>();
             this.CreatedOn = DateTime.UtcNow;
             this.Awards = new HashSet<Award>();
+            this.Tournaments = new HashSet<Tournament>();
         }
        
 
@@ -32,6 +33,8 @@
 
         public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
 
-        public ICollection<Award> Awards { get; set; }
+        public virtual ICollection<Award> Awards { get; set; }
+
+        public virtual ICollection<Tournament> Tournaments { get; set; }
     }
 }

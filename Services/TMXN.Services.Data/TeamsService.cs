@@ -51,6 +51,9 @@ namespace TMXN.Services.Data
             return this.teamsRepository.All().To<T>().ToList();
         }
 
-   
+        public T GetInfo<T>(string teamId)
+        {
+            return this.teamsRepository.All().Where(x => x.Id == teamId).To<T>().FirstOrDefault();
+        }
     }
 }
