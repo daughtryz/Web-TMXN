@@ -16,5 +16,7 @@ namespace TMXN.Web.ViewModels.Teams
 
         public ICollection<Tournament> Tournaments { get; set; }
 
+
+        public ICollection<ApplicationUser> ApplicationUsers { get; set; }
     }
 }
