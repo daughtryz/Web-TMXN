@@ -8,7 +8,7 @@ namespace TMXN.Web.ViewModels.Tournaments
 {
     public class TournamentsViewModel : IMapFrom<Tournament>
     {
-
+        public int Id { get; set; }
         public string Name { get; set; }
 
         public string Organizer { get; set; }

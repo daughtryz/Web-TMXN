@@ -15,5 +15,9 @@ namespace TMXN.Services.Data
 
 
         public T GetInfo<T>(string teamId);
+
+
+        
+        
     }
 }

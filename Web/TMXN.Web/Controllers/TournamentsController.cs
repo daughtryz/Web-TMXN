@@ -9,6 +9,7 @@ using TMXN.Common.InputModels.Tournaments;
 using TMXN.Data.Models;
 using TMXN.Services.Data;
 using TMXN.Web.ViewModels.Tournaments;
+using TMXN.Web.ViewModels.Tournaments;
 
 namespace TMXN.Web.Controllers
 {
@@ -44,11 +45,24 @@ namespace TMXN.Web.Controllers
             {
                 return this.View(model);
             }
-            var currentUser = await this.userManager.GetUserAsync(this.User);
+           
 
-            await this.tournamentsService.GenerateAsync(model.Name, model.Organizer, currentUser.Id);
+            await this.tournamentsService.GenerateAsync(model.Name, model.Organizer);
             return this.RedirectToAction(nameof(this.GetAll));
            
+        }
+
+        public async Task<IActionResult> Participate(int tournamentId)
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+            await this.tournamentsService.ParticipateAsync(user.Id, tournamentId);
+
+            return this.Redirect("/Tournaments/Success");
+        }
+
+        public IActionResult Success()
+        {
+            return this.View();
         }
     }
 }

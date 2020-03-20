@@ -25,20 +25,32 @@ namespace TMXN.Services.Data
             return this.tournamentRepository.All().To<T>().ToList();
         }
 
-        public async Task GenerateAsync(string name,string organizer,string userId)
+        public async Task GenerateAsync(string name,string organizer)
         {
-            var currentTeam = this.teamRepository.All().Where(x => x.ApplicationUsers.Any(x => x.Id == userId)).FirstOrDefault();
+
 
             var tournament = new Tournament
             {
                 Name = name,
                 Organizer = organizer,
-                TeamId = currentTeam.Id,
+                CreatedOn = DateTime.UtcNow,
             };
 
             await this.tournamentRepository.AddAsync(tournament);
             await this.tournamentRepository.SaveChangesAsync();
 
+        }
+
+        public async Task ParticipateAsync(string userId,int tournamentId)
+        {
+            var currentTeam = this.teamRepository.All().Where(x => x.ApplicationUsers.Any(z => z.Id == userId)).FirstOrDefault();
+
+            var currentTournament = this.tournamentRepository.All().Where(x => x.Id == tournamentId).FirstOrDefault();
+
+            currentTournament.TeamId = currentTeam.Id;
+
+            this.tournamentRepository.Update(currentTournament);
+            await this.tournamentRepository.SaveChangesAsync();
         }
     }
 }

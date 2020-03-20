@@ -7,8 +7,10 @@ namespace TMXN.Services.Data
 {
     public interface ITournamentsService
     {
-        public Task GenerateAsync(string name, string organizer, string userId);
+        public Task GenerateAsync(string name, string organizer);
 
        public IEnumerable<T> All<T>();
+
+        public Task ParticipateAsync(string userId, int tournamentId);
     }
 }
