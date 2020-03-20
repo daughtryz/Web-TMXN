@@ -8,50 +8,52 @@
 
 <div class="card mr-3" style="width: 15rem;">
     <img class="card-img-top" src="@Model.Logo" alt="Card image cap">
-</div>
+    <div class="card-body">
+        <h5 class="card-title">@Model.Name</h5>
+        </div>
+    </div>
 
-<h2>Team name: @Model.Name.</h2>
-<h2>Awards count: @Model.AwardsCount.</h2>
+    <h2>Awards count: @Model.AwardsCount.</h2>
 
-<h2>Participated tournaments: --></h2>
+    <h2>Participated tournaments: --></h2>
 
-@foreach (var tournament in Model.Tournaments)
-{
-    <ul class="list-group">
-
-
-        <li class="list-group-item list-group-item-success">@tournament.Name</li>
-
-    </ul>
+    @foreach (var tournament in Model.Tournaments)
+    {
+        <ul class="list-group">
 
 
-}
+            <li class="list-group-item list-group-item-success">@tournament.Name</li>
+
+        </ul>
 
 
-<div class="row">
-    <table class="table">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col">Username</th>
-                <th scope="col">Members</th>
+    }
 
-            </tr>
-        </thead>
 
-        @foreach (var user in Model.ApplicationUsers)
-        {
-            <tbody>
+    <div class="row">
+        <table class="table">
+            <thead class="thead-dark">
                 <tr>
-                    <th scope="row">#</th>
-                    <td>@user.UserName</td>
+                    <th scope="col">Username</th>
+                    <th scope="col">Members</th>
 
                 </tr>
+            </thead>
 
-            </tbody>
-        }
-       
+            @foreach (var user in Model.ApplicationUsers)
+            {
+                <tbody>
+                    <tr>
+                        <th scope="row">#</th>
+                        <td>@user.UserName</td>
+
+                    </tr>
+
+                </tbody>
+            }
 
 
-    </table>
 
-</div>
+        </table>
+
+    </div>

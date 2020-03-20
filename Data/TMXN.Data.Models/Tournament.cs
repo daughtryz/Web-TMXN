@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using TMXN.Data.Common.Models;
+using TMXN.Data.Models.Enums;
 
 namespace TMXN.Data.Models
 {
@@ -28,7 +29,10 @@ namespace TMXN.Data.Models
         public bool IsDeleted { get  ; set ; }
         public DateTime? DeletedOn { get ; set ; }
 
+        public string Organizer { get; set; }
 
+
+        public TournamentGameType TournamentGameType { get; set; }
 
     }
 }

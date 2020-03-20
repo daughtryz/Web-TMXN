@@ -1,0 +1,42 @@
+﻿
+@model TMXN.Web.ViewModels.Tournaments.TournamentsListViewModel
+
+
+@{
+    this.ViewData["Title"] = "Available Tournaments";
+}
+
+
+<h4><button onclick="location.href='@Url.Action("Generate", "Tournaments")'" type="button" class="btn btn-primary center-block">GENERATE TOURNAMENT!</button></h4>
+<h1>@this.ViewData["Title"]</h1>
+
+
+<div class="row">
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">###</th>
+                <th scope="col">Tournament Name</th>
+                <th scope="col">Organizer</th>
+                <th scope="col">##</th>
+            </tr>
+        </thead>
+
+        @foreach (var tournament in Model.Tournaments)
+        {
+            <tbody>
+                <tr>
+                    <th scope="row">#</th>
+                    <td>@tournament.Name</td>
+                    <td>@tournament.Organizer</td>
+                    <td button onclick="location.href='@Url.Action("Generate", "Tournaments")'" type="button" class="btn btn-primary center-block">Participate!</td>
+                </tr>
+
+            </tbody>
+        }
+
+
+
+    </table>
+
+</div>
