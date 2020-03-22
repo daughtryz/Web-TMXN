@@ -60,9 +60,12 @@ namespace TMXN.Web.Controllers
             return this.Redirect("/Tournaments/Success");
         }
 
+       
         public IActionResult Success()
         {
             return this.View();
         }
+
+        
     }
 }

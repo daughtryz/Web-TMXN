@@ -1,0 +1,26 @@
+﻿
+@model TMXN.Common.InputModels.NewsInputModel
+
+
+<form asp-controller="News" asp-action="Create">
+    <div class="form-group">
+        <label for="title">Title:</label>
+        <input asp-for="Title" type="title" class="form-control" id="title">
+        <span asp-validation-for="Title"></span>
+    </div>
+    <div class="form-group">
+
+        <label for="content">Content:</label>
+
+<textarea asp-for="Content" id="content" rows="4" cols="50">
+</textarea>
+    </div>
+    <div class="form-group">
+        <div class="file-upload-wrapper">
+            @*Choose image for this title*@
+            <input type="file" id="input-file-now" class="file-upload" />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Create!</button>
+
+</form>

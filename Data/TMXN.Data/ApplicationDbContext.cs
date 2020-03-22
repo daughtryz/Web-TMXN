@@ -36,6 +36,7 @@
         public DbSet<UserTeam> UsersTeams { get; set; }
         public DbSet<Tournament> Tournaments { get; set; }
 
+        public DbSet<TournamentTeam> TournamentsTeams { get; set; }
         public DbSet<MigTest> MigTests { get; set; }
         public DbSet<Setting> Settings { get; set; }
 
@@ -65,6 +66,7 @@
             builder.Entity<PlayerNewsFeed>().HasKey(x => new { x.PlayerId, x.NewsFeedId });
             builder.Entity<UserTeam>().HasKey(x => new { x.UserId, x.TeamId });
 
+            builder.Entity<TournamentTeam>().HasKey(x => new { x.TournamentId, x.TeamId });
             ConfigureUserIdentityRelations(builder);
 
             EntityIndexesConfiguration.Configure(builder);

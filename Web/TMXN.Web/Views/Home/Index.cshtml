@@ -11,18 +11,21 @@
     <div class="text-center">
 
         <h1 class="display-4">@GlobalConstants.NewsFeeds!</h1>
-        <div class="media" >
-        @foreach (var news in this.Model.News)
-        {
-    <div class="card mr-4" style="width: 18rem;">
-        <img class="card-img-top" src="@news.ImageUrl" alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">@news.Title</h5>
-            
-            <a href="/News/Info?newsId=@news.Id" type="button" class="btn btn-primary center-block">Info!</a>
-        </div>
-    </div>
-                }
-            </div>
 
-           
+        <a href="/News/Create" type="button" class="btn btn-primary center-block">Create new article!</a>
+
+        <div class="media">
+            @foreach (var news in this.Model.News)
+            {
+                <div class="card mr-4" style="width: 18rem;">
+                    <img class="card-img-top" src="@news.ImageUrl" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">@news.Title</h5>
+
+                        <a href="/News/Info?newsId=@news.Id" type="button" class="btn btn-primary center-block">Info!</a>
+                    </div>
+                </div>
+            }
+        </div>
+
+

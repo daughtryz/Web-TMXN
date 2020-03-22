@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TMXN.Common.InputModels;
 using TMXN.Services.Data;
 
 namespace TMXN.Web.Controllers
@@ -21,5 +22,17 @@ namespace TMXN.Web.Controllers
             return this.View(viewModel);
         }
 
+        [HttpPost]
+        public async Task Create(NewsInputModel model)
+        {
+            await this.newsService.CreateNewsAsync(model.Title, model.Content, model.ImageUrl);
+
+            this.RedirectToAction(nameof(this.Info));
+        }
+
+        public IActionResult Create()
+        {
+            return this.View();
+        }
     }
 }

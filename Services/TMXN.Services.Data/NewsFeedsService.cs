@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using TMXN.Data.Common.Repositories;
 using TMXN.Data.Models;
 using TMXN.Services.Mapping;
@@ -17,6 +18,19 @@ namespace TMXN.Services.Data
         {
             this.newsFeedRepository = newsFeedRepository;
         }
+
+        public async Task CreateNewsAsync(string title, string content, string imageUrl)
+        {
+            var newsFeed = new NewsFeed
+            {
+                Title = title,
+                Content = content,
+                ImageUrl = imageUrl,
+            };
+            await this.newsFeedRepository.AddAsync(newsFeed);
+            await this.newsFeedRepository.SaveChangesAsync();
+        }
+
         public IEnumerable<T> GetAll<T>()
         {
             return this.newsFeedRepository.All().To<T>().ToList();
