@@ -6,13 +6,12 @@ using TMXN.Data.Common.Models;
 
 namespace TMXN.Data.Models
 {
-    public class NewsFeed : BaseModel<string>,IDeletableEntity
+    public class NewsFeed : BaseModel<string>, IDeletableEntity
     {
-
         public NewsFeed()
         {
             this.Id = Guid.NewGuid().ToString();
-            this.PlayerNewsFeeds = new HashSet<PlayerNewsFeed>();
+
         }
         [Required]
         [MaxLength(50)]
@@ -25,10 +24,8 @@ namespace TMXN.Data.Models
 
         public DateTime Date { get; set; }
 
-       
-        public bool IsDeleted { get ; set ; }
-        public DateTime? DeletedOn { get ; set ; }
 
-        public virtual ICollection<PlayerNewsFeed> PlayerNewsFeeds { get; set; }
+        public bool IsDeleted { get; set; }
+        public DateTime? DeletedOn { get; set; }
     }
 }

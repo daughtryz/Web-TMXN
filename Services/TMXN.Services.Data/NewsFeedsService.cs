@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,19 +32,34 @@ namespace TMXN.Services.Data
             await this.newsFeedRepository.SaveChangesAsync();
         }
 
+        public async Task DeleteByIdAsync(string newsId)
+        {
+            var currentNews = this.newsFeedRepository.All().Where(x => x.Id == newsId).FirstOrDefault();
+
+            this.newsFeedRepository.Delete(currentNews);
+            await this.newsFeedRepository.SaveChangesAsync();
+        }
+
+        public async Task EditAsync(string id,string title, string content, string imageUrl)
+        {
+            var currentNews = this.newsFeedRepository.All().Where(x => x.Id == id).FirstOrDefault();
+
+            currentNews.Title = title;
+            currentNews.Content = content;
+            currentNews.ImageUrl = imageUrl;
+
+            this.newsFeedRepository.Update(currentNews);
+            await this.newsFeedRepository.SaveChangesAsync();
+        }
+
         public IEnumerable<T> GetAll<T>()
         {
             return this.newsFeedRepository.All().To<T>().ToList();
         }
 
-        public NewsViewModel GetNewsById(string newsId)
+        public async Task<T> GetNewsById<T>(string newsId)
         {
-            var currentNews = this.newsFeedRepository.All().Where(x => x.Id == newsId).Select(x => new NewsViewModel
-            {
-                Title = x.Title,
-                Content = x.Content,
-                ImageUrl = x.ImageUrl,
-            }).FirstOrDefault();
+            var currentNews = await this.newsFeedRepository.All().Where(x => x.Id == newsId).To<T>().FirstOrDefaultAsync();
 
             return currentNews;
         }

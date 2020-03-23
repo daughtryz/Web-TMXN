@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TMXN.Data;
 
 namespace TMXN.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200323111927_NewNewsFeedsUpdated12")]
+    partial class NewNewsFeedsUpdated12
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -189,9 +191,6 @@ namespace TMXN.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("FriendlistId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -235,8 +234,6 @@ namespace TMXN.Data.Migrations
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FriendlistId");
 
                     b.HasIndex("IsDeleted");
 
@@ -283,32 +280,6 @@ namespace TMXN.Data.Migrations
                     b.HasIndex("TeamId");
 
                     b.ToTable("Awards");
-                });
-
-            modelBuilder.Entity("TMXN.Data.Models.Friendlist", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.ToTable("Friendlists");
                 });
 
             modelBuilder.Entity("TMXN.Data.Models.MigTest", b =>
@@ -569,12 +540,6 @@ namespace TMXN.Data.Migrations
 
             modelBuilder.Entity("TMXN.Data.Models.ApplicationUser", b =>
                 {
-                    b.HasOne("TMXN.Data.Models.Friendlist", "Friendlist")
-                        .WithMany("ApplicationUsers")
-                        .HasForeignKey("FriendlistId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("TMXN.Data.Models.Team", "Team")
                         .WithMany("ApplicationUsers")
                         .HasForeignKey("TeamId");

@@ -29,9 +29,7 @@
         public DbSet<Award> Awards { get; set; }
 
 
-        public DbSet<Player> Players { get; set; }
-
-        public DbSet<NewsFeed> NewsFeeds { get; set; }
+       
 
         public DbSet<UserTeam> UsersTeams { get; set; }
         public DbSet<Tournament> Tournaments { get; set; }
@@ -39,7 +37,9 @@
         public DbSet<TournamentTeam> TournamentsTeams { get; set; }
         public DbSet<MigTest> MigTests { get; set; }
         public DbSet<Setting> Settings { get; set; }
+        public DbSet<NewsFeed> NewsFeeds { get; set; }
 
+        public DbSet<Friendlist> Friendlists { get; set; }
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
@@ -63,7 +63,7 @@
         {
             // Needed for Identity models configuration
             base.OnModelCreating(builder);
-            builder.Entity<PlayerNewsFeed>().HasKey(x => new { x.PlayerId, x.NewsFeedId });
+            
             builder.Entity<UserTeam>().HasKey(x => new { x.UserId, x.TeamId });
 
             builder.Entity<TournamentTeam>().HasKey(x => new { x.TournamentId, x.TeamId });

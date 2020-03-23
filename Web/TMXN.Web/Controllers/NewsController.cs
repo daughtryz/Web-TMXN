@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TMXN.Common.InputModels;
 using TMXN.Services.Data;
+using TMXN.Web.ViewModels.News;
 
 namespace TMXN.Web.Controllers
 {
@@ -16,23 +17,64 @@ namespace TMXN.Web.Controllers
         {
             this.newsService = newsService;
         }
-        public IActionResult Info(string newsId)
+        public async Task<IActionResult> Info(string id)
         {
-            var viewModel = this.newsService.GetNewsById(newsId);
+            var viewModel = await this.newsService.GetNewsById<NewsViewModel>(id);
             return this.View(viewModel);
         }
 
         [HttpPost]
-        public async Task Create(NewsInputModel model)
+        public async Task<IActionResult> Create(NewsInputModel model)
         {
             await this.newsService.CreateNewsAsync(model.Title, model.Content, model.ImageUrl);
 
-            this.RedirectToAction(nameof(this.Info));
+            return this.RedirectToAction(nameof(this.Success));
         }
 
+        public async Task<IActionResult> Edit(string id)
+        {
+            var viewModel = await this.newsService.GetNewsById<NewsViewModel>(id);
+            return this.View(viewModel);
+        }
         public IActionResult Create()
         {
             return this.View();
         }
+
+        public IActionResult Success()
+        {
+            return this.View();
+        }
+        public IActionResult Edit()
+        {
+            return this.View();
+        }
+
+       
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditNewsViewModel model)
+        {
+           
+            await this.newsService.EditAsync(model.Id, model.Title, model.Content, model.ImageUrl);
+            return this.RedirectToAction(nameof(this.SuccessEdit));
+        }
+
+        public async Task<IActionResult> Remove(string id)
+        {
+            await this.newsService.DeleteByIdAsync(id);
+
+            return this.RedirectToAction(nameof(SuccessRemove));
+        }
+        public IActionResult SuccessEdit()
+        {
+            return this.View();
+        }
+
+        public IActionResult SuccessRemove()
+        {
+            return this.View();
+        }
+
+
     }
 }

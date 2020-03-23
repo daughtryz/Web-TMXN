@@ -2,26 +2,26 @@
 @model TMXN.Common.InputModels.NewsInputModel
 
 
-<form asp-controller="News" asp-action="Create">
+<form asp-controller="News" asp-action="Edit" method="post">
     <div class="form-group">
-        <label for="title">Title:</label>
+        <label for="title">New Title:</label>
         <input asp-for="Title" type="title" class="form-control" id="title">
         <span asp-validation-for="Title"></span>
     </div>
     <div class="form-group">
 
-        <label for="content">Content:</label>
+        <label for="content">New Content:</label>
 
 <textarea asp-for="Content" id="content" rows="4" cols="50">
 </textarea>
     </div>
     <div class="form-group">
         <div class="custom-file">
-            <label for="imageUrl">ImageUrl:</label>
+            <label for="imageUrl">New ImageUrl:</label>
             <input asp-for="ImageUrl" type="imageUrl" class="form-control" id="imageUrl">
             <span asp-validation-for="ImageUrl"></span>
         </div>
     </div>
-    <button type="submit" class="btn btn-primary">Create!</button>
+    <button type="submit" class="btn btn-primary">Update!</button>
 
 </form>

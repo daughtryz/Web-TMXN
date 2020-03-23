@@ -11,8 +11,16 @@ namespace TMXN.Services.Data
 
         IEnumerable<T> GetAll<T>();
 
-        NewsViewModel GetNewsById(string newsId);
+        public Task<T> GetNewsById<T>(string newsId);
 
         public Task CreateNewsAsync(string title, string content, string imageUrl);
+
+
+        public Task EditAsync(string id, string title, string content, string imageUrl);
+
+
+        public Task DeleteByIdAsync(string newsId);
+
+       
     }
 }
