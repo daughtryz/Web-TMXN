@@ -1,22 +1,72 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TMXN.Data.Common.Repositories;
 using TMXN.Data.Models;
+using TMXN.Services.Mapping;
 
 namespace TMXN.Services.Data
 {
     public class UsersService : IUsersService
     {
+        private readonly IRepository<UserFriend> userFriendRepo;
         private readonly IDeletableEntityRepository<Team> teamRepository;
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
+        private readonly IDeletableEntityRepository<UserFriendlist> friendlistRepository;
 
-        public UsersService(IDeletableEntityRepository<Team> teamRepository,IDeletableEntityRepository<ApplicationUser> userRepository)
+        public UsersService(IRepository<UserFriend> userFriendRepo,IDeletableEntityRepository<Team> teamRepository,IDeletableEntityRepository<ApplicationUser> userRepository,IDeletableEntityRepository<UserFriendlist> friendlistRepository)
         {
+            this.userFriendRepo = userFriendRepo;
             this.teamRepository = teamRepository;
             this.userRepository = userRepository;
+            this.friendlistRepository = friendlistRepository;
+        }
+
+        public async Task AddAnotherUserToFriendlistAsync(string id,string myId)
+        {
+
+            
+            var currentUser = await this.userRepository.All().Where(x => x.Id == id).FirstOrDefaultAsync();
+
+            var myUser = await this.userRepository.All().Where(x => x.Id == myId).FirstOrDefaultAsync();
+            if (currentUser == null)
+            {
+                throw new Exception("No such user!");
+            }
+           
+
+            
+
+            var friendList = new UserFriendlist();
+
+            friendList.ApplicationUsers.Add(currentUser);
+            
+
+
+            var mappingUserFriend = new UserFriend
+            {
+                ApplicationUserId = myUser.Id,
+                UserFriendlistId = friendList.Id,
+            };
+
+            await this.friendlistRepository.AddAsync(friendList);
+
+            await this.friendlistRepository.SaveChangesAsync();
+
+
+            await this.userFriendRepo.AddAsync(mappingUserFriend);
+
+            await this.userFriendRepo.SaveChangesAsync();
+
+            
+        }
+
+        public IEnumerable<TViewModel> GetAll<TViewModel>()
+        {
+            return this.userRepository.All().To<TViewModel>().ToList();
         }
 
         public async Task JoinAsync(string teamId, string userId)

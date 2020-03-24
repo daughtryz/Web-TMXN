@@ -11,6 +11,7 @@
 
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+    using TMXN.Services.Data;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
@@ -29,17 +30,21 @@
         public DbSet<Award> Awards { get; set; }
 
 
-       
 
+
+       
         public DbSet<UserTeam> UsersTeams { get; set; }
         public DbSet<Tournament> Tournaments { get; set; }
 
+        public DbSet<UserFriendlist> UserFriendlists { get; set; }
+
+        public DbSet<UserFriend> UsersFriends { get; set; }
         public DbSet<TournamentTeam> TournamentsTeams { get; set; }
         public DbSet<MigTest> MigTests { get; set; }
         public DbSet<Setting> Settings { get; set; }
         public DbSet<NewsFeed> NewsFeeds { get; set; }
 
-        public DbSet<Friendlist> Friendlists { get; set; }
+       
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
@@ -67,6 +72,8 @@
             builder.Entity<UserTeam>().HasKey(x => new { x.UserId, x.TeamId });
 
             builder.Entity<TournamentTeam>().HasKey(x => new { x.TournamentId, x.TeamId });
+
+            builder.Entity<UserFriend>().HasKey(x => new { x.ApplicationUserId, x.UserFriendlistId });
             ConfigureUserIdentityRelations(builder);
 
             EntityIndexesConfiguration.Configure(builder);

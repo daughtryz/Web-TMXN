@@ -2,7 +2,7 @@
 
 namespace TMXN.Data.Migrations
 {
-    public partial class NewNewsFeedsUpdated1 : Migration
+    public partial class AddFinalFriendlist : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

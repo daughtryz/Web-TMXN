@@ -11,5 +11,9 @@ namespace TMXN.Services.Data
 
         public Task JoinAsync(string teamId, string userId);
 
+        public Task AddAnotherUserToFriendlistAsync(string id,string myId);
+
+        public IEnumerable<TViewModel> GetAll<TViewModel>();
+
     }
 }

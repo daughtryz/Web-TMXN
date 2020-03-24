@@ -10,8 +10,8 @@ using TMXN.Data;
 namespace TMXN.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200323111927_NewNewsFeedsUpdated12")]
-    partial class NewNewsFeedsUpdated12
+    [Migration("20200324183651_AddFinalFriendlist")]
+    partial class AddFinalFriendlist
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

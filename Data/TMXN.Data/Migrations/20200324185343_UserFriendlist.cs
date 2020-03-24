@@ -3,22 +3,20 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TMXN.Data.Migrations
 {
-    public partial class FriendlistMig2 : Migration
+    public partial class UserFriendlist : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
-                name: "FriendlistId",
+            migrationBuilder.AddColumn<string>(
+                name: "UserFriendlistId",
                 table: "AspNetUsers",
-                nullable: false,
-                defaultValue: 0);
+                nullable: true);
 
             migrationBuilder.CreateTable(
-                name: "Friendlists",
+                name: "UserFriendlists",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<string>(nullable: false),
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
@@ -26,24 +24,24 @@ namespace TMXN.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Friendlists", x => x.Id);
+                    table.PrimaryKey("PK_UserFriendlists", x => x.Id);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_FriendlistId",
+                name: "IX_AspNetUsers_UserFriendlistId",
                 table: "AspNetUsers",
-                column: "FriendlistId");
+                column: "UserFriendlistId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Friendlists_IsDeleted",
-                table: "Friendlists",
+                name: "IX_UserFriendlists_IsDeleted",
+                table: "UserFriendlists",
                 column: "IsDeleted");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_AspNetUsers_Friendlists_FriendlistId",
+                name: "FK_AspNetUsers_UserFriendlists_UserFriendlistId",
                 table: "AspNetUsers",
-                column: "FriendlistId",
-                principalTable: "Friendlists",
+                column: "UserFriendlistId",
+                principalTable: "UserFriendlists",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
         }
@@ -51,18 +49,18 @@ namespace TMXN.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_AspNetUsers_Friendlists_FriendlistId",
+                name: "FK_AspNetUsers_UserFriendlists_UserFriendlistId",
                 table: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Friendlists");
+                name: "UserFriendlists");
 
             migrationBuilder.DropIndex(
-                name: "IX_AspNetUsers_FriendlistId",
+                name: "IX_AspNetUsers_UserFriendlistId",
                 table: "AspNetUsers");
 
             migrationBuilder.DropColumn(
-                name: "FriendlistId",
+                name: "UserFriendlistId",
                 table: "AspNetUsers");
         }
     }

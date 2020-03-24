@@ -41,6 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Services\TMXN.Services.Data\TMXN.Services.Data.csproj" />
     <ProjectReference Include="..\..\TMXN.Common\TMXN.Common.csproj" />
     <ProjectReference Include="..\TMXN.Data.Common\TMXN.Data.Common.csproj" />
     <ProjectReference Include="..\TMXN.Data.Models\TMXN.Data.Models.csproj" />

@@ -1,13 +1,11 @@
-﻿// ReSharper disable VirtualMemberCallInConstructor
+﻿using Microsoft.AspNetCore.Identity;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using TMXN.Data.Common.Models;
+
 namespace TMXN.Data.Models
 {
-    using System;
-    using System.Collections.Generic;
-
-    using TMXN.Data.Common.Models;
-
-    using Microsoft.AspNetCore.Identity;
-
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
     {
         public ApplicationUser()
@@ -35,13 +33,12 @@ namespace TMXN.Data.Models
 
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
 
+        public string UserFriendlistId { get; set; }
 
-        public int FriendlistId { get; set; }
-
-        public virtual Friendlist Friendlist { get; set; }
-        public virtual Team Team { get; set; }
-
+        public virtual UserFriendlist UserFriendlist { get; set; }
         public string TeamId { get; set; }
 
+        public virtual Team Team { get; set; }
+    
     }
 }

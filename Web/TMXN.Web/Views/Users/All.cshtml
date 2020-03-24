@@ -1,0 +1,45 @@
+﻿@model TMXN.Web.ViewModels.Users.UserListViewModel;
+@using Microsoft.AspNetCore.Identity;
+@using TMXN.Data.Models;
+@inject UserManager<ApplicationUser> userManager;
+
+
+@{var currUser = await userManager.GetUserAsync(this.User); }
+
+   
+        <h1><a href="/Tournaments/Participate" type="button" class="btn btn-primary center-block btn-sm">YOUR FRIENDLIST</a></h1>
+    
+
+<div class="row">
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">###</th>
+                <th scope="col">Username</th>
+                <th scope="col">Add to your friendlist!</th>
+
+            </tr>
+        </thead>
+
+        @foreach (var user in Model.Users)
+        {
+            @if (user.Id != currUser.Id)
+            {
+                <tbody>
+                    <tr>
+                        <th scope="row">#</th>
+                        <td>@user.UserName</td>
+
+                        <td><a asp-controller="Users" asp-action="Add" asp-route-id="@user.Id" type="button" class="btn btn-primary center-block btn-sm">Add Friend</a></td>
+
+                    </tr>
+
+                </tbody>
+                }
+            }
+
+
+
+    </table>
+
+</div>

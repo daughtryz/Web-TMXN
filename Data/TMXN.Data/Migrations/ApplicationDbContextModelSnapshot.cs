@@ -189,9 +189,6 @@ namespace TMXN.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("FriendlistId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -230,13 +227,14 @@ namespace TMXN.Data.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
+                    b.Property<string>("UserFriendlistId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FriendlistId");
 
                     b.HasIndex("IsDeleted");
 
@@ -249,6 +247,8 @@ namespace TMXN.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.HasIndex("TeamId");
+
+                    b.HasIndex("UserFriendlistId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -283,32 +283,6 @@ namespace TMXN.Data.Migrations
                     b.HasIndex("TeamId");
 
                     b.ToTable("Awards");
-                });
-
-            modelBuilder.Entity("TMXN.Data.Models.Friendlist", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.ToTable("Friendlists");
                 });
 
             modelBuilder.Entity("TMXN.Data.Models.MigTest", b =>
@@ -493,6 +467,30 @@ namespace TMXN.Data.Migrations
                     b.ToTable("TournamentsTeams");
                 });
 
+            modelBuilder.Entity("TMXN.Data.Models.UserFriendlist", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("UserFriendlists");
+                });
+
             modelBuilder.Entity("TMXN.Data.Models.UserTeam", b =>
                 {
                     b.Property<string>("UserId")
@@ -514,6 +512,21 @@ namespace TMXN.Data.Migrations
                     b.HasIndex("TeamId");
 
                     b.ToTable("UsersTeams");
+                });
+
+            modelBuilder.Entity("TMXN.Services.Data.UserFriend", b =>
+                {
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserFriendlistId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ApplicationUserId", "UserFriendlistId");
+
+                    b.HasIndex("UserFriendlistId");
+
+                    b.ToTable("UsersFriends");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -569,15 +582,13 @@ namespace TMXN.Data.Migrations
 
             modelBuilder.Entity("TMXN.Data.Models.ApplicationUser", b =>
                 {
-                    b.HasOne("TMXN.Data.Models.Friendlist", "Friendlist")
-                        .WithMany("ApplicationUsers")
-                        .HasForeignKey("FriendlistId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("TMXN.Data.Models.Team", "Team")
                         .WithMany("ApplicationUsers")
                         .HasForeignKey("TeamId");
+
+                    b.HasOne("TMXN.Data.Models.UserFriendlist", "UserFriendlist")
+                        .WithMany("ApplicationUsers")
+                        .HasForeignKey("UserFriendlistId");
                 });
 
             modelBuilder.Entity("TMXN.Data.Models.Award", b =>
@@ -620,6 +631,21 @@ namespace TMXN.Data.Migrations
                     b.HasOne("TMXN.Data.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("TMXN.Services.Data.UserFriend", b =>
+                {
+                    b.HasOne("TMXN.Data.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("TMXN.Data.Models.UserFriendlist", "UserFriendlist")
+                        .WithMany()
+                        .HasForeignKey("UserFriendlistId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
