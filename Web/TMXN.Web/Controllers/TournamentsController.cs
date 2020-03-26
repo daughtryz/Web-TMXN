@@ -52,14 +52,25 @@ namespace TMXN.Web.Controllers
            
         }
 
-        public async Task<IActionResult> Participate(int tournamentId)
+        public async Task<IActionResult> Participate(int id)
         {
             var user = await this.userManager.GetUserAsync(this.User);
-            await this.tournamentsService.ParticipateAsync(user.Id, tournamentId);
+            await this.tournamentsService.ParticipateAsync(user.Id, id);
 
             return this.Redirect("/Tournaments/Success");
         }
 
+        public async Task<IActionResult> Info(int id)
+        {
+            var teams = await this.tournamentsService.GetAllTournamentTeamsAsync<TournamentTeamInfoViewModel>(id);
+            var viewModel = new TournamentInfoViewModel
+            {
+                EnrolledTeams = teams,
+            };
+
+            return this.View(viewModel);
+
+        }
        
         public IActionResult Success()
         {

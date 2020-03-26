@@ -6,11 +6,8 @@ using TMXN.Services.Mapping;
 
 namespace TMXN.Web.ViewModels.Tournaments
 {
-    public class TournamentInfoViewModel 
+    public class TournamentTeamInfoViewModel : IMapFrom<Tournament>
     {
-
-        public IEnumerable<TournamentTeamInfoViewModel> EnrolledTeams { get; set; }
-
-
+        public string TeamName { get; set; }
     }
 }

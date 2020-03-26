@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using TMXN.Web.ViewModels.Users;
 
 namespace TMXN.Web.Controllers
 {
+    [Authorize]
     public class UsersController : BaseController
     {
         private readonly IUsersService usersService;

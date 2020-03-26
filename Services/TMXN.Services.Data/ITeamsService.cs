@@ -16,7 +16,7 @@ namespace TMXN.Services.Data
 
         public T GetInfo<T>(string teamId);
 
-
+        public Task RemoveAsync(string id);
         
         
     }

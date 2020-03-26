@@ -55,5 +55,14 @@ namespace TMXN.Services.Data
         {
             return this.teamsRepository.All().Where(x => x.Id == teamId).To<T>().FirstOrDefault();
         }
+
+        public async Task RemoveAsync(string id)
+        {
+            var currentTeam = this.teamsRepository.All().Where(x => x.Id == id).FirstOrDefault();
+
+            this.teamsRepository.Delete(currentTeam);
+
+            await this.teamsRepository.SaveChangesAsync();
+        }
     }
 }

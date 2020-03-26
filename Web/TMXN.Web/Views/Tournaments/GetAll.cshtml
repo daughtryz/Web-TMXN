@@ -31,8 +31,9 @@
                     <th scope="row">#</th>
                     <td>@tournament.Name</td>
                     <td>@tournament.Organizer</td>
-                    <td><a href="/Tournaments/Participate?tournamentId=@tournament.Id" type="button" class="btn btn-primary center-block btn-sm">Participate!</a></td>
-                    <td><a href="/Tournaments/Info?tournamentId=@tournament.Id" type="button" class="btn btn-primary center-block btn-sm">Info!</a></td>
+                    
+                    <td><a asp-controller="Tournaments" asp-action="Participate" asp-route-id="@tournament.Id" type="button" class="btn btn-primary center-block btn-sm">Participate!</a></td>
+                    <td><a asp-controller="Tournaments" asp-action="Info" asp-route-id="@tournament.Id" type="button" class="btn btn-primary center-block btn-sm">Info!</a></td>
                 </tr>
 
             </tbody>

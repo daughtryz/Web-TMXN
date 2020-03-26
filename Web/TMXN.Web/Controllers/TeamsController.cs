@@ -91,5 +91,20 @@ namespace TMXN.Web.Controllers
             
             return this.View(viewModel);
         }
+
+        public async Task<IActionResult> Remove(string id)
+        {
+
+            await this.teamsService.RemoveAsync(id);
+
+            return this.RedirectToAction(nameof(RemoveSuccess));
+
+        }
+
+        public IActionResult RemoveSuccess()
+        {
+            return this.View();
+
+        }
     }
 }

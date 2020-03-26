@@ -14,6 +14,8 @@ namespace TMXN.Services.Data
         public Task ParticipateAsync(string userId, int tournamentId);
 
         public Task<IEnumerable<TViewModel>> GetAllTournamentTeamsAsync<TViewModel> (int tournamentId);
+
+       
        
         
     }
