@@ -44,5 +44,19 @@ namespace TMXN.Web.Controllers
         {
             return this.View();
         }
+
+        public async Task<IActionResult> AllFriends()
+        {
+            var currentUser = await this.userManager.GetUserAsync(this.User);
+
+            
+            var viewModel = new FriendlistListViewModel
+            {
+                Friendlists = await this.usersService.AllFriendsAsync<UserFriendViewModel>(currentUser.Id),
+            };
+
+
+            return this.View(viewModel);
+        }
     }
 }

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using TMXN.Data.Common.Repositories;
 using TMXN.Data.Models;
 using TMXN.Services.Mapping;
+using TMXN.Web.ViewModels.Users;
 
 namespace TMXN.Services.Data
 {
@@ -62,6 +63,22 @@ namespace TMXN.Services.Data
             await this.userFriendRepo.SaveChangesAsync();
 
             
+        }
+
+        public async Task<IEnumerable<T>> AllFriendsAsync<T>(string id)
+        {
+            var currentUser = await this.userRepository.All().Where(x => x.Id == id).FirstOrDefaultAsync();
+
+            var currentFriendlist = await this.userFriendRepo
+                .All()
+                .Where(z => z.ApplicationUserId == currentUser.Id)
+                .SelectMany(x => x.UserFriendlist.ApplicationUsers.Where(l => l.UserFriendlistId == x.UserFriendlistId))
+                .To<T>()
+                .ToListAsync();
+            
+                
+            return currentFriendlist;
+
         }
 
         public IEnumerable<TViewModel> GetAll<TViewModel>()

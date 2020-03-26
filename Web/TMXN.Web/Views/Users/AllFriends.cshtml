@@ -1,0 +1,15 @@
+﻿@model TMXN.Web.ViewModels.Users.FriendlistListViewModel;
+
+
+@{
+    this.ViewData["Title"] = "Your friends";
+}
+
+<h1>@this.ViewData["Title"]</h1>
+
+@foreach (var friendlist in Model.Friendlists)
+{
+
+    <li class="list-group-item list-group-item-primary">@friendlist.UserName</li>
+
+}
