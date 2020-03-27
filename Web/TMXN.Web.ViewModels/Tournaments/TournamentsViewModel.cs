@@ -13,7 +13,8 @@ namespace TMXN.Web.ViewModels.Tournaments
 
         public string Organizer { get; set; }
 
-        
+        public string TeamId { get; set; }
+
 
     }
 }

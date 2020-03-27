@@ -16,7 +16,7 @@ namespace TMXN.Services.Data
 
         public Task<IEnumerable<TViewModel>> GetAllTournamentTeamsAsync<TViewModel> (int tournamentId);
 
-       
+        public Task RemoveTeamFromTournamentAsync(int tournamentId,string userId);
        
         
     }

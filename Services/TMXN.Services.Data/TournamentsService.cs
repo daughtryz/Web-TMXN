@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,12 +15,14 @@ namespace TMXN.Services.Data
 {
     public class TournamentsService : ITournamentsService
     {
+        private readonly IDeletableEntityRepository<ApplicationUser> userRepo;
         private readonly IRepository<TournamentTeam> tournamentsTeamsRepo;
         private readonly IDeletableEntityRepository<Tournament> tournamentRepository;
         private readonly IDeletableEntityRepository<Team> teamRepository;
 
-        public TournamentsService(IRepository<TournamentTeam> tournamentsTeamsRepo,IDeletableEntityRepository<Tournament> tournamentRepository,IDeletableEntityRepository<Team> teamRepository)
+        public TournamentsService(IDeletableEntityRepository<ApplicationUser> userRepo,IRepository<TournamentTeam> tournamentsTeamsRepo,IDeletableEntityRepository<Tournament> tournamentRepository,IDeletableEntityRepository<Team> teamRepository)
         {
+            this.userRepo = userRepo;
             this.tournamentsTeamsRepo = tournamentsTeamsRepo;
             this.tournamentRepository = tournamentRepository;
             this.teamRepository = teamRepository;
@@ -78,6 +81,19 @@ namespace TMXN.Services.Data
 
             this.tournamentRepository.Update(currentTournament);
             await this.tournamentRepository.SaveChangesAsync();
+        }
+
+        public async Task RemoveTeamFromTournamentAsync(int tournamentId,string userId)
+        {
+            Tournament currentTournament = this.tournamentRepository.All().Where(x => x.Id == tournamentId).FirstOrDefault();
+
+            Team currentTeam = this.userRepo.All().Where(x => x.Id == userId).Select(x => x.Team).FirstOrDefault();
+
+            var currentTournamentTeam = await this.tournamentsTeamsRepo.All().Where(x => x.TournamentId == currentTournament.Id && x.TeamId == currentTeam.Id).FirstOrDefaultAsync();
+
+            this.tournamentsTeamsRepo.Delete(currentTournamentTeam);
+            await this.tournamentsTeamsRepo.SaveChangesAsync();
+
         }
     }
 }
