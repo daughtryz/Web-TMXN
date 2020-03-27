@@ -3,13 +3,22 @@
 
 @{
     this.ViewData["Title"] = "Your friends";
+    this.ViewData["NoFriendsTitle"] = "You haven't added any friends!";
 }
 
-<h1>@this.ViewData["Title"]</h1>
 
-@foreach (var friendlist in Model.Friendlists)
+
+@if (Model.Friendlists.Count() == 0)
+{
+    <h1>@this.ViewData["NoFriendsTitle"]</h1>
+}
+else
 {
 
-    <li class="list-group-item list-group-item-primary">@friendlist.UserName</li>
+    @foreach (var friendlist in Model.Friendlists)
+    {
+        <h1>@this.ViewData["Title"]</h1>
+        <li class="list-group-item list-group-item-primary">@friendlist.UserName</li>
 
+    }
 }
