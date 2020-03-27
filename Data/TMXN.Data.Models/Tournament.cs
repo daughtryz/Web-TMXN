@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using TMXN.Data.Common.InputModels.Enums;
 using TMXN.Data.Common.Models;
-using TMXN.Data.Models.Enums;
+
 
 namespace TMXN.Data.Models
 {

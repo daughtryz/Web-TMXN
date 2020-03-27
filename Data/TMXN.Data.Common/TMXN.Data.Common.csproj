@@ -26,4 +26,8 @@
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Services\TMXN.Services.Mapping\TMXN.Services.Mapping.csproj" />
+  </ItemGroup>
+
 </Project>

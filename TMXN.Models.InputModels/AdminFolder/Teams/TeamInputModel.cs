@@ -3,19 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace TMXN.Common.InputModels.Tournaments
+namespace TMXN.Models.InputModels.AdminFolder.Teams
 {
-    public class TournamentInputModel 
+    public class TeamInputModel
     {
-
         [Required]
-       
         public string Name { get; set; }
-
         [Required]
-        public string  Organizer { get; set; }
-
-
-
+        public string Logo { get; set; }
+        [Required]
+        public string Tag { get; set; }
     }
 }

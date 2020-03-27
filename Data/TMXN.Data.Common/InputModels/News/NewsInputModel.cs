@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TMXN.Common.InputModels
+namespace TMXN.Data.Common.InputModels.News
 {
     public class NewsInputModel
     {
@@ -11,6 +11,5 @@ namespace TMXN.Common.InputModels
         public string ImageUrl { get; set; }
 
         public string Content { get; set; }
-
     }
 }

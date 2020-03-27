@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TMXN.Data.Models.Enums
+namespace TMXN.Data.Common.InputModels.Enums
 {
     public enum TournamentGameType
     {
@@ -10,7 +10,5 @@ namespace TMXN.Data.Models.Enums
         LeagueOfLegends = 1,
         PUBG = 2,
         Fortnite = 3,
-
-
     }
 }

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TMXN.Common.InputModels;
+using TMXN.Data.Common.InputModels.News;
 using TMXN.Services.Data;
 using TMXN.Web.ViewModels.News;
 

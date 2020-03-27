@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TMXN.Data.Common.InputModels.Enums;
 using TMXN.Data.Common.Repositories;
 using TMXN.Data.Models;
 using TMXN.Services.Mapping;
@@ -29,7 +30,7 @@ namespace TMXN.Services.Data
             return this.tournamentRepository.All().To<T>().ToList();
         }
 
-        public async Task GenerateAsync(string name,string organizer)
+        public async Task GenerateAsync(string name,string organizer, TournamentGameType tournamentType)
         {
 
 
@@ -38,6 +39,7 @@ namespace TMXN.Services.Data
                 Name = name,
                 Organizer = organizer,
                 CreatedOn = DateTime.UtcNow,
+                TournamentGameType = tournamentType,
             };
 
             await this.tournamentRepository.AddAsync(tournament);

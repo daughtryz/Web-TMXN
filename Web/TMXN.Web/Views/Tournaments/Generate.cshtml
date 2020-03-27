@@ -1,18 +1,20 @@
-﻿@model TMXN.Common.InputModels.Tournaments.TournamentInputModel
-@using TMXN.Data.Models.Enums
+﻿@model TMXN.Data.Common.InputModels.Tournaments.TournamentsInputModel
+@using TMXN.Data.Common.InputModels.Enums
 
-<form asp-controller="Tournaments" asp-action="Generate">
+<form asp-controller="Tournaments" asp-action="Generate" method="post">
     <div class="form-group">
-        <label for="name">Tournament Name:</label>
+        <label asp-for="Name">Tournament Name:</label>
         <input asp-for="Name" type="name" class="form-control" id="name">
         <span asp-validation-for="Name"></span>
     </div>
     <div class="form-group">
-        <label for="organizer">Organizer:</label>
+        <label asp-for="Organizer">Organizer:</label>
         <input asp-for="Organizer" type="organizer" class="form-control" id="organizer">
         <span asp-validation-for="Organizer"></span>
     </div>
-    @*<select asp-for="@Model.Name" asp-items="Html.GetEnumSelectList<TournamentGameType>()"/>*@
+    <div>
+        <label asp-for="TournamentGameType">Tournament Game Type:</label>
+        <select asp-for="TournamentGameType" class="form-control" asp-items="@Html.GetEnumSelectList<TournamentGameType>()"></select>
         <button type="submit" class="btn btn-primary">Create!</button>
-
+    </div>
 </form>

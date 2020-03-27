@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace TMXN.Common.InputModels
+namespace TMXN.Data.Common.InputModels.Teams
 {
     public class TeamInputModel
     {
-
         [Required]
         public string Name { get; set; }
         [Required]

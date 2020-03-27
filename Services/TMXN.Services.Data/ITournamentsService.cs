@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using TMXN.Data.Common.InputModels.Enums;
 
 namespace TMXN.Services.Data
 {
     public interface ITournamentsService
     {
-        public Task GenerateAsync(string name, string organizer);
+        public Task GenerateAsync(string name, string organizer,TournamentGameType tournamentType);
 
        public IEnumerable<T> All<T>();
 
