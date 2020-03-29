@@ -1,4 +1,4 @@
-﻿@model TMXN.Web.ViewModels.Users.FriendlistListViewModel;
+﻿@model TMXN.Web.ViewModels.Users.FriendlistListViewModel
 
 
 @{
@@ -14,10 +14,10 @@
 }
 else
 {
-
+    <h1>@this.ViewData["Title"]</h1>
     @foreach (var friendlist in Model.Friendlists)
     {
-        <h1>@this.ViewData["Title"]</h1>
+
         <li class="list-group-item list-group-item-primary">@friendlist.UserName</li>
 
     }

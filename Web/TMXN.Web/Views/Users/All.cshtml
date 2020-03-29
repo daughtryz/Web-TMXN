@@ -7,15 +7,15 @@
 @inject UserManager<ApplicationUser> userManager
 
 
-@{ 
+@{
     var currUser = await userManager.GetUserAsync(this.User);
-    
-    
-    }
 
-   
-        <h1><a asp-controller="Users" asp-action="AllFriends" type="button" class="btn btn-primary center-block btn-sm">YOUR FRIENDLIST</a></h1>
-    
+
+}
+
+
+<h1><a asp-controller="Users" asp-action="AllFriends" type="button" class="btn btn-primary center-block btn-sm">YOUR FRIENDLIST</a></h1>
+
 
 <div class="row">
     <table class="table">
@@ -30,9 +30,11 @@
 
         @foreach (var user in Model.Users)
         {
-            @if (user.Id != currUser.Id)
-            {
+            //user.UserFriendlist.ApplicationUsers.Any(x => x.UserName != currUser.UserName)
+
                 <tbody>
+                    @if (user.Id != currUser.Id)
+                    {
                     <tr>
                         <th scope="row">#</th>
                         <td>@user.UserName</td>
@@ -40,10 +42,10 @@
                         <td><a asp-controller="Users" asp-action="Add" asp-route-id="@user.Id" type="button" class="btn btn-primary center-block btn-sm">Add Friend</a></td>
 
                     </tr>
-
+                    }
                 </tbody>
-                }
-            }
+            
+        }
 
 
 

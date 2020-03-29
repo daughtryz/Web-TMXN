@@ -63,9 +63,14 @@ namespace TMXN.Services.Data
             return tournamentTeams;
         }
 
+       
+       
+
         public async Task ParticipateAsync(string userId,int tournamentId)
         {
             var currentTeam = this.teamRepository.All().Where(x => x.ApplicationUsers.Any(z => z.Id == userId)).FirstOrDefault();
+
+
 
             var currentTournament = this.tournamentRepository.All().Where(x => x.Id == tournamentId).FirstOrDefault();
 
@@ -90,10 +95,14 @@ namespace TMXN.Services.Data
             Team currentTeam = this.userRepo.All().Where(x => x.Id == userId).Select(x => x.Team).FirstOrDefault();
 
             var currentTournamentTeam = await this.tournamentsTeamsRepo.All().Where(x => x.TournamentId == currentTournament.Id && x.TeamId == currentTeam.Id).FirstOrDefaultAsync();
+            currentTournament.TeamId = null;
+            await this.tournamentRepository.SaveChangesAsync();
 
             this.tournamentsTeamsRepo.Delete(currentTournamentTeam);
             await this.tournamentsTeamsRepo.SaveChangesAsync();
 
         }
+
+      
     }
 }

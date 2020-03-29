@@ -68,7 +68,7 @@ namespace TMXN.Web.Controllers
 
             await this.tournamentsService.RemoveTeamFromTournamentAsync(id, user.Id);
 
-            return this.Redirect("/");
+            return this.RedirectToAction(nameof(SuccessRemove));
 
         }
         public async Task<IActionResult> Info(int id)
@@ -88,6 +88,13 @@ namespace TMXN.Web.Controllers
             return this.View();
         }
 
-        
+      
+        public IActionResult SuccessRemove()
+        {
+           
+
+            return this.View();
+        }
+
     }
 }

@@ -22,11 +22,12 @@ namespace TMXN.Web.Controllers
             this.usersService = usersService;
             this.userManager = userManager;
         }
-        public IActionResult All()
+        public async Task<IActionResult> All()
         {
+            var currentUser = await this.userManager.GetUserAsync(this.User);
             var viewModel = new UserListViewModel
             {
-                Users = this.usersService.GetAll<UserFriendViewModel>(),
+                Users = await this.usersService.GetAll<UserFriendViewModel>(),
             };
 
             return this.View(viewModel);

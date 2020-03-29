@@ -14,7 +14,7 @@ namespace TMXN.Services.Data
 
         public Task AddAnotherUserToFriendlistAsync(string id,string myId);
 
-        public IEnumerable<TViewModel> GetAll<TViewModel>();
+        public Task<IEnumerable<TViewModel>> GetAll<TViewModel>();
 
         public Task<IEnumerable<T>> AllFriendsAsync<T>(string id);
        

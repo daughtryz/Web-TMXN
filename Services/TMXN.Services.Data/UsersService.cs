@@ -81,9 +81,10 @@ namespace TMXN.Services.Data
 
         }
 
-        public IEnumerable<TViewModel> GetAll<TViewModel>()
+        public async Task<IEnumerable<TViewModel>> GetAll<TViewModel>()
         {
-            return this.userRepository.All().To<TViewModel>().ToList();
+            
+            return await this.userRepository.All().To<TViewModel>().ToListAsync();
         }
 
         public async Task JoinAsync(string teamId, string userId)

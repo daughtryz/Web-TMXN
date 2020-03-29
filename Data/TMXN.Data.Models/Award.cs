@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using TMXN.Data.Common.InputModels.Enums;
 using TMXN.Data.Common.Models;
 
 namespace TMXN.Data.Models
@@ -18,6 +19,9 @@ namespace TMXN.Data.Models
         [Required]
        
         public string Name { get; set; }
+
+        [Required]
+        public PlacingType PlacingType { get; set; }
         public bool IsDeleted { get ; set ; }
         public DateTime? DeletedOn { get ; set ; }
 

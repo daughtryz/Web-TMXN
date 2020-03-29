@@ -28,4 +28,8 @@
     <ProjectReference Include="..\..\Services\TMXN.Services.Mapping\TMXN.Services.Mapping.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Awards\" />
+  </ItemGroup>
+
 </Project>
