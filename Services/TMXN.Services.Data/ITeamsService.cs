@@ -9,12 +9,12 @@ namespace TMXN.Services.Data
     public interface ITeamsService
     {
 
-        public IEnumerable<T> GetAll<T>();
+        public IEnumerable<TViewModel> GetAll<TViewModel>();
 
         public Task AddAsync(string name, string logo, string tag,string userId);
 
 
-        public T GetInfo<T>(string teamId);
+        public TViewModel GetInfo<TViewModel>(string teamId);
 
         public Task RemoveAsync(string id);
         

@@ -11,7 +11,7 @@ namespace TMXN.Services.Data
     {
         public Task<IEnumerable<TViewModel>> GetAll<TViewModel>();
 
-        public Task Create(string name, PlacingType placingType);
+        public Task CreateAsync(string name, PlacingType placingType);
 
     }
 }

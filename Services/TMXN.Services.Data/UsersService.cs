@@ -65,7 +65,7 @@ namespace TMXN.Services.Data
             
         }
 
-        public async Task<IEnumerable<T>> AllFriendsAsync<T>(string id)
+        public async Task<IEnumerable<TViewModel>> AllFriendsAsync<TViewModel>(string id)
         {
             var currentUser = await this.userRepository.All().Where(x => x.Id == id).FirstOrDefaultAsync();
 
@@ -73,7 +73,7 @@ namespace TMXN.Services.Data
                 .All()
                 .Where(z => z.ApplicationUserId == currentUser.Id)
                 .SelectMany(x => x.UserFriendlist.ApplicationUsers.Where(l => l.UserFriendlistId == x.UserFriendlistId))
-                .To<T>()
+                .To<TViewModel>()
                 .ToListAsync();
             
                 

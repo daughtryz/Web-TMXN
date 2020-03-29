@@ -52,14 +52,14 @@ namespace TMXN.Services.Data
             await this.newsFeedRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetAll<T>()
+        public IEnumerable<TViewModel> GetAll<TViewModel>()
         {
-            return this.newsFeedRepository.All().To<T>().ToList();
+            return this.newsFeedRepository.All().To<TViewModel>().ToList();
         }
 
-        public async Task<T> GetNewsById<T>(string newsId)
+        public async Task<TViewModel> GetNewsById<TViewModel>(string newsId)
         {
-            var currentNews = await this.newsFeedRepository.All().Where(x => x.Id == newsId).To<T>().FirstOrDefaultAsync();
+            var currentNews = await this.newsFeedRepository.All().Where(x => x.Id == newsId).To<TViewModel>().FirstOrDefaultAsync();
 
             return currentNews;
         }

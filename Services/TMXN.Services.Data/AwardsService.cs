@@ -18,7 +18,7 @@ namespace TMXN.Services.Data
         {
             this.awardsRepository = awardsRepository;
         }
-        public async Task Create(string name, PlacingType placingType)
+        public async Task CreateAsync(string name, PlacingType placingType)
         {
             var award = new Award
             {

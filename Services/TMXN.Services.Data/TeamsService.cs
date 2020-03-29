@@ -46,14 +46,14 @@ namespace TMXN.Services.Data
             
         }
 
-        public IEnumerable<T> GetAll<T>()
+        public IEnumerable<TViewModel> GetAll<TViewModel>()
         {
-            return this.teamsRepository.All().To<T>().ToList();
+            return this.teamsRepository.All().To<TViewModel>().ToList();
         }
 
-        public T GetInfo<T>(string teamId)
+        public TViewModel GetInfo<TViewModel>(string teamId)
         {
-            return this.teamsRepository.All().Where(x => x.Id == teamId).To<T>().FirstOrDefault();
+            return this.teamsRepository.All().Where(x => x.Id == teamId).To<TViewModel>().FirstOrDefault();
         }
 
         public async Task RemoveAsync(string id)

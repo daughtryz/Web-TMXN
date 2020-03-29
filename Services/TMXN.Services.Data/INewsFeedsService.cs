@@ -9,7 +9,7 @@ namespace TMXN.Services.Data
     public interface INewsFeedsService
     {
 
-        IEnumerable<T> GetAll<T>();
+        IEnumerable<TViewModel> GetAll<TViewModel>();
 
         public Task<T> GetNewsById<T>(string newsId);
 

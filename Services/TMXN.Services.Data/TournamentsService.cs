@@ -28,9 +28,9 @@ namespace TMXN.Services.Data
             this.teamRepository = teamRepository;
         }
 
-        public IEnumerable<T> All<T>()
+        public IEnumerable<TViewModel> All<TViewModel>()
         {
-            return this.tournamentRepository.All().To<T>().ToList();
+            return this.tournamentRepository.All().To<TViewModel>().ToList();
         }
 
         public async Task GenerateAsync(string name,string organizer, TournamentGameType tournamentType)

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using TMXN.Data.Models;
 
-namespace TMXN.Services.Data
+namespace TMXN.Data.Models
 {
     public class UserFriend
     {
