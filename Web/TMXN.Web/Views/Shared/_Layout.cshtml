@@ -50,8 +50,11 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
 
+                        
+
                     </ul>
                 </div>
+               
             </div>
         </nav>
     </header>
@@ -61,12 +64,23 @@
         <main role="main" class="pb-3">
             @this.RenderBody()
         </main>
+        <div class="general_social_icons">
+            <nav class="social">
+                <ul>
+                    <li class="w3_twitter"><a href="#">Twitter <i class="fa fa-twitter"></i></a></li>
+                    <li class="w3_facebook"><a href="#">Facebook <i class="fa fa-facebook"></i></a></li>
+                    <li class="w3_g_plus"><a href="#">Google+ <i class="fa fa-google-plus"></i></a></li>
+                </ul>
+            </nav>
+        </div>
+        <vc:team></vc:team>
     </div>
     
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
+        
     </footer>
 
     <environment names="Development">

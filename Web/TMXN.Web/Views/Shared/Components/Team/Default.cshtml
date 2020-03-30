@@ -1,0 +1,23 @@
+﻿@model TMXN.Web.ViewModels.Teams.ListingTeamsByYearOfCreationViewModel
+
+
+
+<h2>Latest teams</h2>
+
+
+@foreach (var team in this.Model.Teams)
+{
+
+    <div class="card mr-3" style="width: 10rem;">
+        <img class="card-deck" src="@team.Logo" alt="Card image cap">
+        <div class="card-body">
+            <p class="card-title">@team.Name</p>
+            
+
+
+
+
+        </div>
+    </div>
+
+}
