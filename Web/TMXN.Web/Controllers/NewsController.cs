@@ -63,17 +63,14 @@ namespace TMXN.Web.Controllers
         {
             await this.newsService.DeleteByIdAsync(id);
 
-            return this.RedirectToAction(nameof(SuccessRemove));
+            return this.Redirect("/");
         }
         public IActionResult SuccessEdit()
         {
             return this.View();
         }
 
-        public IActionResult SuccessRemove()
-        {
-            return this.View();
-        }
+       
 
 
     }
