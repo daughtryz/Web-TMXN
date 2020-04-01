@@ -65,6 +65,11 @@ namespace TMXN.Services.Data
         {
             var currentTeam = this.teamsRepository.All().Where(x => x.Id == teamId).FirstOrDefault();
 
+            if(currentTeam.Points <= 0)
+            {
+                return;
+            }
+
             currentTeam.Points -= GlobalConstants.PointsDecrease;
 
             this.teamsRepository.Update(currentTeam);
@@ -83,6 +88,11 @@ namespace TMXN.Services.Data
         public async Task WinAsync(string teamId)
         {
             var currentTeam = this.teamsRepository.All().Where(x => x.Id == teamId).FirstOrDefault();
+
+            if (currentTeam.Points >= 200)
+            {
+                return;
+            }
 
             currentTeam.Points += GlobalConstants.PointsIncrease;
 

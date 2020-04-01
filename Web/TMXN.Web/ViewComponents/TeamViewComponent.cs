@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TMXN.Services.Data;
 using TMXN.Web.ViewModels.Teams;
+using TMXN.Common;
 
 namespace TMXN.Web.ViewComponents
 {
@@ -22,7 +23,7 @@ namespace TMXN.Web.ViewComponents
         {
             var viewModel = new ListingTeamsByYearOfCreationViewModel
             {
-                Teams = this.teamsService.GetAll<TeamByYearViewModel>().OrderByDescending(x => x.CreatedOn).ToList(),
+                Teams = this.teamsService.GetAll<TeamByYearViewModel>().OrderByDescending(x => x.Points).Take(GlobalConstants.TeamsCountInViewComponent).ToList(),
             };
 
             return this.View(viewModel);

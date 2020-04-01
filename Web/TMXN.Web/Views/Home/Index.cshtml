@@ -5,12 +5,20 @@
 @{
     this.ViewData["Title"] = "Home Page";
 }
-    
 
-   
+
+
     <div class="text-center">
 
         <h1 class="display-4">@GlobalConstants.NewsFeeds!</h1>
+       
+        <div class="col">
+            <div class="h-50 d-inline-block" style="width: 220px; background-color: rgba(0,0,255,.1)">
+
+                <vc:team></vc:team>
+
+            </div>
+        </div>
 
         <h4><a href="/News/Create" type="button" class="btn btn-primary center-block">Create new article!</a></h4>
 
@@ -21,13 +29,18 @@
                     <img class="card-img-top" src="@news.ImageUrl" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">@news.Title</h5>
-                       
+
                         <a asp-controller="News" asp-action="Info" asp-route-id="@news.Id" class="btn btn-primary center-block">Info</a>
                         <a asp-controller="News" asp-action="Edit" asp-route-id="@news.Id" type="button" class="btn btn-primary center-block">Edit</a>
                         <a asp-controller="News" asp-action="Remove" asp-route-id="@news.Id" type="button" class="btn btn-primary center-block">Remove</a>
                     </div>
                 </div>
             }
+
+
+
         </div>
+
+
 
 

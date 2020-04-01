@@ -71,16 +71,13 @@ namespace TMXN.Web.Controllers
             return this.RedirectToAction(nameof(SuccessRemove));
 
         }
-        public async Task<IActionResult> Info(int id)
+        
+
+        public IActionResult Info(int id)
         {
-            var teams = await this.tournamentsService.GetAllTournamentTeamsAsync<TournamentTeamInfoViewModel>(id);
-            var viewModel = new TournamentInfoViewModel
-            {
-                EnrolledTeams = teams,
-            };
+            var viewModel = this.tournamentsService.Info<TournamentInfoViewModel>(id);
 
             return this.View(viewModel);
-
         }
        
         public IActionResult Success()

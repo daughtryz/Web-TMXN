@@ -8,11 +8,13 @@ namespace TMXN.Web.ViewModels.Teams
 {
     public class TeamByYearViewModel : IMapFrom<Team>
     {
+        public string Id { get; set; }
         public string Name { get; set; }
 
         public string Logo { get; set; }
 
         public DateTime CreatedOn { get; set; }
 
+        public int Points { get; set; }
     }
 }

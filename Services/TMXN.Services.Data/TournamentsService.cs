@@ -50,21 +50,14 @@ namespace TMXN.Services.Data
 
         }
 
-        public async Task<IEnumerable<TViewModel>> GetAllTournamentTeamsAsync<TViewModel>(int id)
+       
+
+        public TViewModel Info<TViewModel>(int id)
         {
-           // .SelectMany(x => x.UserFriendlist.ApplicationUsers.Where(l => l.UserFriendlistId == x.UserFriendlistId))
-            var tournamentTeams = await this.tournamentsTeamsRepo
-                .All()
-                .Where(x => x.TournamentId == id)
-                .SelectMany(z => z.Team.Tournaments.Where(l => l.TeamId == z.TeamId))
-                .To<TViewModel>()
-                .ToListAsync();
+            var currentTournament = this.tournamentRepository.All().Where(x => x.Id == id).To<TViewModel>().FirstOrDefault();
 
-            return tournamentTeams;
+            return currentTournament;
         }
-
-       
-       
 
         public async Task ParticipateAsync(string userId,int tournamentId)
         {

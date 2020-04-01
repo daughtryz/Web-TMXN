@@ -85,9 +85,9 @@ namespace TMXN.Web.Controllers
             return this.RedirectToAction(nameof(this.ShowAll));
         }
 
-        public IActionResult TeamInfo(string teamId)
+        public IActionResult TeamInfo(string id)
         {
-            var viewModel = this.teamsService.GetInfo<TeamInfoViewModel>(teamId);
+            var viewModel = this.teamsService.GetInfo<TeamInfoViewModel>(id);
             
             return this.View(viewModel);
         }

@@ -12,5 +12,8 @@
 
 
         public const int PointsDecrease = 1;
+
+        public const int TeamsCountInViewComponent = 5;
+
     }
 }
