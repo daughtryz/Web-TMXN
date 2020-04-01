@@ -7,5 +7,10 @@
         public const string AdministratorRoleName = "Administrator";
 
         public const string NewsFeeds = "NewsFeed";
+
+        public const int PointsIncrease = 3;
+
+
+        public const int PointsDecrease = 1;
     }
 }

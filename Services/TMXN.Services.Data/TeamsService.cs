@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using TMXN.Data.Common.Repositories;
 using TMXN.Data.Models;
 using TMXN.Services.Mapping;
-
+using TMXN.Common;
 namespace TMXN.Services.Data
 {
     public class TeamsService : ITeamsService
@@ -56,12 +56,37 @@ namespace TMXN.Services.Data
             return this.teamsRepository.All().Where(x => x.Id == teamId).To<TViewModel>().FirstOrDefault();
         }
 
+        public IEnumerable<TViewModel> GetRanklist<TViewModel>()
+        {
+            return this.teamsRepository.All().OrderByDescending(x => x.Points).To<TViewModel>().ToList();
+        }
+
+        public async Task LoseAsync(string teamId)
+        {
+            var currentTeam = this.teamsRepository.All().Where(x => x.Id == teamId).FirstOrDefault();
+
+            currentTeam.Points -= GlobalConstants.PointsDecrease;
+
+            this.teamsRepository.Update(currentTeam);
+            await this.teamsRepository.SaveChangesAsync();
+        }
+
         public async Task RemoveAsync(string id)
         {
             var currentTeam = this.teamsRepository.All().Where(x => x.Id == id).FirstOrDefault();
 
             this.teamsRepository.Delete(currentTeam);
 
+            await this.teamsRepository.SaveChangesAsync();
+        }
+
+        public async Task WinAsync(string teamId)
+        {
+            var currentTeam = this.teamsRepository.All().Where(x => x.Id == teamId).FirstOrDefault();
+
+            currentTeam.Points += GlobalConstants.PointsIncrease;
+
+            this.teamsRepository.Update(currentTeam);
             await this.teamsRepository.SaveChangesAsync();
         }
     }

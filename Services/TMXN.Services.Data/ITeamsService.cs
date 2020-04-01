@@ -18,6 +18,12 @@ namespace TMXN.Services.Data
 
         public Task RemoveAsync(string id);
         
-        
+        public IEnumerable<TViewModel> GetRanklist<TViewModel>();
+
+
+        public Task WinAsync(string teamId);
+
+        public Task LoseAsync(string teamId);
+
     }
 }

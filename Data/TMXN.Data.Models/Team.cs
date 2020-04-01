@@ -31,6 +31,8 @@
         [MaxLength(6)]
         public string Tag { get; set; }
 
+        public int Points { get; set; }
+
         public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
 
         public virtual ICollection<Award> Awards { get; set; }

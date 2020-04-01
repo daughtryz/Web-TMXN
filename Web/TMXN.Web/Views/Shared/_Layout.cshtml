@@ -8,10 +8,13 @@
 
     <environment names="Development">
         <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" asp-append-version="true" />
+        
+
         <link href="~/css/site.css" rel="stylesheet" asp-append-version="true" />
+
     </environment>
     <environment names="Staging,Production">
-        <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
+       
         <link href="~/css/site.min.css" rel="stylesheet" asp-append-version="true" />
     </environment>
 </head>
@@ -24,6 +27,18 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Awards
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a asp-controller="Teams" asp-action="Ranklist">Ranklist</a></li>
+                        <li><a href="#">See our awards</a></li>
+                        <li role="separator" class="divider"></li>
+                        
+                    </ul>
+                </div>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
@@ -50,16 +65,18 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
 
-                        
+
 
                     </ul>
+
                 </div>
-               
+
             </div>
         </nav>
     </header>
     
     <div class="container">
+       
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @this.RenderBody()
@@ -73,7 +90,7 @@
                 </ul>
             </nav>
         </div>
-        <vc:team></vc:team>
+
     </div>
     
     <footer class="border-top footer text-muted">

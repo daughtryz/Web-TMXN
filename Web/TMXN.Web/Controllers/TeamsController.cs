@@ -106,5 +106,28 @@ namespace TMXN.Web.Controllers
             return this.View();
 
         }
+
+        public IActionResult Ranklist()
+        {
+            var viewModel = new ListRanklistTeamViewModel
+            {
+                Teams = this.teamsService.GetRanklist<RanklistTeamViewModel>().ToList(),
+            };
+            return this.View(viewModel);
+        }
+
+        public async Task<IActionResult> Win(string id)
+        {
+            await this.teamsService.WinAsync(id);
+
+            return this.RedirectToAction(nameof(this.Ranklist));
+        }
+        public async Task<IActionResult> Lose(string id)
+        {
+            await this.teamsService.LoseAsync(id);
+
+            return this.RedirectToAction(nameof(this.Ranklist));
+        }
+
     }
 }

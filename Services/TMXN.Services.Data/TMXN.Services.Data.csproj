@@ -28,6 +28,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\TMXN.Data.Common\TMXN.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\TMXN.Data.Models\TMXN.Data.Models.csproj" />
+    <ProjectReference Include="..\..\TMXN.Common\TMXN.Common.csproj" />
     <ProjectReference Include="..\..\Web\TMXN.Web.ViewModels\TMXN.Web.ViewModels.csproj" />
     <ProjectReference Include="..\TMXN.Services.Mapping\TMXN.Services.Mapping.csproj" />
   </ItemGroup>
