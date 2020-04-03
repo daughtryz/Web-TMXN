@@ -1,7 +1,10 @@
 ﻿
-@model TMXN.Data.Common.InputModels.News.NewsInputModel
+@model TMXN.Web.ViewModels.News.EditNewsViewModel
 
-
+@{ 
+    this.ViewData["Title"] = "Edit News";
+    
+}
 <form asp-controller="News" asp-action="Edit" method="post">
     <div class="form-group">
         <label for="title">New Title:</label>

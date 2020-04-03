@@ -31,11 +31,21 @@ namespace TMXN.Web.Controllers
             return this.RedirectToAction(nameof(this.Success));
         }
 
+        [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
-            var viewModel = await this.newsService.GetNewsById<NewsViewModel>(id);
+            var viewModel = await this.newsService.GetNewsById<EditNewsViewModel>(id);
             return this.View(viewModel);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditNewsViewModel model)
+        {
+            await this.newsService.EditAsync(model.Id, model.Title, model.Content, model.ImageUrl);
+
+            return this.Redirect("/");
+        }
+
         public IActionResult Create()
         {
             return this.View();
@@ -51,13 +61,7 @@ namespace TMXN.Web.Controllers
         }
 
        
-        [HttpPost]
-        public async Task<IActionResult> Edit(EditNewsViewModel model)
-        {
-           
-            await this.newsService.EditAsync(model.Id, model.Title, model.Content, model.ImageUrl);
-            return this.RedirectToAction(nameof(this.SuccessEdit));
-        }
+       
 
         public async Task<IActionResult> Remove(string id)
         {

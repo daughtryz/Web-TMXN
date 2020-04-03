@@ -35,7 +35,10 @@ namespace TMXN.Services.Data
         public async Task DeleteByIdAsync(string newsId)
         {
             var currentNews = this.newsFeedRepository.All().Where(x => x.Id == newsId).FirstOrDefault();
-
+            if (currentNews == null)
+            {
+                throw new NullReferenceException("No such news");
+            }
             this.newsFeedRepository.Delete(currentNews);
             await this.newsFeedRepository.SaveChangesAsync();
         }
@@ -43,6 +46,11 @@ namespace TMXN.Services.Data
         public async Task EditAsync(string id,string title, string content, string imageUrl)
         {
             var currentNews = this.newsFeedRepository.All().Where(x => x.Id == id).FirstOrDefault();
+
+            if (currentNews == null)
+            {
+                throw new NullReferenceException("No such news");
+            }
 
             currentNews.Title = title;
             currentNews.Content = content;
