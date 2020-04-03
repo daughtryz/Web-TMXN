@@ -66,20 +66,20 @@ namespace TMXN.Web.Controllers
         }
 
        
-        public async Task<IActionResult> Leave(string teamId)
+        public async Task<IActionResult> Leave(string id)
         {
             var user = await this.userManager.GetUserAsync(this.User);
-            await this.usersService.LeaveAsync(teamId, user.Id);
+            await this.usersService.LeaveAsync(id, user.Id);
 
             return this.RedirectToAction(nameof(this.ShowAll));
 
         }
         
-        public async Task<IActionResult> Join(string teamId)
+        public async Task<IActionResult> Join(string id)
         {
             var user = await this.userManager.GetUserAsync(this.User);
 
-            await this.usersService.JoinAsync(teamId, user.Id);
+            await this.usersService.JoinAsync(id, user.Id);
 
 
             return this.RedirectToAction(nameof(this.ShowAll));

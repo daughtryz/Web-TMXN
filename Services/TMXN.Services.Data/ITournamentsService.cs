@@ -14,9 +14,9 @@ namespace TMXN.Services.Data
 
         public Task ParticipateAsync(string userId, int tournamentId);
 
-        
+        public Task RemoveAsync(int id);
 
-        public Task RemoveTeamFromTournamentAsync(int tournamentId,string userId);
+        public Task<int> RemoveTeamFromTournamentAsync(int tournamentId,string userId);
 
 
         public TViewModel Info<TViewModel>(int id);

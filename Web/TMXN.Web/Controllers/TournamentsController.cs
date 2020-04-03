@@ -52,6 +52,12 @@ namespace TMXN.Web.Controllers
            
         }
 
+        public async Task<IActionResult> Remove(int id)
+        {
+            await this.tournamentsService.RemoveAsync(id);
+
+            return this.RedirectToAction(nameof(this.GetAll));
+        }
         public async Task<IActionResult> Participate(int id)
         {
             var user = await this.userManager.GetUserAsync(this.User);
@@ -66,9 +72,16 @@ namespace TMXN.Web.Controllers
         {
             var user = await this.userManager.GetUserAsync(this.User);
 
-            await this.tournamentsService.RemoveTeamFromTournamentAsync(id, user.Id);
+            int tournamentId = await this.tournamentsService.RemoveTeamFromTournamentAsync(id, user.Id);
 
-            return this.RedirectToAction(nameof(SuccessRemove));
+            if(tournamentId == 0)
+            {
+                return this.BadRequest();
+            } else
+            {
+                return this.RedirectToAction(nameof(SuccessRemove));
+            }
+            
 
         }
         

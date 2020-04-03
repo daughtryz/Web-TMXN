@@ -31,13 +31,13 @@
 
             @if (team.ApplicationUsers.Any(x => x.Id == userId))
             {
-                <a href="/Teams/Leave?teamId=@team.Id" type="button" class="btn btn-primary center-block">Leave!</a>
+                <a asp-controller="Teams" asp-action="Leave" asp-route-id="@team.Id" type="button" class="btn btn-primary center-block">Leave!</a>
             }
             else
             {
-                <a href="/Teams/Join?teamId=@team.Id" type="button" class="btn btn-primary center-block">Join us!</a>
+                <a asp-controller="Teams" asp-action="Join" asp-route-id="@team.Id" type="button" class="btn btn-primary center-block">Join us!</a>
             }
-            <a href="/Teams/TeamInfo?teamId=@team.Id" type="button" class="btn btn-primary center-block">Info!</a>
+            <a asp-controller="Teams" asp-action="TeamInfo" asp-route-id="@team.Id" type="button" class="btn btn-primary center-block">Info!</a>
 
 
 

@@ -7,7 +7,7 @@ using TMXN.Services.Mapping;
 
 namespace TMXN.Web.ViewModels.Tournaments
 {
-    public class TournamentInfoViewModel : IMapFrom<Tournament>
+    public class TournamentInfoViewModel : IMapFrom<Tournament>, IMapFrom<Team>
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -18,5 +18,10 @@ namespace TMXN.Web.ViewModels.Tournaments
         public DateTime CreatedOn { get; set; }
 
         public TournamentGameType TournamentGameType { get; set; }
+
+        public string TeamId { get; set; }
+        public Team Team { get; set; }
+
+        public virtual ICollection<Tournament> Tournaments { get; set; }
     }
 }

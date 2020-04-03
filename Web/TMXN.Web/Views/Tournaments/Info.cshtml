@@ -1,16 +1,24 @@
 ﻿@model TMXN.Web.ViewModels.Tournaments.TournamentInfoViewModel
+@using Microsoft.AspNetCore.Identity;
+@using TMXN.Data.Models;
+@inject UserManager<ApplicationUser> userManager
 
 
-            <div class="modal-body">
-                <h5>Participations</h5>
-                <p>Click <a asp-controller="Tournaments" asp-action="Participate" asp-route-id="@Model.Id" role="button" class="btn btn-secondary popover-test" title="Popover title" data-content="Popover body content is set in this attribute.">Participate</a> to enroll in a tournament.</p>
-                <hr>
-                <h5>Information!</h5>
-                <p>Tournament Name: @Model.Name</p>
-                <p>Tournament Game: @Model.TournamentGameType</p>
-                <p>Tournament Organizer: @Model.Organizer</p>
-                <p>Started On: @Model.CreatedOn.ToString("d")</p>
-            </div>
-           
+
+<div class="modal-body">
+    @if (Model.TeamId != null)
+    {
+    <p>You are already in this tournament click this <a asp-controller="Tournaments" asp-action="Out" asp-route-id="@Model.Id" role="button" class="btn btn-primary">Button</a> to leave the tournament!</p>
+    }
+   
+
+    <hr>
+    <h5>Information!</h5>
+    <p>Tournament Name: @Model.Name</p>
+    <p>Tournament Game: @Model.TournamentGameType</p>
+    <p>Tournament Organizer: @Model.Organizer</p>
+    <p>Started On: @Model.CreatedOn.ToString("d")</p>
+</div>
+
 
 

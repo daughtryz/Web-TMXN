@@ -81,19 +81,34 @@ namespace TMXN.Services.Data
             await this.tournamentRepository.SaveChangesAsync();
         }
 
-        public async Task RemoveTeamFromTournamentAsync(int tournamentId,string userId)
+        public async Task RemoveAsync(int id)
+        {
+            var currentTournament = this.tournamentRepository.All().Where(x => x.Id == id).FirstOrDefault();
+            this.tournamentRepository.Delete(currentTournament);
+            await this.tournamentRepository.SaveChangesAsync();
+
+        }
+
+        public async Task<int> RemoveTeamFromTournamentAsync(int tournamentId,string userId)
         {
             Tournament currentTournament = this.tournamentRepository.All().Where(x => x.Id == tournamentId).FirstOrDefault();
 
             Team currentTeam = this.userRepo.All().Where(x => x.Id == userId).Select(x => x.Team).FirstOrDefault();
 
-            var currentTournamentTeam = await this.tournamentsTeamsRepo.All().Where(x => x.TournamentId == currentTournament.Id && x.TeamId == currentTeam.Id).FirstOrDefaultAsync();
-            currentTournament.TeamId = null;
-            await this.tournamentRepository.SaveChangesAsync();
+            
+            var currentTournamentTeam = this.tournamentsTeamsRepo.All().Where(x => x.TournamentId == currentTournament.Id && x.TeamId == currentTeam.Id).FirstOrDefault();
+            if(currentTournamentTeam == null)
+            {
 
+                return 0;
+                
+            }
+            currentTournament.TeamId = null;
+            this.tournamentRepository.Update(currentTournament);
+            await this.tournamentRepository.SaveChangesAsync();
             this.tournamentsTeamsRepo.Delete(currentTournamentTeam);
             await this.tournamentsTeamsRepo.SaveChangesAsync();
-
+            return currentTournamentTeam.TournamentId;
         }
 
       
