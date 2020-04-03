@@ -13,5 +13,8 @@ namespace TMXN.Services.Data
 
         public Task CreateAsync(string name, PlacingType placingType);
 
+        public Task RemoveAsync(string id);
+
+
     }
 }

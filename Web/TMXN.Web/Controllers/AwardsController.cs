@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TMXN.Data.Common.InputModels.Awards;
 using TMXN.Services.Data;
+using TMXN.Web.ViewModels.Awards;
 
 namespace TMXN.Web.Controllers
 {
@@ -16,9 +17,13 @@ namespace TMXN.Web.Controllers
         {
             this.awardsService = awardsService;
         }
-        public IActionResult All()
+        public async Task<IActionResult> All()
         {
-            return this.View();
+            var viewModel = new AwardListViewModel
+            {
+                Awards = await this.awardsService.GetAll<AwardViewModel>(),
+            };
+            return this.View(viewModel);
         }
 
         public IActionResult Create()
@@ -34,12 +39,14 @@ namespace TMXN.Web.Controllers
                 throw new Exception("Invalid award input model!");
             }
             await this.awardsService.CreateAsync(input.Name, input.PlacingType);
-            return this.RedirectToAction(nameof(SuccessCreate));
+            return this.RedirectToAction(nameof(All));
         }
 
-        public IActionResult SuccessCreate()
+       
+        public async Task<IActionResult> Remove(string id)
         {
-            return this.View();
+            await this.awardsService.RemoveAsync(id);
+            return this.RedirectToAction(nameof(All));
         }
     }
 }
