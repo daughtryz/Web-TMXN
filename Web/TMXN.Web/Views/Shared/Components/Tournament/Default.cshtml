@@ -1,0 +1,18 @@
+﻿@model TMXN.Web.ViewModels.Tournaments.ListingLatestTournamentsViewModel
+
+
+
+<div class="h-50 d-inline-block" style="width: 220px; background-color: rgba(0,0,255,.1)">
+    Latest tournaments
+    @foreach (var tournament in this.Model.LatestTournaments)
+    {
+
+        <ul class="list-group list-group-flush">
+
+            <li class="list-group-item"><a asp-controller="Tournaments" asp-action="Info" asp-route-id="@tournament.Id">  @tournament.Name</a></li>
+
+        </ul>
+
+
+    }
+</div>

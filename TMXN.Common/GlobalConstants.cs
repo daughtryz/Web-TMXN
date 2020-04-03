@@ -15,5 +15,7 @@
 
         public const int TeamsCountInViewComponent = 5;
 
+        public const int TakeLatestTournaments = 3;
+
     }
 }
