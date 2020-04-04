@@ -25,7 +25,10 @@ namespace TMXN.Web.Controllers
             };
             return this.View(viewModel);
         }
-
+        public IActionResult Transfer(string id)
+        {
+            return this.View();
+        }
         public IActionResult Create()
         {
             return this.View();

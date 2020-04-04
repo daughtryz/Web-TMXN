@@ -9,6 +9,7 @@ using TMXN.Data.Common.InputModels.Teams;
 using TMXN.Data.Common.Repositories;
 using TMXN.Data.Models;
 using TMXN.Services.Data;
+using TMXN.Web.ViewModels.Awards;
 using TMXN.Web.ViewModels.Teams;
 
 namespace TMXN.Web.Controllers
@@ -20,16 +21,18 @@ namespace TMXN.Web.Controllers
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IDeletableEntityRepository<Team> teamsRepository;
         private readonly IUsersService usersService;
+        private readonly IAwardsService awardsService;
 
-        public TeamsController(ITeamsService teamsService,UserManager<ApplicationUser> userManager,IDeletableEntityRepository<Team> teamsRepository,IUsersService usersService)
+        public TeamsController(ITeamsService teamsService,UserManager<ApplicationUser> userManager,IDeletableEntityRepository<Team> teamsRepository,IUsersService usersService,IAwardsService awardsService)
         {
             this.teamsService = teamsService;
             this.userManager = userManager;
             this.teamsRepository = teamsRepository;
             this.usersService = usersService;
+            this.awardsService = awardsService;
         }
       
-        public IActionResult ShowAll()
+        public  IActionResult ShowAll()
         {
             var viewModel = new TeamsListViewModel();
             var all = this.teamsService.GetAll<TeamViewModel>();
@@ -127,6 +130,27 @@ namespace TMXN.Web.Controllers
             await this.teamsService.LoseAsync(id);
 
             return this.RedirectToAction(nameof(this.Ranklist));
+        }
+        public IActionResult SuccessTransfer()
+        {
+            return this.View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SendAward(string teamId,string awardId)
+        {
+            await this.teamsService.SendAwardAsync(teamId, awardId);
+            return this.RedirectToAction(nameof(SuccessTransfer));
+        }
+        public async Task<IActionResult> SendAward()
+        {
+            var viewModel = new TeamAwardDropDownListViewModel
+            {
+                Teams =  this.teamsService.GetAll<TeamDropDownViewModel>(),
+                Awards = await this.awardsService.GetAll<AwardDropDownViewModel>(),
+
+            };
+            return this.View(viewModel);
         }
 
     }

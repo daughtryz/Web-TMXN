@@ -1,0 +1,22 @@
+﻿
+@model TMXN.Web.ViewModels.Teams.TeamAwardDropDownListViewModel
+@using TMXN.Web.ViewModels.Teams
+
+
+
+    <form asp-controller="Teams" asp-action="SendAward" method="post">
+    
+        <div>
+            <label asp-for="TeamId">Choose a team:</label>
+            <select asp-for="TeamId" class="form-control" asp-items="@Model.Teams.Select(x => new SelectListItem(x.Name,x.Id))"></select>
+            
+        </div>
+
+        <div>
+            <label asp-for="AwardId">Choose an award:</label>
+           
+            <select  asp-for="AwardId" class="form-control" asp-items="@Model.Awards.Select(x => new SelectListItem(x.Name,x.Id))"></select>
+            <button type="submit" class="btn btn-primary">Send</button>
+        </div>
+            
+        </form>

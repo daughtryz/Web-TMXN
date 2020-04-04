@@ -15,6 +15,7 @@ namespace TMXN.Data.Common.InputModels.Tournaments
 
         [Required]
         public string Organizer { get; set; }
+
         [Required]
         public TournamentGameType TournamentGameType { get; set; }
 

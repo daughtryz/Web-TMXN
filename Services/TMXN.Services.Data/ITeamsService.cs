@@ -25,5 +25,7 @@ namespace TMXN.Services.Data
 
         public Task LoseAsync(string teamId);
 
+        public Task SendAwardAsync(string teamId,string awardId);
+
     }
 }

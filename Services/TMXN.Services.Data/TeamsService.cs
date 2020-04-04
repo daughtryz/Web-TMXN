@@ -8,19 +8,21 @@ using TMXN.Data.Common.Repositories;
 using TMXN.Data.Models;
 using TMXN.Services.Mapping;
 using TMXN.Common;
+using Microsoft.EntityFrameworkCore;
+
 namespace TMXN.Services.Data
 {
     public class TeamsService : ITeamsService
     {
         private readonly IDeletableEntityRepository<Team> teamsRepository;
-        
+        private readonly IDeletableEntityRepository<Award> awardsRepository;
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
    
 
-        public TeamsService(IDeletableEntityRepository<Team> teamsRepository)
+        public TeamsService(IDeletableEntityRepository<Team> teamsRepository,IDeletableEntityRepository<Award> awardsRepository)
         {
             this.teamsRepository = teamsRepository;
-            
+            this.awardsRepository = awardsRepository;
             this.userRepository = userRepository;
            
         }
@@ -48,7 +50,7 @@ namespace TMXN.Services.Data
 
         public IEnumerable<TViewModel> GetAll<TViewModel>()
         {
-            return this.teamsRepository.All().To<TViewModel>().ToList();
+            return  this.teamsRepository.All().To<TViewModel>().ToList();
         }
 
         public TViewModel GetInfo<TViewModel>(string teamId)
@@ -82,6 +84,24 @@ namespace TMXN.Services.Data
 
             this.teamsRepository.Delete(currentTeam);
 
+            await this.teamsRepository.SaveChangesAsync();
+        }
+
+        public async Task SendAwardAsync(string teamId,string awardId)
+        {
+            var currentTeam = this.teamsRepository.All().Where(x => x.Id == teamId).FirstOrDefault();
+            var currentAward = this.awardsRepository.All().Where(x => x.Id == awardId).FirstOrDefault();
+            if(currentTeam == null || currentAward == null)
+            {
+                return;
+            }
+            if(currentTeam.Awards.Any(x => x.Id == currentAward.Id))
+            {
+                throw new Exception("This team already has the same award!");
+               
+            }
+            currentTeam.Awards.Add(currentAward);
+            this.teamsRepository.Update(currentTeam);
             await this.teamsRepository.SaveChangesAsync();
         }
 

@@ -23,7 +23,7 @@ namespace TMXN.Web.ViewComponents
         {
             var viewModel = new ListingTeamsByYearOfCreationViewModel
             {
-                Teams = this.teamsService.GetAll<TeamByYearViewModel>().OrderByDescending(x => x.Points).Take(GlobalConstants.TeamsCountInViewComponent).ToList(),
+                Teams =  this.teamsService.GetAll<TeamByYearViewModel>().OrderByDescending(x => x.Points).Take(GlobalConstants.TeamsCountInViewComponent).ToList(),
             };
 
             return this.View(viewModel);
