@@ -7,30 +7,54 @@
 <h1>@this.ViewData["Title"]</h1>
 
 <div class="card mr-3" style="width: 15rem;">
-    <img  class="card-img-top" src="@Model.Logo" alt="Card image cap">
+    <img class="card-img-top" src="@Model.Logo" alt="Card image cap">
     <div class="card-body">
         <h5 class="card-title">@Model.Name</h5>
     </div>
 </div>
 
-<h2>Ranklist Points: @Model.Points.</h2>
+<hr>
+
+   
+@if (Model.Awards.Count == 0)
+{
+    <h1>No awards</h1>
+}
+else
+{
+<div class="h-25 d-inline-block" style="width: 220px; background-color: rgba(0,0,255,.1)">
+                    Awards
+    @foreach (var award in this.Model.Awards)
+    {
+
+        <ul class="list-group list-group-flush">
+
+            <li class="list-group-item">@award.Name</li>
+
+        </ul>
 
 
-<ul class="list-group">
+    }
+    
+    
 
+</div>
+}
 
-    <li class="list-group-item list-group-item-primary">Memberlist:</li>
+    <hr>
+    <h2>Ranklist Points: @Model.Points.</h2>
 
-</ul>
+    <hr>
+
 
     <div class="row">
 
 
 
         <table class="table">
-            <thead class="thead-dark">
+            <thead class="thead-light">
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">Memberlist</th>
                     <th scope="col">Username</th>
 
                 </tr>
@@ -47,49 +71,43 @@
 
                 </tbody>
             }
-    
-
-
-    </table>
-        </div>
-
-
-<ul class="list-group">
 
 
 
-    <li class="list-group-item list-group-item-primary">Enrolled tournaments</li>
+        </table>
+    </div>
 
-</ul>
+    <hr>
 
-<div class="row">
-    <table class="table">
-        <thead class="thead-light">
-            <tr>
-                <th scope="col">###</th>
-                <th scope="col">Tournament Name</th>
 
-            </tr>
-        </thead>
-
-        @foreach (var tournament in Model.Tournaments)
-        {
-            <tbody>
+    <div class="row">
+        <table class="table">
+            <thead class="thead-light">
                 <tr>
-                    <th scope="row">#</th>
-                    <td>@tournament.Name</td>
-
+                    <th scope="col">Enrolled tournaments</th>
+                    <th scope="col">Tournament Name</th>
 
                 </tr>
+            </thead>
 
-            </tbody>
-        }
+            @foreach (var tournament in Model.Tournaments)
+            {
+                <tbody>
+                    <tr>
+                        <th scope="row">#</th>
+                        <td>@tournament.Name</td>
+
+
+                    </tr>
+
+                </tbody>
+            }
 
 
 
-    </table>
+        </table>
 
-</div>
+    </div>
 
 
 

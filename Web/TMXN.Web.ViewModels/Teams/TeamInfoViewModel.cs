@@ -17,7 +17,7 @@ namespace TMXN.Web.ViewModels.Teams
         public int Points { get; set; }
         public ICollection<Tournament> Tournaments { get; set; }
 
-
+        public ICollection<Award> Awards { get; set; }
         public ICollection<ApplicationUser> ApplicationUsers { get; set; }
     }
 }
