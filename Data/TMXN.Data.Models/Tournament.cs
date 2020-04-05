@@ -35,5 +35,7 @@ namespace TMXN.Data.Models
 
         public TournamentGameType TournamentGameType { get; set; }
 
+        public virtual ICollection<Bracket> Brackets { get; set; }
+
     }
 }

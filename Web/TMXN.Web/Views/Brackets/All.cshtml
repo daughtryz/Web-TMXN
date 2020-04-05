@@ -1,0 +1,36 @@
+﻿@model TMXN.Web.ViewModels.Brackets.BracketListViewModel
+
+<h2>Brackets</h2>
+
+@{bool isTheSameName = false; }
+<div class="row">
+
+
+
+    @foreach (var bracket in Model.Brackets)
+    {
+       
+        <div class="col-sm-6">
+            <div class="card" style="width: 16rem;">
+                <div class="card-header">
+                    Tournament: @bracket.TournamentName
+                </div>
+                @foreach (var team in bracket.Teams)
+                {  
+                   
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><img src="@team.Logo" alt="Responsive image" class="img-fluid" width="40"> @team.Name</li>
+
+                    </ul>
+                }
+                </div>
+            </div>
+
+                }
+           
+
+    </div>
+  
+
+
+

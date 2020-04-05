@@ -38,11 +38,12 @@
 
         public DbSet<UserFriendlist> UserFriendlists { get; set; }
 
-        public DbSet<Ranklist> Ranklists { get; set; }
+
+        public DbSet<Bracket> Brackets { get; set; }
 
         public DbSet<UserFriend> UsersFriends { get; set; }
         public DbSet<TournamentTeam> TournamentsTeams { get; set; }
-        public DbSet<MigTest> MigTests { get; set; }
+       
         public DbSet<Setting> Settings { get; set; }
         public DbSet<NewsFeed> NewsFeeds { get; set; }
 

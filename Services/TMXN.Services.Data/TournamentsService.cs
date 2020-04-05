@@ -19,13 +19,15 @@ namespace TMXN.Services.Data
         private readonly IRepository<TournamentTeam> tournamentsTeamsRepo;
         private readonly IDeletableEntityRepository<Tournament> tournamentRepository;
         private readonly IDeletableEntityRepository<Team> teamRepository;
+        private readonly IDeletableEntityRepository<Bracket> bracketRepository;
 
-        public TournamentsService(IDeletableEntityRepository<ApplicationUser> userRepo,IRepository<TournamentTeam> tournamentsTeamsRepo,IDeletableEntityRepository<Tournament> tournamentRepository,IDeletableEntityRepository<Team> teamRepository)
+        public TournamentsService(IDeletableEntityRepository<ApplicationUser> userRepo,IRepository<TournamentTeam> tournamentsTeamsRepo,IDeletableEntityRepository<Tournament> tournamentRepository,IDeletableEntityRepository<Team> teamRepository,IDeletableEntityRepository<Bracket> bracketRepository)
         {
             this.userRepo = userRepo;
             this.tournamentsTeamsRepo = tournamentsTeamsRepo;
             this.tournamentRepository = tournamentRepository;
             this.teamRepository = teamRepository;
+            this.bracketRepository = bracketRepository;
         }
 
         public IEnumerable<TViewModel> All<TViewModel>()
@@ -67,6 +69,10 @@ namespace TMXN.Services.Data
 
             var currentTournament = this.tournamentRepository.All().Where(x => x.Id == tournamentId).FirstOrDefault();
 
+            if(currentTeam == null || currentTournament == null)
+            {
+                return;
+            }
             var tournamentTeam = new TournamentTeam
             {
                 TournamentId = currentTournament.Id,
@@ -79,6 +85,17 @@ namespace TMXN.Services.Data
 
             this.tournamentRepository.Update(currentTournament);
             await this.tournamentRepository.SaveChangesAsync();
+
+            var bracket = new Bracket
+            {
+                TournamentId = currentTournament.Id,
+                Teams = new List<Team>(),
+            };
+           
+            bracket.Teams.Add(currentTeam);
+            await this.bracketRepository.AddAsync(bracket);
+            await this.bracketRepository.SaveChangesAsync();
+            
         }
 
         public async Task RemoveAsync(int id)
