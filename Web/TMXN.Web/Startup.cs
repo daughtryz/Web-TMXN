@@ -21,6 +21,7 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.AspNetCore.Mvc;
+    using CloudinaryDotNet;
 
     public class Startup
     {
@@ -70,6 +71,15 @@
             services.AddTransient<IAwardsService, AwardsService>();
             services.AddTransient<IBracketsService, BracketsService>();
            
+            //Cloudinary
+            Account account = new Account(
+                this.configuration["Cloudinary:ApiName"],
+               this.configuration["Cloudinary:ApiKey"],
+                this.configuration["Cloudinary:ApiSecret"]);
+
+            Cloudinary cloudinary = new Cloudinary(account);
+
+            services.AddSingleton(cloudinary);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
