@@ -2,6 +2,16 @@
 @model TMXN.Data.Common.InputModels.News.NewsInputModel
 
 
+<script src="/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    tinymce.init({
+        selector: "textarea",
+        plugins: [
+            "image paste table link code media"
+        ]
+    });
+</script>
+
 <form asp-controller="News" asp-action="Create">
     <div class="form-group">
         <label for="title">Title:</label>
