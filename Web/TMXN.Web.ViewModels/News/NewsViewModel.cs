@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ganss.XSS;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using TMXN.Data.Models;
@@ -14,6 +15,7 @@ namespace TMXN.Web.ViewModels.News
 
         public string Content { get; set; }
 
+        public string SanitizedContent => new HtmlSanitizer().Sanitize(this.Content);
         public string ImageUrl { get; set; }
     }
 }
