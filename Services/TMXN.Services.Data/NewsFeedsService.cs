@@ -49,8 +49,11 @@ namespace TMXN.Services.Data
             await this.newsFeedRepository.SaveChangesAsync();
         }
 
-        public async Task EditAsync(string id,string title, string content, string imageUrl)
+        public async Task EditAsync(string id,string title, string content, IFormFile image)
         {
+            var imageUrlCloudinary = await this.cloudinaryService
+               .UploadAsync(image, image.Name);
+
             var currentNews = this.newsFeedRepository.All().Where(x => x.Id == id).FirstOrDefault();
 
             if (currentNews == null)
@@ -60,7 +63,7 @@ namespace TMXN.Services.Data
 
             currentNews.Title = title;
             currentNews.Content = content;
-            currentNews.ImageUrl = imageUrl;
+            currentNews.ImageUrl = imageUrlCloudinary;
 
             this.newsFeedRepository.Update(currentNews);
             await this.newsFeedRepository.SaveChangesAsync();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace TMXN.Services.Data
 
         public IEnumerable<TViewModel> GetAll<TViewModel>();
 
-        public Task AddAsync(string name, string logo, string tag,string userId);
+        public Task AddAsync(string name, IFormFile logo, string tag,ApplicationUser user);
 
 
         public TViewModel GetInfo<TViewModel>(string teamId);
@@ -26,6 +27,8 @@ namespace TMXN.Services.Data
         public Task LoseAsync(string teamId);
 
         public Task SendAwardAsync(string teamId,string awardId);
+
+
 
     }
 }

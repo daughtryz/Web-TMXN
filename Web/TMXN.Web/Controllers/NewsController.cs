@@ -45,7 +45,7 @@ namespace TMXN.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(EditNewsViewModel model)
         {
-            await this.newsService.EditAsync(model.Id, model.Title, model.Content, model.ImageUrl);
+            await this.newsService.EditAsync(model.Id, model.Title, model.Content, model.Image);
 
             return this.Redirect("/");
         }

@@ -53,7 +53,7 @@ namespace TMXN.Web.Controllers
             {
                 return this.View(model);
             }
-            var user = await this.userManager.GetUserAsync(this.User);
+            ApplicationUser user = await this.userManager.GetUserAsync(this.User);
             var isUserAlreadyInTeam = this.teamsRepository.All().Where(x => x.ApplicationUsers.Any(x => x.Id == user.Id)).FirstOrDefault();
             if(isUserAlreadyInTeam != null)
             {
@@ -63,7 +63,7 @@ namespace TMXN.Web.Controllers
             }
            
             
-       await this.teamsService.AddAsync(model.Name, model.Logo, model.Tag,user.Id);
+       await this.teamsService.AddAsync(model.Name, model.Logo, model.Tag,user);
 
             return this.RedirectToAction(nameof(this.ShowAll));
         }
@@ -72,7 +72,7 @@ namespace TMXN.Web.Controllers
         public async Task<IActionResult> Leave(string id)
         {
             var user = await this.userManager.GetUserAsync(this.User);
-            await this.usersService.LeaveAsync(id, user.Id);
+            await this.usersService.LeaveAsync(id, user);
 
             return this.RedirectToAction(nameof(this.ShowAll));
 
@@ -82,7 +82,7 @@ namespace TMXN.Web.Controllers
         {
             var user = await this.userManager.GetUserAsync(this.User);
 
-            await this.usersService.JoinAsync(id, user.Id);
+            await this.usersService.JoinAsync(id, user);
 
 
             return this.RedirectToAction(nameof(this.ShowAll));

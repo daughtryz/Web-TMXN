@@ -87,14 +87,19 @@ namespace TMXN.Services.Data
             return await this.userRepository.All().To<TViewModel>().ToListAsync();
         }
 
-        public async Task JoinAsync(string teamId, string userId)
+        public async Task JoinAsync(string teamId, ApplicationUser user)
         {
             var currentTeam = this.teamRepository.All().Where(x => x.Id == teamId)
                 .FirstOrDefault();
+           
+            
 
-            var currentUser = this.userRepository.All().Where(x => x.Id == userId).FirstOrDefault();
+            if (currentTeam == null || user == null)
+            {
+                return;
+            }
 
-            currentTeam.ApplicationUsers.Add(currentUser);
+            currentTeam.ApplicationUsers.Add(user);
 
             await this.teamRepository.SaveChangesAsync();
 
@@ -102,13 +107,13 @@ namespace TMXN.Services.Data
         }
 
         
-        public async Task LeaveAsync(string teamId,string userId)
+        public async Task LeaveAsync(string teamId, ApplicationUser user)
         {
-            var currentUser = this.userRepository.All().Where(x => x.Id == userId).FirstOrDefault();
+          
 
             var currentTeam = this.teamRepository.All().Where(x => x.Id == teamId)
                .FirstOrDefault();
-            currentTeam.ApplicationUsers.Remove(currentUser);
+            currentTeam.ApplicationUsers.Remove(user);
 
 
             await this.teamRepository.SaveChangesAsync();

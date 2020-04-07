@@ -9,6 +9,8 @@ using TMXN.Data.Models;
 using TMXN.Services.Mapping;
 using TMXN.Common;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+using TMXN.Services.Data.Contracts;
 
 namespace TMXN.Services.Data
 {
@@ -16,31 +18,37 @@ namespace TMXN.Services.Data
     {
         private readonly IDeletableEntityRepository<Team> teamsRepository;
         private readonly IDeletableEntityRepository<Award> awardsRepository;
+        private readonly ICloudinaryService cloudinaryService;
+        private readonly UserManager<ApplicationUser> userManager;
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
    
 
-        public TeamsService(IDeletableEntityRepository<Team> teamsRepository,IDeletableEntityRepository<Award> awardsRepository)
+        public TeamsService(IDeletableEntityRepository<Team> teamsRepository,IDeletableEntityRepository<Award> awardsRepository,ICloudinaryService cloudinaryService)
         {
             this.teamsRepository = teamsRepository;
             this.awardsRepository = awardsRepository;
-            this.userRepository = userRepository;
+            this.cloudinaryService = cloudinaryService;
+            
+           
            
         }
 
-        public async Task AddAsync(string name,string logo,string tag,string userId)
+        public async Task AddAsync(string name, IFormFile logo,string tag, ApplicationUser user)
         {
 
-
+            var logoCloudinary = await this.cloudinaryService
+               .UploadAsync(logo, logo.Name);
             var team = new Team
             {
                 Name = name,
-                Logo = logo,
+                Logo = logoCloudinary,
                 Tag = tag,  
                
             };
-            var currentUser = this.userRepository.All().Where(x => x.Id == userId).FirstOrDefault();
+           
+            
 
-            team.ApplicationUsers.Add(currentUser);
+            team.ApplicationUsers.Add(user);
             await this.teamsRepository.AddAsync(team);
            
             await this.teamsRepository.SaveChangesAsync();

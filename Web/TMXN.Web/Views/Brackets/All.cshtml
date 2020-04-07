@@ -2,7 +2,7 @@
 
 <h2>Brackets</h2>
 
-@{bool isTheSameName = false; }
+@{var list = new List<string>(); }
 <div class="row">
 
 
@@ -12,21 +12,36 @@
        
         <div class="col-sm-6">
             <div class="card" style="width: 16rem;">
-                <div class="card-header">
-                    Tournament: @bracket.TournamentName
-                </div>
-                @foreach (var team in bracket.Teams)
-                {  
-                   
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><img src="@team.Logo" alt="Responsive image" class="img-fluid" width="40"> @team.Name</li>
+                @if (list.Any(x => x == bracket.TournamentName))
+                {
+                    @foreach (var team in bracket.Teams)
+                    {
 
-                    </ul>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><img src="@team.Logo" alt="Responsive image" class="img-fluid" width="40"> @team.Name</li>
+
+                        </ul>
+                    }
                 }
-                </div>
+                else
+                {
+                    <div class="card-header">
+                        Tournament: @bracket.TournamentName
+                    </div>
+                    @foreach (var team in bracket.Teams)
+                    {
+
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><img src="@team.Logo" alt="Responsive image" class="img-fluid" width="40"> @team.Name</li>
+
+                        </ul>
+                    }
+                }
+
             </div>
-
-                }
+            </div>
+        list.Add(bracket.TournamentName);
+    }
            
 
     </div>

@@ -17,7 +17,7 @@ namespace TMXN.Services.Data
         public Task CreateNewsAsync(string title, string content, IFormFile image);
 
 
-        public Task EditAsync(string id, string title, string content, string imageUrl);
+        public Task EditAsync(string id, string title, string content, IFormFile image);
 
 
         public Task DeleteByIdAsync(string newsId);

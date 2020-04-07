@@ -1,7 +1,7 @@
 ﻿@model TMXN.Data.Common.InputModels.Teams.TeamInputModel
 
 
-    <form asp-controller="Teams" asp-action="Add">
+    <form asp-controller="Teams" asp-action="Add" enctype="multipart/form-data" method="post">
         <div class="form-group">
             <label for="name">Team Name:</label>
             <input asp-for="Name" type="name" class="form-control" id="name">
@@ -9,7 +9,7 @@
         </div>
         <div class="form-group">
             <label for="logo">Logo:</label>
-            <input asp-for="Logo" type="logo" class="form-control" id="logo">
+            <input asp-for="Logo" type="file" name="Logo">
             <span asp-validation-for="Logo"></span>
         </div>
         <div class="form-group">
