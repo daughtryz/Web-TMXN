@@ -44,7 +44,20 @@ namespace TMXN.Web.Controllers
         {
             return this.View();
         }
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
+        {
+            var viewModel = this.teamsService.GetInfo<EditTeamsViewModel>(id);
+            return this.View(viewModel);
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditTeamsViewModel model)
+        {
+            await this.teamsService.EditAsync(model.Name, model.LogoImage, model.Tag, model.Id);
+
+            return this.RedirectToAction(nameof(ShowAll));
+        }
 
         [HttpPost] 
         public async Task<IActionResult> Add(TeamInputModel model)
@@ -63,7 +76,7 @@ namespace TMXN.Web.Controllers
             }
            
             
-       await this.teamsService.AddAsync(model.Name, model.Logo, model.Tag,user);
+       await this.teamsService.AddAsync(model.Name, model.LogoImage, model.Tag,user);
 
             return this.RedirectToAction(nameof(this.ShowAll));
         }

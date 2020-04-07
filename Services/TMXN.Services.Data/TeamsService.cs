@@ -19,8 +19,7 @@ namespace TMXN.Services.Data
         private readonly IDeletableEntityRepository<Team> teamsRepository;
         private readonly IDeletableEntityRepository<Award> awardsRepository;
         private readonly ICloudinaryService cloudinaryService;
-        private readonly UserManager<ApplicationUser> userManager;
-        private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
+       
    
 
         public TeamsService(IDeletableEntityRepository<Team> teamsRepository,IDeletableEntityRepository<Award> awardsRepository,ICloudinaryService cloudinaryService)
@@ -54,6 +53,25 @@ namespace TMXN.Services.Data
             await this.teamsRepository.SaveChangesAsync();
 
             
+        }
+
+        public async Task EditAsync(string name, IFormFile logo, string tag,string teamId)
+        {
+            var logoCloudinary = await this.cloudinaryService
+              .UploadAsync(logo, logo.Name);
+            var currentTeam = this.teamsRepository.All().Where(x => x.Id == teamId).FirstOrDefault();
+            if(currentTeam == null)
+            {
+                return;
+            }
+
+            currentTeam.Name = name;
+            currentTeam.Logo = logoCloudinary;
+            currentTeam.Tag = tag;
+
+            this.teamsRepository.Update(currentTeam);
+            await this.teamsRepository.SaveChangesAsync();
+
         }
 
         public IEnumerable<TViewModel> GetAll<TViewModel>()

@@ -28,7 +28,7 @@ namespace TMXN.Services.Data
 
         public Task SendAwardAsync(string teamId,string awardId);
 
-
+        public Task EditAsync(string name, IFormFile logo, string tag,string teamId);
 
     }
 }

@@ -35,9 +35,10 @@
             }
             else
             {
-                <a asp-controller="Teams" asp-action="Join" asp-route-id="@team.Id" type="button" class="btn btn-primary center-block">Join us!</a>
+                <a asp-controller="Teams" asp-action="Join" asp-route-id="@team.Id" type="button" class="btn btn-primary center-block">Join us</a>
             }
-            <a asp-controller="Teams" asp-action="TeamInfo" asp-route-id="@team.Id" type="button" class="btn btn-primary center-block">Info!</a>
+            <a asp-controller="Teams" asp-action="Edit" asp-route-id="@team.Id" type="button" class="btn btn-primary center-block">Edit</a>
+            <a asp-controller="Teams" asp-action="TeamInfo" asp-route-id="@team.Id" type="button" class="btn btn-primary center-block">Info</a>
 
 
 

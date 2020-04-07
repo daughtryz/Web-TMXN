@@ -1,0 +1,23 @@
+﻿@model TMXN.Web.ViewModels.Teams.EditTeamsViewModel
+
+
+<form asp-controller="Teams" asp-action="Edit" enctype="multipart/form-data" method="post">
+    <div class="form-group">
+        <label for="name">Insert new name:</label>
+        <input asp-for="Name" type="name" class="form-control" id="name">
+        <span asp-validation-for="Name"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="LogoImage">Insert new logo:</label>
+        <input asp-for="LogoImage" type="file" name="LogoImage">
+        <span asp-validation-for="LogoImage"></span>
+    </div>
+    <div class="form-group">
+        <label for="tag">Insert new tag:</label>
+        <input asp-for="Tag" type="tag" class="form-control" id="tag">
+        <span asp-validation-for="Tag"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Create!</button>
+
+</form>
+
