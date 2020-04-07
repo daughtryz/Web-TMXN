@@ -8,6 +8,6 @@ namespace TMXN.Services.Data.Contracts
 {
     public interface ICloudinaryService
     {
-        Task<string> UploadAsync(IFormFile file, string fileName);
+        Task<string> UploadAsync(IFormFile file,string fileName);
     }
 }

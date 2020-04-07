@@ -22,6 +22,7 @@
     using Microsoft.Extensions.Hosting;
     using Microsoft.AspNetCore.Mvc;
     using CloudinaryDotNet;
+    using TMXN.Services.Data.Contracts;
 
     public class Startup
     {
@@ -70,7 +71,7 @@
             services.AddTransient<ITournamentsService, TournamentsService>();
             services.AddTransient<IAwardsService, AwardsService>();
             services.AddTransient<IBracketsService, BracketsService>();
-           
+            services.AddTransient<ICloudinaryService, CloudinaryService>();
             //Cloudinary
             Account account = new Account(
                 this.configuration["Cloudinary:ApiName"],

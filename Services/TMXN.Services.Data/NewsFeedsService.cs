@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TMXN.Data.Common.Repositories;
 using TMXN.Data.Models;
+using TMXN.Services.Data.Contracts;
 using TMXN.Services.Mapping;
 using TMXN.Web.ViewModels.News;
 
@@ -14,19 +16,23 @@ namespace TMXN.Services.Data
     public class NewsFeedsService : INewsFeedsService
     {
         private readonly IDeletableEntityRepository<NewsFeed> newsFeedRepository;
+        private readonly ICloudinaryService cloudinaryService;
 
-        public NewsFeedsService(IDeletableEntityRepository<NewsFeed> newsFeedRepository)
+        public NewsFeedsService(IDeletableEntityRepository<NewsFeed> newsFeedRepository,ICloudinaryService cloudinaryService)
         {
             this.newsFeedRepository = newsFeedRepository;
+            this.cloudinaryService = cloudinaryService;
         }
 
-        public async Task CreateNewsAsync(string title, string content, string imageUrl)
+        public async Task CreateNewsAsync(string title, string content, IFormFile image)
         {
+            var imageUrlCloudinary = await this.cloudinaryService
+                .UploadAsync(image,image.Name);
             var newsFeed = new NewsFeed
             {
                 Title = title,
                 Content = content,
-                ImageUrl = imageUrl,
+                ImageUrl = imageUrlCloudinary,
             };
             await this.newsFeedRepository.AddAsync(newsFeed);
             await this.newsFeedRepository.SaveChangesAsync();
