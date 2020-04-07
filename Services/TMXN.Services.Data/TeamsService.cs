@@ -113,6 +113,19 @@ namespace TMXN.Services.Data
             await this.teamsRepository.SaveChangesAsync();
         }
 
+        public async Task RemovePlayerAsync(ApplicationUser user)
+        {
+            var currentTeam = this.teamsRepository.All().Where(x => x.Id == user.TeamId).FirstOrDefault();
+            if(user == null || currentTeam == null)
+            {
+                return;
+            }
+
+            currentTeam.ApplicationUsers.Remove(user);
+            this.teamsRepository.Update(currentTeam);
+            await this.teamsRepository.SaveChangesAsync();
+        }
+
         public async Task SendAwardAsync(string teamId,string awardId)
         {
             var currentTeam = this.teamsRepository.All().Where(x => x.Id == teamId).FirstOrDefault();

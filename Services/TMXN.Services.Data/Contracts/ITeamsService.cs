@@ -30,5 +30,7 @@ namespace TMXN.Services.Data
 
         public Task EditAsync(string name, IFormFile logo, string tag,string teamId);
 
+        public Task RemovePlayerAsync(ApplicationUser user);
+
     }
 }

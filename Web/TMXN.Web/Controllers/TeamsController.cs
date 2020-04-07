@@ -101,6 +101,12 @@ namespace TMXN.Web.Controllers
             return this.RedirectToAction(nameof(this.ShowAll));
         }
 
+        public async Task<IActionResult> RemovePlayer(string id)
+        {
+            ApplicationUser user = await this.userManager.FindByIdAsync(id);
+            await this.teamsService.RemovePlayerAsync(user);
+            return this.RedirectToAction(nameof(ShowAll));
+        }
         public IActionResult TeamInfo(string id)
         {
             var viewModel = this.teamsService.GetInfo<TeamInfoViewModel>(id);
