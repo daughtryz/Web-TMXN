@@ -123,6 +123,7 @@ namespace TMXN.Services.Data
 
             currentTeam.ApplicationUsers.Remove(user);
             this.teamsRepository.Update(currentTeam);
+            user.TeamId = null;
             await this.teamsRepository.SaveChangesAsync();
         }
 
