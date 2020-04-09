@@ -23,6 +23,7 @@
     using Microsoft.AspNetCore.Mvc;
     using CloudinaryDotNet;
     using TMXN.Services.Data.Contracts;
+    using TMXN.Web.Hubs;
 
     public class Startup
     {
@@ -72,6 +73,7 @@
             services.AddTransient<IAwardsService, AwardsService>();
             services.AddTransient<IBracketsService, BracketsService>();
             services.AddTransient<ICloudinaryService, CloudinaryService>();
+            services.AddTransient<IChatRoomService, ChatRoomService>();
             //Cloudinary
             Account account = new Account(
                 this.configuration["Cloudinary:ApiName"],
@@ -125,9 +127,13 @@
             app.UseAuthentication();
             app.UseAuthorization();
 
+           
+
             app.UseEndpoints(
                 endpoints =>
                     {
+
+                        endpoints.MapHub<ChatRoomHub>("/chatroom");
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapRazorPages();

@@ -14,7 +14,8 @@ namespace TMXN.Data.Models
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
-           
+            this.Messages = new HashSet<Message>();
+            this.IsTaken = false;
         }
 
         // Audit info
@@ -27,12 +28,14 @@ namespace TMXN.Data.Models
 
         public DateTime? DeletedOn { get; set; }
 
+        public bool IsTaken { get; set; }
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
 
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
 
+        public virtual ICollection<Message> Messages { get; set; }
         public string UserFriendlistId { get; set; }
 
         public virtual UserFriendlist UserFriendlist { get; set; }

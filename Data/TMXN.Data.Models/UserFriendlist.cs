@@ -18,5 +18,7 @@ namespace TMXN.Data.Models
         public DateTime? DeletedOn { get ; set ; }
 
 
+       
+
     }
 }

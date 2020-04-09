@@ -17,8 +17,11 @@ else
     <h1>@this.ViewData["Title"]</h1>
     @foreach (var friendlist in Model.Friendlists)
     {
+        if (friendlist.IsTaken)
+        {
+            <li class="list-group-item">@friendlist.UserName <div><a asp-controller="Users" asp-action="Remove" asp-route-id="@friendlist.Id" type="button" class="btn btn-danger">Remove Friend</a></div></li>
+        }
 
-        <li class="list-group-item list-group-item-primary">@friendlist.UserName</li>
 
     }
 }

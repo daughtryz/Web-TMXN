@@ -38,7 +38,7 @@ namespace TMXN.Web.Controllers
         {
             var myUser = await this.userManager.GetUserAsync(this.User);
 
-           await this.usersService.AddAnotherUserToFriendlistAsync(id, myUser.Id);
+           await this.usersService.AddFriendToFriendlistAsync(id, myUser);
 
             return this.RedirectToAction(nameof(AddToFriendlistSuccessful));
         }
@@ -46,6 +46,20 @@ namespace TMXN.Web.Controllers
         public IActionResult AddToFriendlistSuccessful()
         {
             return this.View();
+        }
+
+        public IActionResult RemoveFromFriendlistSuccessful()
+        {
+            return this.View();
+        }
+
+        public async Task<IActionResult> Remove(string id)
+        {
+            var myUser = await this.userManager.GetUserAsync(this.User);
+
+            await this.usersService.RemoveFriendFromFriendlistAsync(id, myUser);
+
+            return this.RedirectToAction(nameof(RemoveFromFriendlistSuccessful));
         }
 
         public async Task<IActionResult> AllFriends()

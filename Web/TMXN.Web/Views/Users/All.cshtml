@@ -33,7 +33,7 @@
             //user.UserFriendlist.ApplicationUsers.Any(x => x.UserName != currUser.UserName)
 
                 <tbody>
-                    @if (user.Id != currUser.Id)
+                    @if (user.Id != currUser.Id && !user.IsTaken)
                     {
                     <tr>
                         <th scope="row">#</th>

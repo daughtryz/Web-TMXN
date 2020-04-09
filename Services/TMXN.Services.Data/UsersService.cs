@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,29 +13,35 @@ using TMXN.Web.ViewModels.Users;
 
 namespace TMXN.Services.Data
 {
+    [Authorize]
     public class UsersService : IUsersService
     {
+        private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
+        private readonly UserManager<ApplicationUser> userManager;
         private readonly IRepository<UserFriend> userFriendRepo;
         private readonly IDeletableEntityRepository<Team> teamRepository;
-        private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
+       
         private readonly IDeletableEntityRepository<UserFriendlist> friendlistRepository;
 
-        public UsersService(IRepository<UserFriend> userFriendRepo,IDeletableEntityRepository<Team> teamRepository,IDeletableEntityRepository<ApplicationUser> userRepository,IDeletableEntityRepository<UserFriendlist> friendlistRepository)
+        public UsersService(IDeletableEntityRepository<ApplicationUser> userRepository,UserManager<ApplicationUser> userManager,IRepository<UserFriend> userFriendRepo,IDeletableEntityRepository<Team> teamRepository,IDeletableEntityRepository<UserFriendlist> friendlistRepository)
         {
+            this.userRepository = userRepository;
+            this.userManager = userManager;
             this.userFriendRepo = userFriendRepo;
             this.teamRepository = teamRepository;
-            this.userRepository = userRepository;
+           
             this.friendlistRepository = friendlistRepository;
         }
 
-        public async Task AddAnotherUserToFriendlistAsync(string id,string myId)
+        public async Task AddFriendToFriendlistAsync(string id,ApplicationUser myUser)
         {
 
-            
-            var currentUser = await this.userRepository.All().Where(x => x.Id == id).FirstOrDefaultAsync();
 
-            var myUser = await this.userRepository.All().Where(x => x.Id == myId).FirstOrDefaultAsync();
-            if (currentUser == null)
+            var currentUser = await this.userManager.FindByIdAsync(id);
+
+            
+
+            if (currentUser == null || myUser == null)
             {
                 throw new Exception("No such user!");
             }
@@ -42,8 +50,9 @@ namespace TMXN.Services.Data
             
 
             var friendList = new UserFriendlist();
-
+            
             friendList.ApplicationUsers.Add(currentUser);
+            currentUser.IsTaken = true;
             
 
 
@@ -67,7 +76,7 @@ namespace TMXN.Services.Data
 
         public async Task<IEnumerable<TViewModel>> AllFriendsAsync<TViewModel>(string id)
         {
-            var currentUser = await this.userRepository.All().Where(x => x.Id == id).FirstOrDefaultAsync();
+            var currentUser = await this.userManager.FindByIdAsync(id);
 
             var currentFriendlist = await this.userFriendRepo
                 .All()
@@ -117,6 +126,30 @@ namespace TMXN.Services.Data
 
 
             await this.teamRepository.SaveChangesAsync();
+        }
+
+        public async Task RemoveFriendFromFriendlistAsync(string id,ApplicationUser myUser)
+        {
+
+            var currentUser = await this.userManager.FindByIdAsync(id);
+           
+            var currentUserFriendlist = this.userFriendRepo.All().Where(x => x.ApplicationUserId == myUser.Id).FirstOrDefault();
+            var currentFriendlist = this.friendlistRepository.All().Where(x => x.Id == currentUserFriendlist.UserFriendlistId).FirstOrDefault();
+            
+
+           
+            if (currentUserFriendlist == null)
+            {
+                return;
+            }
+            currentUser.IsTaken = false;
+
+            
+
+
+            this.friendlistRepository.Delete(currentFriendlist);
+            this.userFriendRepo.Delete(currentUserFriendlist);
+            await this.userFriendRepo.SaveChangesAsync();
         }
     }
 }

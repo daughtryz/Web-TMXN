@@ -7,6 +7,7 @@
     using Microsoft.AspNetCore.Mvc;
     using TMXN.Services.Data;
     using TMXN.Web.ViewModels.News;
+    using Microsoft.AspNetCore.Authorization;
 
     public class HomeController : BaseController
     {
@@ -26,7 +27,11 @@
             return this.View(viewModel);
         }
 
-       
+        [Authorize]
+        public IActionResult Chat()
+        {
+            return this.View();
+        }
         public IActionResult Privacy()
         {
             return this.View();

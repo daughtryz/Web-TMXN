@@ -38,7 +38,7 @@
 
         public DbSet<UserFriendlist> UserFriendlists { get; set; }
 
-
+        public DbSet<Message> Messages { get; set; }
         public DbSet<Bracket> Brackets { get; set; }
 
         public DbSet<UserFriend> UsersFriends { get; set; }
