@@ -54,7 +54,7 @@ namespace TMXN.Web.Areas.Administration.Controllers
         {
             await this.teamsService.EditAsync(model.Name, model.LogoImage, model.Tag, model.Id);
 
-            //return this.RedirectToAction(nameof(ShowAll));
+           
             return this.RedirectToAction("ShowAll", "Teams", new { area = "Administration" });
         }
 
@@ -77,7 +77,7 @@ namespace TMXN.Web.Areas.Administration.Controllers
 
             await this.teamsService.AddAsync(model.Name, model.LogoImage, model.Tag, user);
 
-            //return this.RedirectToAction(nameof(this.ShowAll));
+            
             return this.RedirectToAction("ShowAll", "Teams", new { area = "Administration" });
         }
 

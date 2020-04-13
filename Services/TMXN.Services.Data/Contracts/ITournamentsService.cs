@@ -21,6 +21,8 @@ namespace TMXN.Services.Data
 
         public TViewModel Info<TViewModel>(int id);
 
-       
+        public Task EditAsync(string name, string organizer, TournamentGameType TournamentGameType, int tournamentId);
+
+
     }
 }

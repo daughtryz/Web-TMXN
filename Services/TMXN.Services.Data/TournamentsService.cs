@@ -35,6 +35,23 @@ namespace TMXN.Services.Data
             return this.tournamentRepository.All().To<TViewModel>().ToList();
         }
 
+        public async Task EditAsync(string name, string organizer, TournamentGameType TournamentGameType, int tournamentId)
+        {
+            
+            var currentTournament = this.tournamentRepository.All().Where(x => x.Id == tournamentId).FirstOrDefault();
+            if (currentTournament == null)
+            {
+                return;
+            }
+
+            currentTournament.Name = name;
+            currentTournament.Organizer = organizer;
+            currentTournament.TournamentGameType = TournamentGameType;
+
+            this.tournamentRepository.Update(currentTournament);
+            await this.tournamentRepository.SaveChangesAsync();
+        }
+
         public async Task GenerateAsync(string name,string organizer, TournamentGameType tournamentType)
         {
 

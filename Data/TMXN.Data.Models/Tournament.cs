@@ -16,6 +16,7 @@ namespace TMXN.Data.Models
            
         }
         [Required]
+        [MinLength(2)]
         [MaxLength(20)]
         public string Name { get; set; }
 
@@ -29,10 +30,12 @@ namespace TMXN.Data.Models
 
         public bool IsDeleted { get  ; set ; }
         public DateTime? DeletedOn { get ; set ; }
-
+        [Required]
+        [MinLength(2)]
+        [MaxLength(20)]
         public string Organizer { get; set; }
 
-
+        [Required]
         public TournamentGameType TournamentGameType { get; set; }
 
         public virtual ICollection<Bracket> Brackets { get; set; }

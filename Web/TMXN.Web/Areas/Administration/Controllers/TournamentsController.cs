@@ -106,5 +106,21 @@ namespace TMXN.Web.Areas.Administration.Controllers
             return this.View();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var viewModel = this.tournamentsService.Info<TournamentEditViewModel>(id);
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(TournamentEditViewModel model)
+        {
+            await this.tournamentsService.EditAsync(model.Name, model.Organizer, model.TournamentGameType, model.Id);
+
+
+            return this.RedirectToAction("GetAll", "Tournaments", new { area = "Administration" });
+        }
+
     }
 }
