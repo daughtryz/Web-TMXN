@@ -25,31 +25,6 @@ namespace TMXN.Web.Controllers
             };
             return this.View(viewModel);
         }
-        public IActionResult Transfer(string id)
-        {
-            return this.View();
-        }
-        public IActionResult Create()
-        {
-            return this.View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create(AwardInputModel input)
-        {
-            if(!this.ModelState.IsValid)
-            {
-                throw new Exception("Invalid award input model!");
-            }
-            await this.awardsService.CreateAsync(input.Name, input.PlacingType);
-            return this.RedirectToAction(nameof(All));
-        }
-
-       
-        public async Task<IActionResult> Remove(string id)
-        {
-            await this.awardsService.RemoveAsync(id);
-            return this.RedirectToAction(nameof(All));
-        }
+     
     }
 }

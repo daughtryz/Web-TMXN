@@ -1,0 +1,51 @@
+﻿@model TMXN.Web.ViewModels.Brackets.BracketListViewModel
+
+<h2>Brackets</h2>
+
+@{var list = new List<string>(); }
+<div class="row">
+
+
+
+    @foreach (var bracket in Model.Brackets)
+    {
+
+        <div class="col-sm-6">
+            <div class="card" style="width: 16rem;">
+                @if (list.Any(x => x == bracket.TournamentName))
+                {
+                    @foreach (var team in bracket.Teams)
+                    {
+
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><img src="@team.Logo" alt="Responsive image" class="img-fluid" width="40"> @team.Name</li>
+
+                        </ul>
+                    }
+                }
+                else
+                {
+                    <div class="card-header">
+                        Tournament: @bracket.TournamentName
+                    </div>
+                    @foreach (var team in bracket.Teams)
+                    {
+
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><img src="@team.Logo" alt="Responsive image" class="img-fluid" width="40"> @team.Name</li>
+
+                        </ul>
+                    }
+                }
+
+            </div>
+        </div>
+        list.Add(bracket.TournamentName);
+    }
+
+
+</div>
+
+
+
+

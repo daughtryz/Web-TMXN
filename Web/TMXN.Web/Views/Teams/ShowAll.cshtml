@@ -14,7 +14,6 @@
 @{var currUser = this.Model.Teams.Select(x => x.ApplicationUsers.Any(z => z.Id == userId)).FirstOrDefault(); }
 
 
-<h4><button onclick="location.href='@Url.Action("Add", "Teams")'" type="button" class="btn btn-primary center-block">Create your own team!</button></h4>
 
 <div class="row">
 
@@ -37,9 +36,7 @@
             {
                 <a asp-controller="Teams" asp-action="Join" asp-route-id="@team.Id" type="button" class="btn btn-primary center-block">Join us</a>
             }
-            <a asp-controller="Teams" asp-action="Edit" asp-route-id="@team.Id" type="button" class="btn btn-primary center-block">Edit</a>
-            <hr>
-            <a asp-controller="Teams" asp-action="Remove" asp-route-id="@team.Id" type="button" class="btn btn-primary center-block">Remove</a>
+           
             <a asp-controller="Teams" asp-action="TeamInfo" asp-route-id="@team.Id" type="button" class="btn btn-primary center-block">Info</a>
 
 

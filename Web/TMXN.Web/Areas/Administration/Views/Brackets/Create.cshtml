@@ -4,7 +4,7 @@
 
 
 
-<form asp-controller="Brackets" asp-action="Create" method="post">
+<form asp-area="Administration" asp-controller="Brackets" asp-action="Create" method="post">
 
     <div>
         <label asp-for="TournamentId">Choose a tournament:</label>
@@ -17,8 +17,8 @@
 
         <select asp-for="TeamId" class="form-control" asp-items="@Model.Teams.Select(x => new SelectListItem(x.Name,x.Id))"></select>
         <div>
-        <button type="submit" class="btn btn-primary">Create</button>
-            </div>
+            <button type="submit" class="btn btn-primary">Create</button>
+        </div>
     </div>
 
 </form>

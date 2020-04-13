@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,22 +8,23 @@ using TMXN.Data.Common.InputModels.Tournaments;
 using TMXN.Data.Models;
 using TMXN.Services.Data;
 using TMXN.Web.ViewModels.Tournaments;
-using TMXN.Web.ViewModels.Tournaments;
 
-namespace TMXN.Web.Controllers
+namespace TMXN.Web.Areas.Administration.Controllers
 {
-    [Authorize]
-    public class TournamentsController : BaseController
+    public class TournamentsController : AdministrationController
     {
         private readonly ITournamentsService tournamentsService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public TournamentsController(ITournamentsService tournamentsService,UserManager<ApplicationUser> userManager)
+        public TournamentsController(ITournamentsService tournamentsService, UserManager<ApplicationUser> userManager)
         {
             this.tournamentsService = tournamentsService;
             this.userManager = userManager;
         }
-       
+        public IActionResult Generate()
+        {
+            return this.View();
+        }
         public IActionResult GetAll()
         {
             var viewModel = new TournamentsListViewModel
@@ -35,9 +35,28 @@ namespace TMXN.Web.Controllers
             return this.View(viewModel);
         }
 
-       
+        [HttpPost]
+        public async Task<IActionResult> Generate(TournamentsInputModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
 
-        
+
+            await this.tournamentsService.GenerateAsync(model.Name, model.Organizer, model.TournamentGameType);
+            //return this.RedirectToAction(nameof(this.GetAll));
+            return this.RedirectToAction("GetAll", "Tournaments", new { area = "Administration" });
+
+        }
+
+        public async Task<IActionResult> Remove(int id)
+        {
+            await this.tournamentsService.RemoveAsync(id);
+
+            // return this.RedirectToAction(nameof(this.GetAll));
+            return this.RedirectToAction("GetAll", "Tournaments", new { area = "Administration" });
+        }
         public async Task<IActionResult> Participate(int id)
         {
             var user = await this.userManager.GetUserAsync(this.User);
@@ -54,17 +73,18 @@ namespace TMXN.Web.Controllers
 
             int tournamentId = await this.tournamentsService.RemoveTeamFromTournamentAsync(id, user.Id);
 
-            if(tournamentId == 0)
+            if (tournamentId == 0)
             {
                 return this.BadRequest();
-            } else
+            }
+            else
             {
                 return this.RedirectToAction(nameof(SuccessRemove));
             }
-            
+
 
         }
-        
+
 
         public IActionResult Info(int id)
         {

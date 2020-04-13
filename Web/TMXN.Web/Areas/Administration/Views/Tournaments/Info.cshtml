@@ -1,0 +1,24 @@
+﻿@model TMXN.Web.ViewModels.Tournaments.TournamentInfoViewModel
+@using Microsoft.AspNetCore.Identity;
+@using TMXN.Data.Models;
+@inject UserManager<ApplicationUser> userManager
+
+
+
+<div class="modal-body">
+    @if (Model.TeamId != null)
+    {
+        <p>You are already in this tournament click this <a asp-controller="Tournaments" asp-action="Out" asp-route-id="@Model.Id" role="button" class="btn btn-primary">Button</a> to leave the tournament!</p>
+    }
+
+
+    <hr>
+    <h5>Information!</h5>
+    <p>Tournament Name: @Model.Name</p>
+    <p>Tournament Game: @Model.TournamentGameType</p>
+    <p>Tournament Organizer: @Model.Organizer</p>
+    <p>Started On: @Model.CreatedOn.ToString("d")</p>
+</div>
+
+
+

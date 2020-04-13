@@ -6,7 +6,7 @@
     this.ViewData["Title"] = "Home Page";
 }
 
-
+@{ int counter = 0;}
 
     <div class="text-center">
 
@@ -18,8 +18,8 @@
                 <vc:tournament></vc:tournament>
 
             </div>
-      
-        
+
+
             <div class="list-group-horizontal-md d-md-block" style="width: 220px; background-color: rgba(0,0,255,.1)">
 
                 <vc:team></vc:team>
@@ -27,7 +27,7 @@
             </div>
         </div>
         <hr>
-        <h4><a href="/News/Create" type="button" class="btn btn-primary center-block">Create new article!</a></h4>
+       
 
         <div class="row">
             @foreach (var news in this.Model.News)
@@ -38,8 +38,7 @@
                         <h5 class="card-title">@news.Title</h5>
 
                         <a asp-controller="News" asp-action="Info" asp-route-id="@news.Id" class="btn btn-primary center-block">Info</a>
-                        <a asp-controller="News" asp-action="Edit" asp-route-id="@news.Id" type="button" class="btn btn-primary center-block">Edit</a>
-                        <a asp-controller="News" asp-action="Remove" asp-route-id="@news.Id" type="button" class="btn btn-primary center-block">Remove</a>
+                        
                     </div>
                 </div>
             }
@@ -49,5 +48,4 @@
         </div>
 
 
-
-
+    

@@ -1,0 +1,22 @@
+﻿@model TMXN.Web.ViewModels.News.NewsFeedsListViewModel
+
+<h4><a asp-area="Administration" asp-controller="News" asp-action="Create" type="button" class="btn btn-primary center-block">Create new article!</a></h4>
+
+<div class="row">
+    @foreach (var news in this.Model.News)
+    {
+        <div class="card mr-4" style="width: 18rem;">
+            <img class="card-img-top" src="@news.ImageUrl" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">@news.Title</h5>
+
+                <a asp-controller="News" asp-action="Info" asp-route-id="@news.Id" class="btn btn-primary center-block">Info</a>
+                <a asp-area="Administration" asp-controller="News" asp-action="Edit" asp-route-id="@news.Id" type="button" class="btn btn-primary center-block">Edit</a>
+                <a asp-area="Administration" asp-controller="News" asp-action="Remove" asp-route-id="@news.Id" type="button" class="btn btn-primary center-block">Remove</a>
+            </div>
+        </div>
+    }
+
+
+
+</div>

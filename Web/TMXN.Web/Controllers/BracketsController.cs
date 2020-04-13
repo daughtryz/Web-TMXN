@@ -31,23 +31,6 @@ namespace TMXN.Web.Controllers
             };
             return this.View(viewModel);
         }
-        //public IActionResult Create()
-        //{
-        //    var viewModel = new BracketDropdownViewModel
-        //    {
-        //        Tournaments = this.tournamentsService.All<TournamentDropdownViewModel>(),
-        //        Teams =  this.teamsService.GetAll<TeamDropDownViewModel>(),
-
-        //    };
-        //    return this.View(viewModel);
-           
-        //}
-
-        //[HttpPost]
-        //public async Task<IActionResult> Create(int tournamentId,string teamId)
-        //{
-        //    await this.bracketsService.CreateAsync(tournamentId, teamId);
-        //    return this.RedirectToAction(nameof(All));
-        //}
+       
     }
 }

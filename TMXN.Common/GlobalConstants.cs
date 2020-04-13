@@ -10,6 +10,11 @@
 
         public const int PointsIncrease = 3;
 
+        public const string AdministratorUsername = "adminmit@abv.bg";
+
+        public const string AdministratorEmail = "adminmit@abv.bg";
+
+        public const string AdministratorPassword = "miteto35";
 
         public const int PointsDecrease = 1;
 

@@ -1,7 +1,7 @@
 ﻿@model TMXN.Data.Common.InputModels.Tournaments.TournamentsInputModel
 @using TMXN.Data.Common.InputModels.Enums
 
-<form asp-controller="Tournaments" asp-action="Generate" method="post">
+<form asp-area="Administration" asp-controller="Tournaments" asp-action="Generate" method="post">
     <div class="form-group">
         <label asp-for="Name">Tournament Name:</label>
         <input asp-for="Name" type="name" class="form-control" id="name">
