@@ -7,9 +7,9 @@
         @foreach (var team in this.Model.Teams)
         {
 
-            <ul class="list-group list-group-flush">
+            <ul class="list-group list-group-flush">                                                                                                                        
                 
-                <li class="list-group-item"><a asp-controller="Teams" asp-action="TeamInfo" asp-route-id="@team.Id"><img src="@team.Logo" alt="Responsive image" class="img-fluid" width="30">  @team.Name</a><br>@team.Points Points</li>
+                <li class="list-group-item"><a asp-controller="Teams" asp-action="TeamInfo" asp-route-id="@team.Id"><img src="@team.Logo" alt="Responsive image" class="img-fluid" width="30">  @team.Name</a><br><span class="badge badge-primary">@team.Points Points</span></li>
 
             </ul>
 
