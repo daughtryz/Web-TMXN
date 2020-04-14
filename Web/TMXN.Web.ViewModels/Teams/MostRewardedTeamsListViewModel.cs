@@ -1,0 +1,11 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace TMXN.Web.ViewModels.Teams
+{
+    public class MostRewardedTeamsListViewModel
+    {
+        public IEnumerable<MostRewardedTeamViewModel> Teams { get; set; }
+    }
+}

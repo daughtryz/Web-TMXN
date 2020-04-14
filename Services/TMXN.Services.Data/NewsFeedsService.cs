@@ -71,7 +71,7 @@ namespace TMXN.Services.Data
 
         public IEnumerable<TViewModel> GetAll<TViewModel>()
         {
-            return this.newsFeedRepository.All().To<TViewModel>().ToList();
+            return this.newsFeedRepository.All().OrderBy(x => x.Title).To<TViewModel>().ToList();
         }
 
         public async Task<TViewModel> GetNewsById<TViewModel>(string newsId)

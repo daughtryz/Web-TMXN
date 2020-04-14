@@ -76,7 +76,7 @@ namespace TMXN.Services.Data
 
         public IEnumerable<TViewModel> GetAll<TViewModel>()
         {
-            return  this.teamsRepository.All().To<TViewModel>().ToList();
+            return  this.teamsRepository.All().OrderByDescending(x => x.Points).To<TViewModel>().ToList();
         }
 
         public TViewModel GetInfo<TViewModel>(string teamId)

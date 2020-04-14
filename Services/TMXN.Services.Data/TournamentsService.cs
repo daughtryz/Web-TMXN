@@ -32,7 +32,7 @@ namespace TMXN.Services.Data
 
         public IEnumerable<TViewModel> All<TViewModel>()
         {
-            return this.tournamentRepository.All().To<TViewModel>().ToList();
+            return this.tournamentRepository.All().OrderByDescending(x => x.CreatedOn).To<TViewModel>().ToList();
         }
 
         public async Task EditAsync(string name, string organizer, TournamentGameType TournamentGameType, int tournamentId)

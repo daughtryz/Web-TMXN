@@ -9,7 +9,7 @@
 
         <ul class="list-group list-group-flush">
 
-            <li class="list-group-item"><a asp-controller="Tournaments" asp-action="Info" asp-route-id="@tournament.Id">  @tournament.Name</a></li>
+            <li class="list-group-item"><a asp-controller="Tournaments" asp-action="Info" asp-route-id="@tournament.Id">  @tournament.Name</a><br>Started on @tournament.CreatedOn.ToString("d")</li>
 
         </ul>
 
