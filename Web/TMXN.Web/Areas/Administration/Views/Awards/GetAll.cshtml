@@ -11,7 +11,7 @@
 @{var currentUser = await this.userManager.GetUserAsync(this.User); }
 
 <h1>@this.ViewData["Title"]</h1>
-<h4><button onclick="location.href='@Url.Action("Create", "Awards")'" type="button" class="btn btn-primary center-block">blbladminCREATE AWARD!</button></h4>
+<h4><button onclick="location.href='@Url.Action("Create", "Awards")'" type="button" class="btn btn-primary center-block">CREATE AWARD!</button></h4>
 
 
 <div class="row">
@@ -23,7 +23,7 @@
                 <th scope="col">Placing Type</th>
 
                 <th scope="col">##</th>
-
+                <th scope="col">##</th>
             </tr>
         </thead>
 
@@ -31,16 +31,16 @@
         <tbody>
             @foreach (var award in Model.Awards)
             {
-                <tr>
+            <tr>
 
-                    <td>@award.Name</td>
-                    <td>@award.PlacingType</td>
+                <td>@award.Name</td>
+                <td>@award.PlacingType</td>
 
 
+                <td><a asp-area="Administration" asp-controller="Awards" asp-action="Edit" asp-route-id="@award.Id" type="button" class="btn btn-primary">Edit</a></td>
+                <td><a asp-area="Administration" asp-controller="Awards" asp-action="Remove" asp-route-id="@award.Id" type="button" class="btn btn-primary">Remove</a></td>
 
-                    <td><a asp-area="Administration" asp-controller="Awards" asp-action="Remove" asp-route-id="@award.Id" type="button" class="btn btn-primary">Remove</a></td>
-
-                </tr>
+            </tr>
             }
         </tbody>
 

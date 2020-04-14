@@ -1,0 +1,22 @@
+﻿@model TMXN.Web.ViewModels.Awards.AwardEditViewModel
+
+@using TMXN.Data.Common.InputModels.Enums
+
+<form asp-area="Administration" asp-controller="Awards" asp-action="Edit" method="post">
+    <div class="form-group">
+        <label for="name">Award Name:</label>
+        <input asp-for="Name" type="name" class="form-control" id="name">
+        <span asp-validation-for="Name"></span>
+    </div>
+    <div>
+        <label asp-for="PlacingType">Place:</label>
+        <select asp-for="PlacingType" class="form-control" asp-items="@Html.GetEnumSelectList<PlacingType>()"></select>
+        <span asp-validation-for="PlacingType"></span>
+
+    </div>
+    <hr>
+    <div>
+        <button type="submit" class="btn btn-primary">Update!</button>
+    </div>
+
+</form>

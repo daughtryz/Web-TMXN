@@ -19,6 +19,24 @@ namespace TMXN.Web.Areas.Administration.Controllers
             this.awardsService = awardsService;
         }
 
+        
+       [HttpGet]
+        public IActionResult Edit(string id)
+        {
+            var viewModel = this.awardsService.GetById<AwardEditViewModel>(id);
+            return this.View(viewModel);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(AwardEditViewModel model)
+        {
+            await this.awardsService.EditAsync(model.Name, model.PlacingType, model.Id);
+
+            return this.RedirectToAction("GetAll", "Awards", new { area = "Administration" });
+        }
+
+
         [HttpGet("/Administration/Awards/GetAll")]
         public async Task<IActionResult> GetAll()
         {
@@ -45,7 +63,7 @@ namespace TMXN.Web.Areas.Administration.Controllers
                 throw new Exception("Invalid award input model!");
             }
             await this.awardsService.CreateAsync(input.Name, input.PlacingType);
-            //return this.RedirectToAction(nameof(All));
+           
             return this.RedirectToAction("GetAll", "Awards", new { area = "Administration" });
         }
 
@@ -53,7 +71,7 @@ namespace TMXN.Web.Areas.Administration.Controllers
         public async Task<IActionResult> Remove(string id)
         {
             await this.awardsService.RemoveAsync(id);
-            //return this.RedirectToAction(nameof(All));
+           
             return this.RedirectToAction("GetAll", "Awards", new { area = "Administration" });
         }
     }

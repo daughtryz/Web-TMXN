@@ -31,9 +31,32 @@ namespace TMXN.Services.Data
             await this.awardsRepository.SaveChangesAsync();
         }
 
+        public async Task EditAsync(string name, PlacingType placingType, string id)
+        {
+            var currentAward = this.awardsRepository.All().Where(x => x.Id == id).FirstOrDefault();
+            if (currentAward == null)
+            {
+                return;
+            }
+
+            currentAward.Name = name;
+            currentAward.PlacingType = placingType;
+          
+
+            this.awardsRepository.Update(currentAward);
+            await this.awardsRepository.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<TViewModel>> GetAll<TViewModel>()
         {
             return await this.awardsRepository.All().OrderBy(x => x.Name).To<TViewModel>().ToListAsync();
+        }
+
+
+        public TViewModel GetById<TViewModel>(string id)
+        {
+           return this.awardsRepository.All().Where(x => x.Id == id).To<TViewModel>().FirstOrDefault();
+
         }
 
         public async Task RemoveAsync(string id)

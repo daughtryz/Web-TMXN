@@ -43,7 +43,7 @@ namespace TMXN.Web.Areas.Administration.Controllers
             return this.View();
         }
         [HttpGet]
-        public async Task<IActionResult> Edit(string id)
+        public IActionResult Edit(string id)
         {
             var viewModel = this.teamsService.GetInfo<EditTeamsViewModel>(id);
             return this.View(viewModel);

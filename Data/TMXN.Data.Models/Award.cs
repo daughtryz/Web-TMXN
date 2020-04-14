@@ -17,7 +17,8 @@ namespace TMXN.Data.Models
         }
 
         [Required]
-       
+       [MinLength(2)]
+        [MaxLength(20)]
         public string Name { get; set; }
 
         [Required]

@@ -16,5 +16,9 @@ namespace TMXN.Services.Data
         public Task RemoveAsync(string id);
 
 
+        public Task EditAsync(string name, PlacingType placingType, string id);
+
+        public TViewModel GetById<TViewModel>(string id);
+
     }
 }

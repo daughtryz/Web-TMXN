@@ -1,47 +1,60 @@
 ﻿@model TMXN.Web.ViewModels.Brackets.BracketListViewModel
+@using TMXN.Data.Models
 
 <h2>Brackets</h2>
 
-@{var list = new List<string>(); }
+@{
+    var list = new List<string>();
+    Dictionary<string, List<Team>> data = new Dictionary<string, List<Team>>();
+}
+
+
+
+@foreach (var bracket in Model.Brackets)
+{
+    if (!data.ContainsKey(bracket.TournamentName))
+    {
+        var helper = new List<Team>();
+
+        helper.AddRange(bracket.Teams);
+        data.Add(bracket.TournamentName, helper);
+
+
+    }
+    else
+    {
+        data[bracket.TournamentName].AddRange(bracket.Teams);
+    }
+
+}
+
 <div class="row">
 
 
+    <div class="row">
+        @foreach (var kvp in data)
+        {
 
-    @foreach (var bracket in Model.Brackets)
-    {
+            <div class="row-sm-6">
+                <div class="card mr-3" style="width: 15rem;">
 
-        <div class="col-sm-6">
-            <div class="card" style="width: 16rem;">
-                @if (list.Any(x => x == bracket.TournamentName))
-                {
-                    @foreach (var team in bracket.Teams)
-                    {
-
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><img src="@team.Logo" alt="Responsive image" class="img-fluid" width="40"> @team.Name</li>
-
-                        </ul>
-                    }
-                }
-                else
-                {
                     <div class="card-header">
-                        Tournament: @bracket.TournamentName
+                        @kvp.Key
                     </div>
-                    @foreach (var team in bracket.Teams)
+                    @foreach (var team in kvp.Value.OrderByDescending(x => x.Points))
                     {
 
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><img src="@team.Logo" alt="Responsive image" class="img-fluid" width="40"> @team.Name</li>
+                            <li class="list-group-item"><img src="@team.Logo" alt="Responsive image" class="img-fluid" width="40"> @team.Name </li>
 
                         </ul>
                     }
-                }
 
+                </div>
             </div>
-        </div>
-        list.Add(bracket.TournamentName);
-    }
+
+        }
+    </div>
 
 
 </div>
