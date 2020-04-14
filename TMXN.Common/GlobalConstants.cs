@@ -18,7 +18,7 @@
 
         public const int PointsDecrease = 1;
 
-        public const int TeamsCountInViewComponent = 5;
+        public const int TeamsCountInViewComponent = 4;
 
         public const int TeamsAwardCountInViewComponent = 4;
 

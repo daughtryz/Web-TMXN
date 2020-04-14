@@ -10,8 +10,12 @@
 
 <h1>@this.ViewData["Title"]</h1>
 
-@{string userId = userManager.GetUserId(this.User);}
-@{var currUser = this.Model.Teams.Select(x => x.ApplicationUsers.Any(z => z.Id == userId)).FirstOrDefault(); }
+
+@{
+    string userId = userManager.GetUserId(this.User);
+    var currUser = this.Model.Teams.Select(x => x.ApplicationUsers.Any(z => z.Id == userId)).FirstOrDefault();
+    int maximumAllowedMembers = 5;
+    }
 
 
 
@@ -28,16 +32,34 @@
 
 
 
-            @if (team.ApplicationUsers.Any(x => x.Id == userId))
+
+            @if (team.ApplicationUsers.Count >= maximumAllowedMembers)
             {
-                <a asp-controller="Teams" asp-action="Leave" asp-route-id="@team.Id" type="button" class="btn btn-primary center-block">Leave!</a>
+                @if (team.ApplicationUsers.Any(x => x.Id == userId))
+                {
+                    <a asp-controller="Teams" asp-action="Leave" asp-route-id="@team.Id" type="button" class="btn btn-primary center-block">Leave!</a>
+                }
+                else
+                {
+                    <a asp-controller="Teams" asp-action="Join" asp-route-id="@team.Id" type="button" class="btn btn-primary center-block">Join us</a>
+                }
+                <a asp-controller="Teams" asp-action="TeamInfo" asp-route-id="@team.Id" type="button" class="btn btn-primary center-block">Info</a>
             }
             else
             {
-                <a asp-controller="Teams" asp-action="Join" asp-route-id="@team.Id" type="button" class="btn btn-primary center-block">Join us</a>
+                @if (team.ApplicationUsers.Any(x => x.Id == userId))
+                {
+                    <a asp-controller="Teams" asp-action="Leave" asp-route-id="@team.Id" type="button" class="btn btn-primary center-block">Leave!</a>
+                }
+                else
+                {
+                    <a asp-controller="Teams" asp-action="Join" asp-route-id="@team.Id" type="button" class="btn btn-primary center-block">Join us</a>
+                }
+
+                <a asp-controller="Teams" asp-action="TeamInfo" asp-route-id="@team.Id" type="button" class="btn btn-primary center-block">Info</a>
+                <br>
+                <div><a href="#">@team.ApplicationUsers.Count/@maximumAllowedMembers Players</a></div>
             }
-           
-            <a asp-controller="Teams" asp-action="TeamInfo" asp-route-id="@team.Id" type="button" class="btn btn-primary center-block">Info</a>
 
 
 

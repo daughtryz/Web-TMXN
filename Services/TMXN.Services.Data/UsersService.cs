@@ -22,7 +22,7 @@ namespace TMXN.Services.Data
         private readonly IDeletableEntityRepository<Team> teamRepository;
        
         private readonly IDeletableEntityRepository<UserFriendlist> friendlistRepository;
-
+        
         public UsersService(IDeletableEntityRepository<ApplicationUser> userRepository,UserManager<ApplicationUser> userManager,IRepository<UserFriend> userFriendRepo,IDeletableEntityRepository<Team> teamRepository,IDeletableEntityRepository<UserFriendlist> friendlistRepository)
         {
             this.userRepository = userRepository;
@@ -108,6 +108,7 @@ namespace TMXN.Services.Data
                 return;
             }
 
+            
             currentTeam.ApplicationUsers.Add(user);
 
             await this.teamRepository.SaveChangesAsync();
