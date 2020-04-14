@@ -12,7 +12,8 @@
 
         <h1 class="display-4">@GlobalConstants.NewsFeeds!</h1>
 
-        <div class="row-cols-sm-5">
+        <div class="card-columns">
+       
             <div class="list-group-horizontal-md d-inline-block" style="width: 220px; background-color: rgba(0,0,255,.1)">
 
                 <vc:tournament></vc:tournament>
@@ -24,10 +25,11 @@
 
                 <vc:team></vc:team>
 
-            </div>
+            
         </div>
+            </div>
         <hr>
-       
+
 
         <div class="row">
             @foreach (var news in this.Model.News)
@@ -38,7 +40,7 @@
                         <h5 class="card-title">@news.Title</h5>
 
                         <a asp-controller="News" asp-action="Info" asp-route-id="@news.Id" class="btn btn-primary center-block">Info</a>
-                        
+
                     </div>
                 </div>
             }
@@ -48,4 +50,4 @@
         </div>
 
 
-    
+
