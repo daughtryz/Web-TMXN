@@ -52,6 +52,8 @@ namespace TMXN.Services.Data
             await this.tournamentRepository.SaveChangesAsync();
         }
 
+        
+
         public async Task GenerateAsync(string name,string organizer, TournamentGameType tournamentType)
         {
 

@@ -12,7 +12,7 @@
 
 @foreach (var bracket in Model.Brackets)
 {
-    if (!data.ContainsKey(bracket.TournamentName))
+    if (!data.ContainsKey(bracket.TournamentName) && bracket.TournamentName != null)
     {
         var helper = new List<Team>();
 
@@ -37,18 +37,26 @@
 
             <div class="row-sm-6">
                 <div class="card mr-3" style="width: 15rem;">
-
-                    <div class="card-header">
-                        @kvp.Key
-                    </div>
-                    @foreach (var team in kvp.Value.OrderByDescending(x => x.Points))
+                    @if (kvp.Value.Count != 0)
                     {
+                        <div class="card-header">
+                            @kvp.Key
+                        </div>
 
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><img src="@team.Logo" alt="Responsive image" class="img-fluid" width="40"> @team.Name </li>
+                        @foreach (var team in kvp.Value.OrderByDescending(x => x.Points))
+                        {
+                            
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><img src="@team.Logo" alt="Responsive image" class="img-fluid" width="40"> @team.Name </li>
 
-                        </ul>
+                            </ul>
+
+
+                        }
+
                     }
+
+
 
                 </div>
             </div>

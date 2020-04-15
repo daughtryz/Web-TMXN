@@ -18,11 +18,13 @@ namespace TMXN.Data.Models
         public string Title { get; set; }
 
         [Required]
+        [MinLength(2)]
+        [MaxLength(350)]
         public string Content { get; set; }
         [Required]
         public string ImageUrl { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateTime CreatedOn { get; set; }
 
 
         public bool IsDeleted { get; set; }

@@ -44,6 +44,13 @@ namespace TMXN.Web.Areas.Administration.Controllers
 
         }
 
+        
+        public async Task<IActionResult> Eliminate(string id)
+        {
+            await this.bracketsService.EliminateAsync(id);
+            return this.RedirectToAction("All", "Brackets", new { area = "Administration" });
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create(int tournamentId, string teamId)
         {

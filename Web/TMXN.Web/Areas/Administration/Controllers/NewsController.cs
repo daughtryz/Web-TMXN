@@ -28,6 +28,10 @@ namespace TMXN.Web.Areas.Administration.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(NewsInputModel newsCreateInputModel)
         {
+            if(!this.ModelState.IsValid)
+            {
+                return this.View(newsCreateInputModel);
+            }
             await this.newsService.CreateNewsAsync(newsCreateInputModel.Title, newsCreateInputModel.Content, newsCreateInputModel.Image);
 
             return this.RedirectToAction(nameof(this.Success));

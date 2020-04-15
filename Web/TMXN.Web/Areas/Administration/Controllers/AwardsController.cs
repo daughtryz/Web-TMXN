@@ -60,7 +60,7 @@ namespace TMXN.Web.Areas.Administration.Controllers
         {
             if (!this.ModelState.IsValid)
             {
-                throw new Exception("Invalid award input model!");
+                return this.View(input);
             }
             await this.awardsService.CreateAsync(input.Name, input.PlacingType);
            

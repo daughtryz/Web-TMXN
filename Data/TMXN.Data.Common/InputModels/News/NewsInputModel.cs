@@ -9,13 +9,16 @@ namespace TMXN.Data.Common.InputModels.News
     public class NewsInputModel
     {
 
-      
-        [Required]
-        public string Title { get; set; }
-       
-        [Required]
-        public string Content { get; set; }
 
+        [Required]
+        [MaxLength(50)]
+        public string Title { get; set; }
+
+        [Required]
+        [MinLength(2)]
+        [MaxLength(350)]
+        public string Content { get; set; }
+        
         [Required]
         [DataType(DataType.Upload)]
 

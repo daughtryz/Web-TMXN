@@ -22,10 +22,12 @@
        
 
         [Required]
+        [MinLength(3)]
         [MaxLength(20)]
         public string Name { get; set; }
 
         [Required]
+        
         public string Logo { get; set; }
         [Required]
         [MaxLength(6)]
