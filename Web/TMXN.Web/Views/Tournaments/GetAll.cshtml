@@ -10,7 +10,7 @@
 
 @{var currentUser = await this.userManager.GetUserAsync(this.User); }
 
-<h1>@this.ViewData["Title"]</h1>
+<h1 class="display-4"><span class="badge badge-success">@this.ViewData["Title"]</span></h1>
 
 
 @if (currentUser.TeamId == null)
@@ -28,7 +28,7 @@ else
                     <th scope="col">Organizer</th>
                     <th scope="col">Enroll</th>
                     <th scope="col">##</th>
-                    
+
                 </tr>
             </thead>
 
@@ -58,7 +58,7 @@ else
 
 
                         <td><a asp-controller="Tournaments" asp-action="Info" asp-route-id="@tournament.Id" type="button" class="btn btn-primary">Info</a></td>
-                        
+
                     </tr>
 
                 </tbody>

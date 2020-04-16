@@ -8,6 +8,14 @@
 
         public const string NewsFeeds = "NewsFeed";
 
+        public const string Brackets = "Brackets";
+
+        public const string Teams = "Teams";
+
+        public const string Tournaments = "Available tournaments";
+
+        public const string Awards = "Awards";
+
         public const int PointsIncrease = 3;
 
         public const string AdministratorUsername = "adminmit@abv.bg";

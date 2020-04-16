@@ -1,18 +1,19 @@
 ﻿@model TMXN.Web.ViewModels.Brackets.BracketListViewModel
 @using TMXN.Data.Models
+@using TMXN.Common
 
-<h2>Brackets</h2>
+<h1 class="display-4"><span class="badge badge-info">@GlobalConstants.Brackets</span></h1>
 
 @{
     var list = new List<string>();
     Dictionary<string, List<Team>> data = new Dictionary<string, List<Team>>();
-   }
+}
 
 
 
-@foreach(var bracket in Model.Brackets)
+@foreach (var bracket in Model.Brackets)
 {
-    if(!data.ContainsKey(bracket.TournamentName) && bracket.TournamentName != null)
+    if (!data.ContainsKey(bracket.TournamentName) && bracket.TournamentName != null)
     {
         var helper = new List<Team>();
 
@@ -20,7 +21,8 @@
         data.Add(bracket.TournamentName, helper);
 
 
-    } else
+    }
+    else
     {
         data[bracket.TournamentName].AddRange(bracket.Teams);
     }
@@ -31,41 +33,41 @@
 
 
     <div class="row">
-    @foreach (var kvp in data)
-    {
+        @foreach (var kvp in data)
+        {
 
-        <div class="row-sm-6">
-            <div class="card mr-3" style="width: 15rem;">
-                @if (kvp.Value.Count != 0)
-                {
-                    <div class="card-header">
-                        @kvp.Key
-                    </div>
-
-                    @foreach (var team in kvp.Value.OrderByDescending(x => x.Points))
+            <div class="row-sm-6">
+                <div class="card mr-3" style="width: 15rem;">
+                    @if (kvp.Value.Count != 0)
                     {
+                        <div class="card-header">
+                            @kvp.Key
+                        </div>
 
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><img src="@team.Logo" alt="Responsive image" class="img-fluid" width="40"> @team.Name</li>
+                        @foreach (var team in kvp.Value.OrderByDescending(x => x.Points))
+                        {
 
-                        </ul>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><img src="@team.Logo" alt="Responsive image" class="img-fluid" width="40"> @team.Name</li>
 
+                            </ul>
+
+
+                        }
 
                     }
-
-                }
 
 
 
                 </div>
             </div>
-       
-    }
-        </div>
-           
 
+        }
     </div>
-  
+
+
+</div>
+
 
 
 

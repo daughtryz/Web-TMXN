@@ -5,12 +5,12 @@
 
 @inject UserManager<ApplicationUser> userManager
 @{
-    this.ViewData["Title"] = "Available Awards";
+    this.ViewData["Title"] = "Awards";
 }
 
 @{var currentUser = await this.userManager.GetUserAsync(this.User); }
+    <h1 class="display-4"><span class="badge badge-info">@this.ViewData["Title"]</span></h1>
 
-<h1>@this.ViewData["Title"]</h1>
 
 <div class="row">
     <table class="table">
@@ -19,8 +19,7 @@
                 <th scope="col">Award Name</th>
                 <th scope="col">Placing Type</th>
 
-                
-                
+                            
             </tr>
         </thead>
 
