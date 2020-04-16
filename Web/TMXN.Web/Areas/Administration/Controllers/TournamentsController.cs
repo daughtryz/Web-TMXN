@@ -86,12 +86,7 @@ namespace TMXN.Web.Areas.Administration.Controllers
         }
 
 
-        public IActionResult Info(int id)
-        {
-            var viewModel = this.tournamentsService.Info<TournamentInfoViewModel>(id);
-
-            return this.View(viewModel);
-        }
+        
 
         public IActionResult Success()
         {

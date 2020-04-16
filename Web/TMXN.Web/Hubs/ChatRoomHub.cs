@@ -10,7 +10,7 @@ using TMXN.Services.Data.Contracts;
 
 namespace TMXN.Web.Hubs
 {
-   
+    [Authorize]
     public class ChatRoomHub : Hub
     {
         
@@ -21,7 +21,7 @@ namespace TMXN.Web.Hubs
             
             this.messageService = messageService;
         }
-        [Authorize]
+       
         public async Task Send(string message)
         {
             

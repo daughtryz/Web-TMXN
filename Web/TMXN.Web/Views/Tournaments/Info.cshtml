@@ -5,20 +5,56 @@
 
 
 
-<div class="modal-body">
-    @if (Model.TeamId != null)
-    {
-    <p>You are already in this tournament click this <a asp-controller="Tournaments" asp-action="Out" asp-route-id="@Model.Id" role="button" class="btn btn-primary">Button</a> to leave the tournament!</p>
-    }
-   
+    <div class="modal-body">
+        @if (Model.TeamId != null)
+        {
+            <p>You are already in this tournament click this <a asp-controller="Tournaments" asp-action="Out" asp-route-id="@Model.Id" role="button" class="btn btn-primary">Button</a> to leave the tournament!</p>
+        }
 
-    <hr>
-    <h5>Information!</h5>
-    <p>Tournament Name: @Model.Name</p>
-    <p>Tournament Game: @Model.TournamentGameType</p>
-    <p>Tournament Organizer: @Model.Organizer</p>
-    <p>Started On: @Model.CreatedOn.ToString("d")</p>
-</div>
+
+        <hr>
+
+       
+
+        <div class="jumbotron">
+            <div class="badge badge-primary text-wrap" style="width: 18rem;">
+                <h1 class="display-4">Information</h1>
+            </div>
+            <p class="lead"><p>Tournament Name: @Model.Name</p>
+
+            <p>Tournament Game: @Model.TournamentGameType</p>
+
+            <p>Tournament Organizer: @Model.Organizer</p>
+            <p><img class="card-img-top" src="https://www.clockart.com.au/wp-content/uploads/2016/12/gaming-clock-black.jpg" alt="Card image cap" style="width: 5rem;">Started On: @Model.CreatedOn.ToString("d")</p>
+            <hr class="my-4">
+            <p>
+                <img class="card-img-top" src="https://www.merseyvolley.co.uk/MVL/wp-content/uploads/2017/04/icon_tournament.png" alt="Card image cap" style="width: 15rem;">
+                @if (@Model.TournamentGameType.ToString() == "CounterStrike")
+                {
+                    <img class="card-img-top" src="https://cdn.ozone.bg/media/catalog/product/cache/1/image/a4e40ebdc3e371adff845072e1c73f37/c/s/6846c2938b4b77670f34f7b276b255ee/cs-go-prime-status-upgrade-pc-30.jpg" alt="Card image cap" style="width: 15rem;">
+                    <img class="card-img-top" src="https://siliconangle.com/files/2012/03/valve-logo.png" alt="Card image cap" style="width: 15rem;">
+                }
+                else if (@Model.TournamentGameType.ToString() == "LeagueOfLegends")
+                {
+                    <img class="card-img-top" src="https://www.riotgames.com/darkroom/800/da85e92aaf87f26181ded41afe03b1dc:aaeeccb4b282b616ef907ec68c40f2b7/lol-logo-rendered-hi-res.png" alt="Card image cap" style="width: 15rem;">
+                    <img class="card-img-top" src="https://i0.wp.com/www.kaldata.com/wp-content/uploads/2020/02/riot-games-lawsuit.jpg?fit=1920%2C1080&ssl=1" alt="Card image cap" style="width: 15rem;">
+                }
+                else if (@Model.TournamentGameType.ToString() == "PUBG")
+                {
+                    <img class="card-img-top" src="https://image.freepik.com/free-vector/sniper-mascot-logo-esport-gaming_92675-385.jpg" alt="Card image cap" style="width: 15rem;">
+                    <img class="card-img-top" src="https://mir-s3-cdn-cf.behance.net/projects/404/13219988237661.Y3JvcCw2NTUsNTEyLDM3MiwxMzc.png" alt="Card image cap" style="width: 15rem;">
+                }
+                else if (@Model.TournamentGameType.ToString() == "Fortnite")
+                {
+                    <img class="card-img-top" src="https://www.kindpng.com/picc/m/392-3928213_fortnite-logo-vector-fortnite-logo-transparent-hd-png.png" alt="Card image cap" style="width: 15rem;">
+                    <img class="card-img-top" src="https://dcassetcdn.com/design_img/3526467/637978/637978_19325972_3526467_83e7e609_image.jpg" alt="Card image cap" style="width: 15rem;">
+                }
+            </p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" asp-controller="Brackets" asp-action="All" role="button">See our bracket</a>
+            </p>
+        </di>
+    </div>
 
 
 
