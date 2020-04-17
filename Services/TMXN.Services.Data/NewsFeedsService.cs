@@ -69,9 +69,22 @@ namespace TMXN.Services.Data
             await this.newsFeedRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<TViewModel> GetAll<TViewModel>()
+        private IEnumerable<TViewModel> GetAllNewsAscendingByTitle<TViewModel>()
         {
             return this.newsFeedRepository.All().OrderBy(x => x.Title).To<TViewModel>().ToList();
+        }
+
+        private IEnumerable<TViewModel> GetAllNewsDescendingByDate<TViewModel>()
+        {
+            return this.newsFeedRepository.All().OrderByDescending(x => x.CreatedOn).To<TViewModel>().ToList();
+        }
+        public IEnumerable<TViewModel> GetAll<TViewModel>(string criteria = null)
+        {
+            if(criteria == "news-ordered-by-date-descending")
+            {
+                return this.GetAllNewsDescendingByDate<TViewModel>();
+            }
+            return this.GetAllNewsAscendingByTitle<TViewModel>();
         }
 
         public async Task<TViewModel> GetNewsById<TViewModel>(string newsId)

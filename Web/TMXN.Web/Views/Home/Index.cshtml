@@ -8,73 +8,89 @@
 
 @{ int counter = 0;}
 
-    <div class="text-center">
+<div class="text-center">
 
-        <h1 class="display-4"><span class="badge badge-info">@GlobalConstants.NewsFeeds</span></h1>
+    <h1 class="display-4"><span class="badge badge-info">@GlobalConstants.NewsFeeds</span></h1>
 
-        <div class="card-columns">
+    <div class="card-columns">
 
-            <div class="list-group-horizontal-md d-inline-block" style="width: 220px; background-color: rgba(0,0,255,.1)">
+        <div class="list-group-horizontal-md d-inline-block" style="width: 220px; background-color: rgba(0,0,255,.1)">
 
-                <vc:tournament></vc:tournament>
-                <br>
-                <div><a class="nav-link text-dark" asp-area="" asp-controller="Tournaments" asp-action="GetAll">Get involved in!</a></div>
-            </div>
-
-
-            <div class="list-group-horizontal-md d-md-block" style="width: 220px; background-color: rgba(0,0,255,.1)">
-
-                <vc:team></vc:team>
-                <br>
-                <div><a class="nav-link text-dark" asp-area="" asp-controller="Teams" asp-action="Ranklist">See our ranklist!</a></div>
-
-            </div>
-
-            <div class="list-group-horizontal-md d-md-block" style="width: 220px; background-color: rgba(0,0,255,.1)">
-
-                <vc:award></vc:award>
-                <br>
-                <div><a class="nav-link text-dark" asp-area="" asp-controller="Teams" asp-action="ShowAll">Get to know our teams!</a></div>
-
-            </div>
+            <vc:tournament></vc:tournament>
+            <br>
+            <div><a class="nav-link text-dark" asp-area="" asp-controller="Tournaments" asp-action="GetAll">Get involved in!</a></div>
         </div>
-        <hr style="height: 5px;" class="bg-info" />
-
-        <div class="row">
-            <div class="dropdown show">
-                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="#dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Order news by
-                </a>
-
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="#">Date</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            @foreach (var news in this.Model.News)
-            {
-                <div class="card mr-4" style="width: 18rem;">
-                    <img class="card-img-top" src="@news.ImageUrl" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">@news.Title</h5>
-
-                        <a asp-controller="News" asp-action="Info" asp-route-id="@news.Id" class="btn btn-primary center-block">Info</a>
-
-                    </div>
-                </div>
-            }
 
 
+        <div class="list-group-horizontal-md d-md-block" style="width: 220px; background-color: rgba(0,0,255,.1)">
+
+            <vc:team></vc:team>
+            <br>
+            <div><a class="nav-link text-dark" asp-area="" asp-controller="Teams" asp-action="Ranklist">See our ranklist!</a></div>
 
         </div>
 
-        @*//carousel*@
+        <div class="list-group-horizontal-md d-md-block" style="width: 220px; background-color: rgba(0,0,255,.1)">
+
+            <vc:award></vc:award>
+            <br>
+            <div><a class="nav-link text-dark" asp-area="" asp-controller="Teams" asp-action="ShowAll">Get to know our teams!</a></div>
+
+        </div>
+    </div>
+    <hr style="height: 5px;" class="bg-info" />
 
 
 
-        <script>
-            $('.dropdown-toggle').dropdown()
-        </script>
+
+
+</div>
+<div class="d-flex justify-content-between">
+    <div id="sort-holder" class="form-group w-40 d-flex justify-content-between">
+
+        <label for="sort" class="text-primary font-weight-bold w-30 h4 mt-1 text-right">Order news by</label>
+        <form id="order-form" action="/" method="get">
+
+            <select id="sort" class="form-control text-primary pl-2 ml-3 w-30" name="criteria">
+                <option value="none" selected>None</option>
+                <option value="news-ordered-by-title-ascending">Title</option>
+                <option value="news-ordered-by-date-descending">Date (Latest)</option>
+
+            </select>
+
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    @foreach (var news in this.Model.News)
+    {
+        <div class="card mr-4" style="width: 18rem;">
+            <img class="card-img-top" src="@news.ImageUrl" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">@news.Title</h5>
+
+                <a asp-controller="News" asp-action="Info" asp-route-id="@news.Id" class="btn btn-primary center-block">Info</a>
+
+            </div>
+        </div>
+    }
+
+
+
+</div>
+
+
+
+
+@section Scripts
+{
+    <script>
+
+        $('#sort').change(function () {
+            $('#order-form').submit();
+        });
+
+
+    </script>
+}

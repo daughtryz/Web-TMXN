@@ -17,12 +17,15 @@
         {
             this.newsFeedsService = newsFeedsService;
         }
-        public IActionResult Index()
+
+        
+        public IActionResult Index([FromQuery]string criteria = null)
         {
             var viewModel = new NewsFeedsListViewModel();
-            var all = this.newsFeedsService.GetAll<NewsViewModel>();
+            var all = this.newsFeedsService.GetAll<NewsViewModel>(criteria);
             viewModel.News = all;
 
+            
 
             return this.View(viewModel);
         }
