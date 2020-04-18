@@ -15,16 +15,19 @@ namespace TMXN.Services.Data
 {
     public class TournamentsService : ITournamentsService
     {
-        private readonly IDeletableEntityRepository<ApplicationUser> userRepo;
-        private readonly IRepository<TournamentTeam> tournamentsTeamsRepo;
-        private readonly IDeletableEntityRepository<Tournament> tournamentRepository;
-        private readonly IDeletableEntityRepository<Team> teamRepository;
-        private readonly IDeletableEntityRepository<Bracket> bracketRepository;
         private const string LeagueOfLegends = "LeagueOfLegends";
         private const string PUBG = "PUBG";
         private const string Fortnite = "Fortnite";
         private const string CounterStrike = "CounterStrike";
         private const string GameTypeError = "No tournaments with this gametype";
+
+
+        private readonly IDeletableEntityRepository<ApplicationUser> userRepo;
+        private readonly IRepository<TournamentTeam> tournamentsTeamsRepo;
+        private readonly IDeletableEntityRepository<Tournament> tournamentRepository;
+        private readonly IDeletableEntityRepository<Team> teamRepository;
+        private readonly IDeletableEntityRepository<Bracket> bracketRepository;
+        
         
         public TournamentsService(IDeletableEntityRepository<ApplicationUser> userRepo,IRepository<TournamentTeam> tournamentsTeamsRepo,IDeletableEntityRepository<Tournament> tournamentRepository,IDeletableEntityRepository<Team> teamRepository,IDeletableEntityRepository<Bracket> bracketRepository)
         {

@@ -2,35 +2,70 @@
 
 @{ int counter = 1;}
 
-    
-    <table class="table table-hover table-light">
-        <thead class="table-dark">
-            <tr>
-                <th scope="col">Rank</th>
-                <th scope="col">Logo</th>
-                <th scope="col">Team</th>
-                <th scope="col">Points</th>
-              
+<div>
+    <div id="teams-search-holder" class="form-group d-flex justify-content-between w-50">
+        <input type="text" class="form-control text-primary" id="teams-search" name="search" placeholder="Search..">
+
+    </div>
+</div>
+
+
+<hr style="height: 5px;" class="bg-info" />
+
+<table class="table table-hover table-light">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">Rank</th>
+            <th scope="col">Logo</th>
+            <th scope="col">Team</th>
+            <th scope="col">Points</th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        
+        @foreach (var team in Model.Teams)
+        {
+            
+            <tr class="team">
                 
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var team in Model.Teams)
-            {
-            <tr>
                 <th scope="row">@counter</th>
 
                 <td><img class="mr-3" src="@team.Logo" width="60" alt="Generic placeholder image"></td>
                 <td>@team.Name</td>
                 <td>@team.Points</td>
-                
-                
+               
+
             </tr>
-                counter++;
+            counter++;
+        }
+
+           
+    </tbody>
+</table>
+
+@section Scripts
+{
+    <script>
+
+        $('#teams-search').on("change paste keyup", function () {
+            $('.team').show();
+
+            let searchValue = $('#teams-search').val();
+
+            for (let elem of $('.team')) {
+                let teamName = $($(elem).children()[2]).text(); 
+
+                if (!teamName.includes(searchValue)) {
+                    $(elem).hide();
+                }
+
             }
 
+        })
 
-        </tbody>
-    </table>
-    
+
+    </script>
+}
 
