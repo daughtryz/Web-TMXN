@@ -15,7 +15,10 @@ namespace TMXN.Web.ViewModels.News
 
         public string Content { get; set; }
 
+        public DateTime CreatedOn { get; set; }
         public string SanitizedContent => new HtmlSanitizer().Sanitize(this.Content);
         public string ImageUrl { get; set; }
+
+
     }
 }

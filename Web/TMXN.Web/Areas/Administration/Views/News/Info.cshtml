@@ -4,14 +4,23 @@
     this.ViewData["Title"] = "Details";
 }
 
-<h1>@this.ViewData["Title"]</h1>
 
 
-<div class="media m-4">
-    <img class="mr-3" src="@Model.ImageUrl" width="500" alt="Generic placeholder image">
-    <div class="media-body">
-        <h5 class="mt-0">@Model.Title</h5>
-        @Html.Raw(@Model.SanitizedContent)
+
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <div class="badge badge-primary text-wrap" style="width: 18rem;">
+            <h1 class="display-4 text-center">@this.ViewData["Title"]</h1>
+        </div>
+        <h1 class="display-4 text-center">Title: @Model.Title</h1>
+        <hr style="height: 5px;" class="bg-info" />
+        <div class="text-center">
+            <img class="mr-3 rounded" src="@Model.ImageUrl" width="300" alt="Generic placeholder image">
+        </div>
+        <hr style="height: 5px;" class="bg-info" />
+        <p class="lead text-center">@Html.Raw(@Model.SanitizedContent)</p>
+        <hr>
+        <div><img class="mr-3 rounded" src="https://cdn4.vectorstock.com/i/1000x1000/92/83/time-glyph-icon-clock-and-minute-hour-sign-vector-21459283.jpg" width="50" alt="Generic placeholder image"> Created On: @Model.CreatedOn.ToString("d")</div>
     </div>
-
 </div>

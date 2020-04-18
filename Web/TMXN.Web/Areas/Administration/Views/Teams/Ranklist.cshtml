@@ -2,6 +2,17 @@
 
 @{ int counter = 1;}
 
+<div>
+    <div id="teams-search-holder" class="form-group d-flex justify-content-between w-50">
+        <input type="text" class="form-control text-primary" id="teams-search" name="search" placeholder="Search..">
+
+    </div>
+</div>
+
+
+<hr style="height: 5px;" class="bg-info" />
+
+
 <h1><a asp-area="Administration" asp-controller="Teams" asp-action="SendAward" type="button" class="btn btn-primary center-block btn-sm">REWARD A TEAM!</a></h1>
 <table class="table table-hover table-light">
     <thead class="table-dark">
@@ -18,7 +29,7 @@
     <tbody>
         @foreach (var team in Model.Teams)
         {
-            <tr>
+            <tr class="team">
                 <th scope="row">@counter</th>
 
                 <td><img class="mr-3" src="@team.Logo" width="60" alt="Generic placeholder image"></td>
@@ -36,3 +47,26 @@
 </table>
 
 
+@section Scripts
+{
+    <script>
+
+        $('#teams-search').on("change paste keyup", function () {
+            $('.team').show();
+
+            let searchValue = $('#teams-search').val();
+
+            for (let elem of $('.team')) {
+                let teamName = $($(elem).children()[2]).text();
+
+                if (!teamName.includes(searchValue)) {
+                    $(elem).hide();
+                }
+
+            }
+
+        })
+
+
+    </script>
+}
