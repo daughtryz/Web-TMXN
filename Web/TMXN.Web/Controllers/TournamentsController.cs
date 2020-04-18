@@ -25,11 +25,11 @@ namespace TMXN.Web.Controllers
             this.userManager = userManager;
         }
        
-        public IActionResult GetAll()
+        public IActionResult GetAll(string gametype = null)
         {
             var viewModel = new TournamentsListViewModel
             {
-                Tournaments = this.tournamentsService.All<TournamentsViewModel>(),
+                Tournaments = this.tournamentsService.All<TournamentsViewModel>(gametype),
             };
 
             return this.View(viewModel);

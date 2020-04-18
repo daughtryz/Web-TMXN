@@ -10,7 +10,7 @@ namespace TMXN.Services.Data
     {
         public Task GenerateAsync(string name, string organizer,TournamentGameType tournamentType);
 
-       public IEnumerable<TViewModel> All<TViewModel>();
+       public IEnumerable<TViewModel> All<TViewModel>(string gametype = null);
 
         public Task ParticipateAsync(string userId, int tournamentId);
 

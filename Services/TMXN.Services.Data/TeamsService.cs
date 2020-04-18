@@ -77,27 +77,27 @@ namespace TMXN.Services.Data
 
         }
 
-        public IEnumerable<TViewModel> GetTeamsOrderedByNameAscending<TViewModel>(string criteria = null)
+        public IEnumerable<TViewModel> GetTeamsOrderedByNameAscending<TViewModel>()
         {
             return this.teamsRepository.All().OrderBy(x => x.Name).To<TViewModel>().ToList();
         }
 
-        public IEnumerable<TViewModel> GetTeamsOrderedByPointsDescending<TViewModel>(string criteria = null)
+        public IEnumerable<TViewModel> GetTeamsOrderedByPointsDescending<TViewModel>()
         {
             return this.teamsRepository.All().OrderByDescending(x => x.Points).To<TViewModel>().ToList();
         }
 
-        public IEnumerable<TViewModel> GetTeamsOrderedByDateDescending<TViewModel>(string criteria = null)
+        public IEnumerable<TViewModel> GetTeamsOrderedByDateDescending<TViewModel>()
         {
             return this.teamsRepository.All().OrderByDescending(x => x.CreatedOn).To<TViewModel>().ToList();
         }
 
-        public IEnumerable<TViewModel> GetTeamsOrderedByDateAscending<TViewModel>(string criteria = null)
+        public IEnumerable<TViewModel> GetTeamsOrderedByDateAscending<TViewModel>()
         {
             return this.teamsRepository.All().OrderBy(x => x.CreatedOn).To<TViewModel>().ToList();
         }
 
-        public IEnumerable<TViewModel> GetTeamsOrderedByAwardsDescending<TViewModel>(string criteria = null)
+        public IEnumerable<TViewModel> GetTeamsOrderedByAwardsDescending<TViewModel>()
         {
             return this.teamsRepository.All().OrderByDescending(x => x.Awards.Count).To<TViewModel>().ToList();
         }

@@ -20,7 +20,12 @@ namespace TMXN.Services.Data
         private readonly IDeletableEntityRepository<Tournament> tournamentRepository;
         private readonly IDeletableEntityRepository<Team> teamRepository;
         private readonly IDeletableEntityRepository<Bracket> bracketRepository;
-
+        private const string LeagueOfLegends = "LeagueOfLegends";
+        private const string PUBG = "PUBG";
+        private const string Fortnite = "Fortnite";
+        private const string CounterStrike = "CounterStrike";
+        private const string GameTypeError = "No tournaments with this gametype";
+        
         public TournamentsService(IDeletableEntityRepository<ApplicationUser> userRepo,IRepository<TournamentTeam> tournamentsTeamsRepo,IDeletableEntityRepository<Tournament> tournamentRepository,IDeletableEntityRepository<Team> teamRepository,IDeletableEntityRepository<Bracket> bracketRepository)
         {
             this.userRepo = userRepo;
@@ -29,9 +34,75 @@ namespace TMXN.Services.Data
             this.teamRepository = teamRepository;
             this.bracketRepository = bracketRepository;
         }
-
-        public IEnumerable<TViewModel> All<TViewModel>()
+        
+        private IEnumerable<TViewModel> GetAllLeagueOfLegendsTournaments<TViewModel>()
         {
+            var tournaments = this.tournamentRepository.All().Where(x => (int)x.TournamentGameType == 1).To<TViewModel>().ToList();
+
+            if(tournaments.Count == 0)
+            {
+                throw new Exception(GameTypeError);
+            }
+
+
+            return tournaments;
+        }
+
+        private IEnumerable<TViewModel> GetAllCounterStrikeTournaments<TViewModel>()
+        {
+            var tournaments = this.tournamentRepository.All().Where(x => (int)x.TournamentGameType == 0).To<TViewModel>().ToList();
+            if (tournaments.Count == 0)
+            {
+                throw new Exception(GameTypeError);
+            }
+
+
+            return tournaments;
+        }
+
+        private IEnumerable<TViewModel> GetAllPUBGTournaments<TViewModel>()
+        {
+            var tournaments = this.tournamentRepository.All().Where(x => (int)x.TournamentGameType == 2).To<TViewModel>().ToList();
+
+            if (tournaments.Count == 0)
+            {
+                throw new Exception(GameTypeError);
+            }
+
+
+            return tournaments;
+        }
+        private IEnumerable<TViewModel> GetAllFortniteTournaments<TViewModel>()
+        {
+            var tournaments = this.tournamentRepository.All().Where(x => (int)x.TournamentGameType == 3).To<TViewModel>().ToList();
+
+            if (tournaments.Count == 0)
+            {
+                throw new Exception(GameTypeError);
+            }
+
+
+            return tournaments;
+        }
+        
+        public IEnumerable<TViewModel> All<TViewModel>(string gametype = null)
+        {
+            if(gametype == LeagueOfLegends)
+            {
+
+                return this.GetAllLeagueOfLegendsTournaments<TViewModel>();
+            } else if(gametype == PUBG)
+            {
+                return this.GetAllPUBGTournaments<TViewModel>();
+            }
+            else if (gametype == Fortnite)
+            {
+                return this.GetAllFortniteTournaments<TViewModel>();
+            }
+            else if (gametype == CounterStrike)
+            {
+                return this.GetAllCounterStrikeTournaments<TViewModel>();
+            } 
             return this.tournamentRepository.All().OrderByDescending(x => x.CreatedOn).To<TViewModel>().ToList();
         }
 
