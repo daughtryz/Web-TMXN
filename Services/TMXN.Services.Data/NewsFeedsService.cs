@@ -17,7 +17,7 @@ namespace TMXN.Services.Data
     {
         private readonly IDeletableEntityRepository<NewsFeed> newsFeedRepository;
         private readonly ICloudinaryService cloudinaryService;
-
+        private const string NewsOrderedByDateDescending = "news-ordered-by-date-descending";
         public NewsFeedsService(IDeletableEntityRepository<NewsFeed> newsFeedRepository,ICloudinaryService cloudinaryService)
         {
             this.newsFeedRepository = newsFeedRepository;
@@ -80,7 +80,7 @@ namespace TMXN.Services.Data
         }
         public IEnumerable<TViewModel> GetAll<TViewModel>(string criteria = null)
         {
-            if(criteria == "news-ordered-by-date-descending")
+            if(criteria == NewsOrderedByDateDescending)
             {
                 return this.GetAllNewsDescendingByDate<TViewModel>();
             }

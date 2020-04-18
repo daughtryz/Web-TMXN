@@ -32,10 +32,10 @@ namespace TMXN.Web.Controllers
             this.awardsService = awardsService;
         }
       
-        public  IActionResult ShowAll()
+        public  IActionResult ShowAll(string criteria = null)
         {
             var viewModel = new TeamsListViewModel();
-            var all = this.teamsService.GetAll<TeamViewModel>();
+            var all = this.teamsService.GetAll<TeamViewModel>(criteria);
             viewModel.Teams = all;
             return this.View(viewModel);
         }

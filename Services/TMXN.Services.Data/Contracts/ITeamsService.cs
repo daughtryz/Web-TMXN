@@ -10,7 +10,7 @@ namespace TMXN.Services.Data
     public interface ITeamsService
     {
 
-        public IEnumerable<TViewModel> GetAll<TViewModel>();
+        public IEnumerable<TViewModel> GetAll<TViewModel>(string criteria = null);
 
         public Task AddAsync(string name, IFormFile logo, string tag,ApplicationUser user);
 

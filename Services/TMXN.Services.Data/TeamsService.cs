@@ -19,9 +19,12 @@ namespace TMXN.Services.Data
         private readonly IDeletableEntityRepository<Team> teamsRepository;
         private readonly IDeletableEntityRepository<Award> awardsRepository;
         private readonly ICloudinaryService cloudinaryService;
-       
-   
 
+        private const string TeamsOrderedByDateAscending = "teams-ordered-by-date-ascending";
+        private const string TeamsOrderedByDateDescending = "teams-ordered-by-date-descending";
+        private const string TeamsOrderedByPointsDescending = "teams-ordered-by-points-descending";
+        private const string TeamsOrderedByAwardsDescending = "teams-ordered-by-awards-descending";
+       
         public TeamsService(IDeletableEntityRepository<Team> teamsRepository,IDeletableEntityRepository<Award> awardsRepository,ICloudinaryService cloudinaryService)
         {
             this.teamsRepository = teamsRepository;
@@ -74,9 +77,49 @@ namespace TMXN.Services.Data
 
         }
 
-        public IEnumerable<TViewModel> GetAll<TViewModel>()
+        public IEnumerable<TViewModel> GetTeamsOrderedByNameAscending<TViewModel>(string criteria = null)
         {
-            return  this.teamsRepository.All().OrderByDescending(x => x.Points).To<TViewModel>().ToList();
+            return this.teamsRepository.All().OrderBy(x => x.Name).To<TViewModel>().ToList();
+        }
+
+        public IEnumerable<TViewModel> GetTeamsOrderedByPointsDescending<TViewModel>(string criteria = null)
+        {
+            return this.teamsRepository.All().OrderByDescending(x => x.Points).To<TViewModel>().ToList();
+        }
+
+        public IEnumerable<TViewModel> GetTeamsOrderedByDateDescending<TViewModel>(string criteria = null)
+        {
+            return this.teamsRepository.All().OrderByDescending(x => x.CreatedOn).To<TViewModel>().ToList();
+        }
+
+        public IEnumerable<TViewModel> GetTeamsOrderedByDateAscending<TViewModel>(string criteria = null)
+        {
+            return this.teamsRepository.All().OrderBy(x => x.CreatedOn).To<TViewModel>().ToList();
+        }
+
+        public IEnumerable<TViewModel> GetTeamsOrderedByAwardsDescending<TViewModel>(string criteria = null)
+        {
+            return this.teamsRepository.All().OrderByDescending(x => x.Awards.Count).To<TViewModel>().ToList();
+        }
+        public IEnumerable<TViewModel> GetAll<TViewModel>(string criteria = null)
+        {
+            if(criteria == TeamsOrderedByDateAscending)
+            {
+                return this.GetTeamsOrderedByDateAscending<TViewModel>();
+            } else if(criteria == TeamsOrderedByDateDescending)
+            {
+                return this.GetTeamsOrderedByDateDescending<TViewModel>();
+            }
+            else if (criteria == TeamsOrderedByPointsDescending)
+            {
+                return this.GetTeamsOrderedByPointsDescending<TViewModel>();
+            }
+            else if (criteria == TeamsOrderedByAwardsDescending)
+            {
+                return this.GetTeamsOrderedByAwardsDescending<TViewModel>();
+            }
+
+            return this.GetTeamsOrderedByNameAscending<TViewModel>();
         }
 
         public TViewModel GetInfo<TViewModel>(string teamId)

@@ -26,16 +26,21 @@
                 .withUrl("/chatroom")
                 .build();
 
+       
+       
+
         connection.on("NewMessage",
             function (message) {
                 var chatInfo = `<div>[${message.username}] ${escapeHtml(message.text)}</div>`;
-                $("#messagesList").append(chatInfo);
+                $('#messagesList').append(chatInfo);
             });
 
-        $("#sendButton").click(function () {
-            var message = $("#messageInput").val();
+         $('#sendButton').click(function () {
+            var message = $('#messageInput').val();
             connection.invoke("Send", message);
         });
+         
+        
 
         connection.start().catch(function (err) {
             return console.error(err.toString());

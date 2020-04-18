@@ -10,13 +10,34 @@
 
 <h1 class="display-4"><span class="badge badge-info">@this.ViewData["Title"]</span></h1>
 
+
+
 @{
     string userId = userManager.GetUserId(this.User);
     var currUser = this.Model.Teams.Select(x => x.ApplicationUsers.Any(z => z.Id == userId)).FirstOrDefault();
     int maximumAllowedMembers = 5;
 }
 
+<hr style="height: 5px;" class="bg-info" />
 
+<div class="d-flex justify-content-between">
+    <div id="sort-holder" class="form-group w-40 d-flex justify-content-between">
+
+        <label for="sort-teams" class="text-primary font-weight-bold w-30 h4 mt-1 text-right">Order teams by</label>
+        <form id="order-form" asp-controller="Teams" asp-action="ShowAll" method="get">
+
+            <select id="sort-teams" class="form-control text-primary pl-2 ml-3 w-30" name="criteria">
+                <option value="none" selected>None</option>
+                
+                <option value="teams-ordered-by-date-ascending">Date (From newest to latest)</option>
+                <option value="teams-ordered-by-date-descending">Date (From latest to newest)</option>
+                <option value="teams-ordered-by-points-descending">Points (descending)</option>
+                <option value="teams-ordered-by-awards-descending">Awards (descending)</option>
+            </select>
+
+        </form>
+    </div>
+</div>
 
 <div class="row">
 
@@ -68,6 +89,17 @@
     }
 </div>
 
+@section Scripts
+{
+    <script>
+
+        $('#sort-teams').change(function () {
+            $('#order-form').submit();
+        });
+
+
+    </script>
+}
 
 
 
