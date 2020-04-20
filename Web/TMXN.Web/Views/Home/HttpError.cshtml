@@ -1,4 +1,30 @@
 ﻿
 @model int
-<h1>Not Found Page!</h1>
-<h1>Error @Model</h1>
+
+
+
+
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4 text-center">Page Error</h1>
+        <p class="lead">
+            <div class="text-center">
+                <img class="card-img-top" style="width: 16rem;" src="https://drumcreative.com/wp-content/uploads/2018/03/logo-design-mistakes-oops-image.jpg" alt="Card image cap">
+            </div>
+            <h1 class="display-4 text-center">Not Found Page!</h1>
+            <h1 class="display-4 text-center">Error @Model</h1>
+      <div class="text-center">
+        The things you were looking for were not found, please try again in other pages!
+    </div>
+
+    
+            <div>
+                <a asp-controller="Home" asp-action="Index" type="button" class="btn-lg btn-primary center-block">Go to homepage</a>
+            </div>
+
+       
+    </div>
+
+
+
