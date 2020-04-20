@@ -7,52 +7,59 @@
 
 <h1 class="display-4"><span class="badge badge-info">@this.ViewData["Title"]</span></h1>
 
-<div class="card mr-3" style="width: 15rem;">
-    <img class="card-img-top" src="@Model.Logo" alt="Card image cap">
-    <div class="card-body">
-        <h5 class="card-title">@Model.Name</h5>
-    </div>
-</div>
 
-<hr>
+<div class="jumbotron jumbotron-fluid align-center">
+    <div class="container">
+        
+        <div class="card mr-3 text-center" style="width: 15rem;">
 
 
-@if (Model.Awards.Count == 0)
-{
-    <h1 class="display-4"><span class="badge badge-danger">@this.ViewData["AnyAwards"]</span></h1>
-}
-else
-{
-    <div class="card-columns">
+            <img class="card-img-top" src="@Model.Logo" alt="Card image cap">
 
-        <div class="list-group-horizontal-md d-inline-block" style="width: 220px; background-color: rgba(0,0,255,.1)">
-            <div class="h-50 d-inline-block" style="width: 220px; background-color: rgba(0,0,255,.1)">
-                
-                <p class="text-center">Awards</p>
-
-                    @foreach (var award in this.Model.Awards)
-                    {
-
-                        <ul class="list-group list-group-flush">
-
-                            <li class="list-group-item"><img src="https://www.clipartmax.com/png/middle/85-857448_missions-gold-trophy-render-trophy-render-png.png" alt="Responsive image" class="img-fluid" width="50"> @award.Name</li>
-
-                        </ul>
-
-
-                    }
-
-
-
-</div>
+            <div class="card-body">
+                <h5 class="card-title">@Model.Name</h5>
+            </div>
         </div>
-        </div>
+            
+
+        <hr style="height: 5px;" class="bg-info" />
+
+
+        @if (Model.Awards.Count == 0)
+        {
+            <h1 class="display-4"><span class="badge badge-danger">@this.ViewData["AnyAwards"]</span></h1>
         }
+        else
+        {
+            <div class="card-columns">
 
-        <hr>
-        <h2>Ranklist Points: @Model.Points.</h2>
+                <div class="list-group-horizontal-md d-inline-block text-center" style="width: 220px; background-color: rgba(0,0,255,.1)">
+                    <div class="h-50 d-inline-block" style="width: 220px; background-color: rgba(0,0,255,.1)">
 
-        <hr>
+                        <p class="text-center">Awards</p>
+
+                        @foreach (var award in this.Model.Awards)
+                        {
+
+                            <ul class="list-group list-group-flush">
+
+                                <li class="list-group-item"><img src="https://www.clipartmax.com/png/middle/85-857448_missions-gold-trophy-render-trophy-render-png.png" alt="Responsive image" class="img-fluid" width="50"> @award.Name</li>
+
+                            </ul>
+
+
+                        }
+
+
+
+                    </div>
+                </div>
+            </div>
+        }
+        <hr style="height: 5px;" class="bg-info" />
+
+        <h1 class="display-4"><span class="badge badge-info">Points: @Model.Points</span></h1>
+        <hr style="height: 5px;" class="bg-info" />
 
 
         <div class="row">
@@ -60,7 +67,7 @@ else
 
 
             <table class="table">
-                <thead class="thead-light">
+                <thead class="thead-dark">
                     <tr>
                         <th scope="col">Memberlist</th>
                         <th scope="col">Username</th>
@@ -90,7 +97,7 @@ else
 
         <div class="row">
             <table class="table">
-                <thead class="thead-light">
+                <thead class="thead-dark">
                     <tr>
                         <th scope="col">Enrolled tournaments</th>
                         <th scope="col">Tournament Name</th>
@@ -116,6 +123,7 @@ else
             </table>
 
         </div>
-
+        </div>
+    </div>
 
 

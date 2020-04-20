@@ -22,53 +22,24 @@ namespace TMXN.Web.Hubs
             this.messageService = messageService;
         }
        
-        public async Task Send(string message)
+        public async Task Send(string messageInput)
         {
             
-            var messageToSend = new Message
+            var message = new Message
             {
                 UserName = this.Context.User.Identity.Name,
-                Text = message,
+                Text = messageInput,
                 
             };
-            await this.Clients.All.SendAsync(
-                "NewMessage",
-                new Message 
-                {
-                    UserName = this.Context.User.Identity.Name,
-                    Text = message,
-                   
-                });
-            await this.messageService.AddMessage(messageToSend);
-        }
-
-        public async override Task OnConnectedAsync()
-        {
-            Message message = new Message()
-            {
-                UserName = "System",
-                Text = $"{this.Context.User.Identity.Name} has entered the chat.",
-                When = DateTime.UtcNow,
-            };
+           
+            await this.messageService.AddMessage(message);
 
             await this.Clients.All.SendAsync(
-                "NewSystemMessage",
-                message);
+               "NewMessage",
+               message);
         }
 
-        public async override Task OnDisconnectedAsync(Exception exception)
-        {
-            Message message = new Message()
-            {
-                UserName = "System",
-                Text = $"{this.Context.User.Identity.Name} has left the chat.",
-                When = DateTime.UtcNow,
-            };
-
-            await this.Clients.All.SendAsync(
-                "NewSystemMessage",
-                message);
-        }
+     
 
     }
 }

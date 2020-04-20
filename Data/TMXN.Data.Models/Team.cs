@@ -18,6 +18,7 @@
             this.CreatedOn = DateTime.UtcNow;
             this.Awards = new HashSet<Award>();
             this.Tournaments = new HashSet<Tournament>();
+            this.IsWinner = false;
         }
        
 
@@ -35,6 +36,8 @@
 
         public int Points { get; set; }
 
+
+        public bool IsWinner { get; set; }
         public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
 
         public virtual ICollection<Award> Awards { get; set; }
