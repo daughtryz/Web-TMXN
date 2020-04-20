@@ -10,30 +10,7 @@
 
 @{var currentUser = await this.userManager.GetUserAsync(this.User); }
 
-<h1 class="display-4"><span class="badge badge-success">@this.ViewData["Title"]</span></h1>
 
-<hr style="height: 5px;" class="bg-info" />
-
-<div class="d-flex justify-content-between">
-    <div id="sort-holder" class="form-group w-40 d-flex justify-content-between">
-
-        <label for="filter-tournaments" class="text-primary font-weight-bold w-30 h4 mt-1 text-right">Show only tournaments with game type...</label>
-        <form id="order-form" asp-controller="Tournaments" asp-action="GetAll" method="get">
-
-            <select id="filter-tournaments" class="form-control text-primary pl-2 ml-3 w-30" name="gametype">
-                <option value="none" selected>None</option>
-
-                <option value="LeagueOfLegends">League of legends</option>
-                <option value="Fortnite">Fortnite</option>
-                <option value="PUBG">PUBG</option>
-                <option value="CounterStrike">Counter-Strike</option>
-                <option value="all">All</option>
-            </select>
-           
-
-        </form>
-    </div>
-</div>
 
 @if (currentUser.TeamId == null)
 {
@@ -41,6 +18,31 @@
 }
 else
 {
+    <h1 class="display-4"><span class="badge badge-success">@this.ViewData["Title"]</span></h1>
+
+    <hr style="height: 5px;" class="bg-info" />
+
+    <div class="d-flex justify-content-between">
+        <div id="sort-holder" class="form-group w-40 d-flex justify-content-between">
+
+            <label for="filter-tournaments" class="text-primary font-weight-bold w-30 h4 mt-1 text-right">Show only tournaments with game type...</label>
+            <form id="order-form" asp-controller="Tournaments" asp-action="GetAll" method="get">
+
+                <select id="filter-tournaments" class="form-control text-primary pl-2 ml-3 w-30" name="gametype">
+                    <option value="none" selected>None</option>
+
+                    <option value="LeagueOfLegends">League of legends</option>
+                    <option value="Fortnite">Fortnite</option>
+                    <option value="PUBG">PUBG</option>
+                    <option value="CounterStrike">Counter-Strike</option>
+                    <option value="all">All</option>
+                </select>
+
+
+            </form>
+        </div>
+    </div>
+
     <div class="row">
         <table class="table">
             <thead class="thead-light">

@@ -46,10 +46,15 @@
                         @foreach (var team in kvp.Value.OrderByDescending(x => x.Points))
                         {
                             
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item"><img src="@team.Logo" alt="Responsive image" class="img-fluid" width="40"> @team.Name </li>
+                <ul class="list-group list-group-flush">
+                    @if (!team.IsWinner && !team.IsEliminate)
+                    {
+                        <li class="list-group-item"><img src="@team.Logo" alt="Responsive image" class="img-fluid" width="40"> @team.Name <div><a asp-area="Administration" asp-controller="Brackets" asp-action="Win" asp-route-id="@team.Id" type="button" class="btn btn-primary">Win</a></div> <div><a asp-area="Administration" asp-controller="Brackets" asp-action="Eliminate" asp-route-id="@team.Id" type="button" class="btn btn-danger">Eliminate</a></div></li>
+                        
+                    }
 
-                            </ul>
+
+                </ul>
 
 
                         }

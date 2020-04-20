@@ -58,5 +58,12 @@ namespace TMXN.Web.Areas.Administration.Controllers
             //return this.RedirectToAction(nameof(All));
             return this.RedirectToAction("All", "Brackets", new { area = "Administration" });
         }
+
+        public async Task<IActionResult> Win(string id)
+        {
+            await this.bracketsService.WinAsync(id);
+            return this.RedirectToAction("All", "Brackets", new { area = "Administration" });
+
+        }
     }
 }

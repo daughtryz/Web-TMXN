@@ -12,6 +12,8 @@ namespace TMXN.Services.Data
         public Task CreateAsync(int tournamentId,string teamId);
 
         public Task EliminateAsync(string id);
+
+        public Task WinAsync(string teamId);
        
     }
 }

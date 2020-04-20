@@ -19,6 +19,7 @@
             this.Awards = new HashSet<Award>();
             this.Tournaments = new HashSet<Tournament>();
             this.IsWinner = false;
+            this.IsEliminate = false;
         }
        
 
@@ -38,6 +39,9 @@
 
 
         public bool IsWinner { get; set; }
+
+
+        public bool IsEliminate { get; set; }
         public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
 
         public virtual ICollection<Award> Awards { get; set; }

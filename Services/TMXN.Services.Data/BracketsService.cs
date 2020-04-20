@@ -27,7 +27,7 @@ namespace TMXN.Services.Data
 
         public async Task CreateAsync(int tournamentId, string teamId)
         {
-            var bracket = new Bracket
+            Bracket bracket = new Bracket
             {
                 TournamentId = tournamentId,
             };
@@ -42,25 +42,35 @@ namespace TMXN.Services.Data
             await this.bracketRepository.SaveChangesAsync();
         }
 
-        public async Task EliminateAsync(string id)
+        public async Task EliminateAsync(string teamId)
         {
-            var currentTeam = this.teamsRepository.All().Where(x => x.Id == id).FirstOrDefault();
-            var currentTournamentTeam = this.tournamentsTeamsRepo.All().Where(x => x.TeamId == currentTeam.Id && x.Tournament != null).FirstOrDefault();
-            var currentTournament = this.tournamentsRepository.All().Where(x => x.Id == currentTournamentTeam.TournamentId).FirstOrDefault();
+            var currentTeam = this.teamsRepository.All().Where(x => x.Id == teamId).FirstOrDefault();
 
-            var currentBracket = this.bracketRepository.All().Where(x => x.TournamentId == currentTournament.Id).FirstOrDefault();
-            if(currentTeam == null || currentTournament == null || currentBracket == null)
+            if (currentTeam == null)
             {
                 return;
             }
 
-            currentTournament.TeamId = null;
-            this.tournamentsRepository.Update(currentTournament);
-            await this.tournamentsRepository.SaveChangesAsync();
-            
+            currentTeam.IsEliminate = true;
+            this.teamsRepository.Update(currentTeam);
+            await this.teamsRepository.SaveChangesAsync();
+
+
            
-            this.bracketRepository.Update(currentBracket);
-            await this.bracketRepository.SaveChangesAsync();
+        }
+
+        public async Task WinAsync(string teamId)
+        {
+            var currentTeam = this.teamsRepository.All().Where(x => x.Id == teamId).FirstOrDefault();
+
+            if(currentTeam == null)
+            {
+                return;
+            }
+            currentTeam.IsWinner = true;
+            this.teamsRepository.Update(currentTeam);
+            await this.teamsRepository.SaveChangesAsync();
+
         }
 
         IEnumerable<TViewModel> IBracketsService.GetAll<TViewModel>()

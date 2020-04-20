@@ -4,6 +4,8 @@
 
 <h1 class="display-4"><span class="badge badge-info">@GlobalConstants.Brackets</span></h1>
 
+
+<hr style="height: 5px;" class="bg-info" />
 @{
     var list = new List<string>();
     Dictionary<string, List<Team>> data = new Dictionary<string, List<Team>>();
@@ -47,13 +49,28 @@
                         @foreach (var team in kvp.Value.OrderByDescending(x => x.Points))
                         {
 
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item"><img src="@team.Logo" alt="Responsive image" class="img-fluid" width="40"> @team.Name</li>
+                <ul class="list-group list-group-flush">
+                    @if (team.IsWinner)
+                    {
 
-                            </ul>
+                        <li class="list-group-item"><img src="@team.Logo" alt="Responsive image" class="img-fluid" width="40"> @team.Name <div><span class="badge badge-info">Winner</span></div></li>
+                    }
+                    else if (team.IsEliminate)
+                    {
+                        <li class="list-group-item"><img src="@team.Logo" alt="Responsive image" class="img-fluid" width="40"> @team.Name <div><span class="badge badge-danger">Eliminated</span></div></li>
+
+                    }
+                    else
+                    {
+                        <li class="list-group-item"><img src="@team.Logo" alt="Responsive image" class="img-fluid" width="40"> @team.Name</li>
+                    }
+
+
+                </ul>
 
 
                         }
+
 
                     }
 
