@@ -32,17 +32,7 @@ namespace TMXN.Web.Areas.Administration.Controllers
             return this.View(viewModel);
         }
 
-        public IActionResult Create()
-        {
-            var viewModel = new BracketDropdownViewModel
-            {
-                Tournaments = this.tournamentsService.All<TournamentDropdownViewModel>(),
-                Teams = this.teamsService.GetAll<TeamDropDownViewModel>(),
-
-            };
-            return this.View(viewModel);
-
-        }
+      
 
         
         public async Task<IActionResult> Eliminate(string id)
@@ -51,13 +41,7 @@ namespace TMXN.Web.Areas.Administration.Controllers
             return this.RedirectToAction("All", "Brackets", new { area = "Administration" });
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create(int tournamentId, string teamId)
-        {
-            await this.bracketsService.CreateAsync(tournamentId, teamId);
-            //return this.RedirectToAction(nameof(All));
-            return this.RedirectToAction("All", "Brackets", new { area = "Administration" });
-        }
+       
 
         public async Task<IActionResult> Win(string id)
         {

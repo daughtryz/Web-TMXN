@@ -25,22 +25,7 @@ namespace TMXN.Services.Data
             this.tournamentsTeamsRepo = tournamentsTeamsRepo;
         }
 
-        public async Task CreateAsync(int tournamentId, string teamId)
-        {
-            Bracket bracket = new Bracket
-            {
-                TournamentId = tournamentId,
-            };
-            var currentTeam = this.teamsRepository.All().Where(x => x.Id == teamId).FirstOrDefault();
-
-            if(currentTeam == null)
-            {
-                return;
-            }
-            bracket.Teams.Add(currentTeam);
-            await this.bracketRepository.AddAsync(bracket);
-            await this.bracketRepository.SaveChangesAsync();
-        }
+       
 
         public async Task EliminateAsync(string teamId)
         {

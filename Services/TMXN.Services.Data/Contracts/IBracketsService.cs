@@ -9,7 +9,7 @@ namespace TMXN.Services.Data
     {
         public IEnumerable<TViewModel> GetAll<TViewModel>();
 
-        public Task CreateAsync(int tournamentId,string teamId);
+        
 
         public Task EliminateAsync(string id);
 
