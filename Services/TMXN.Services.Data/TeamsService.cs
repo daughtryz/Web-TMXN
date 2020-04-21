@@ -35,6 +35,7 @@ namespace TMXN.Services.Data
            
         }
 
+      
         public async Task AddAsync(string name, IFormFile logo,string tag, ApplicationUser user)
         {
 
@@ -57,6 +58,7 @@ namespace TMXN.Services.Data
 
             
         }
+
 
         public async Task EditAsync(string name, IFormFile logo, string tag,string teamId)
         {
