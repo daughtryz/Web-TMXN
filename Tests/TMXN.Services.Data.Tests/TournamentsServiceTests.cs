@@ -49,7 +49,7 @@ namespace TMXN.Services.Data.Tests
             var expectedOrganizerName = "Kolio";
             var expectedGameType = (TournamentGameType)1;
 
-            var currentTournament = await tournamentRepository.All().FirstOrDefaultAsync();
+            var currentTournament = await this.tournamentRepository.All().FirstOrDefaultAsync();
 
             Assert.Equal(expectedTournamentName, currentTournament.Name);
             Assert.Equal(expectedOrganizerName, currentTournament.Organizer);
@@ -69,7 +69,7 @@ namespace TMXN.Services.Data.Tests
 
            
 
-            var currentTournament = await tournamentRepository.All().FirstOrDefaultAsync();
+            var currentTournament = await this.tournamentRepository.All().FirstOrDefaultAsync();
 
             await tournamentsService.EditAsync("Mitko", "Dilqn", (TournamentGameType)2,currentTournament.Id);
 
@@ -97,7 +97,7 @@ namespace TMXN.Services.Data.Tests
 
             var expectedResult = 1;
 
-            Assert.Equal(expectedResult, tournamentRepository.All().Count());
+            Assert.Equal(expectedResult, this.tournamentRepository.All().Count());
 
         }
 
@@ -136,13 +136,8 @@ namespace TMXN.Services.Data.Tests
 
             var currentTournamentTeam = await this.tournamentsTeamRepo.All().FirstOrDefaultAsync();
            
-          
-
             var expectedTeamId = currentTeam.Id;
             var expectedTournamentId = currentTournament.Id;
-
-        
-
 
             Assert.Equal(expectedTeamId, currentTournamentTeam.TeamId);
 
@@ -191,13 +186,7 @@ namespace TMXN.Services.Data.Tests
 
             var expectedCount = 0;
 
-
-
-
-            Assert.Equal(expectedCount,tournamentsTeamRepo.All().Count());
-
-           
-
+            Assert.Equal(expectedCount,this.tournamentsTeamRepo.All().Count());
 
 
         }
@@ -215,7 +204,7 @@ namespace TMXN.Services.Data.Tests
             await tournamentsService.RemoveAsync(1);
             var expectedResult = 1;
 
-            Assert.Equal(expectedResult, tournamentRepository.All().Count());
+            Assert.Equal(expectedResult, this.tournamentRepository.All().Count());
 
         }
 
