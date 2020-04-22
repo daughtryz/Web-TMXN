@@ -65,7 +65,7 @@ namespace TMXN.Services.Data
 
         private IEnumerable<TViewModel> GetAllPUBGTournaments<TViewModel>()
         {
-            var tournaments = this.tournamentRepository.All().Where(x => (int)x.TournamentGameType == 2).To<TViewModel>().ToList();
+            var tournaments =  this.tournamentRepository.All().Where(x => (int)x.TournamentGameType == 2).To<TViewModel>().ToList();
 
             if (tournaments.Count == 0)
             {
@@ -112,7 +112,7 @@ namespace TMXN.Services.Data
         public async Task EditAsync(string name, string organizer, TournamentGameType TournamentGameType, int tournamentId)
         {
             
-            var currentTournament = this.tournamentRepository.All().Where(x => x.Id == tournamentId).FirstOrDefault();
+            var currentTournament = await this.tournamentRepository.All().Where(x => x.Id == tournamentId).FirstOrDefaultAsync();
             if (currentTournament == null)
             {
                 return;
@@ -149,18 +149,18 @@ namespace TMXN.Services.Data
 
         public TViewModel Info<TViewModel>(int id)
         {
-            var currentTournament = this.tournamentRepository.All().Where(x => x.Id == id).To<TViewModel>().FirstOrDefault();
+            var currentTournament =  this.tournamentRepository.All().Where(x => x.Id == id).To<TViewModel>().FirstOrDefault();
 
             return currentTournament;
         }
 
         public async Task ParticipateAsync(string userId,int tournamentId)
         {
-            var currentTeam = this.teamRepository.All().Where(x => x.ApplicationUsers.Any(z => z.Id == userId)).FirstOrDefault();
+            var currentTeam = await this.teamRepository.All().Where(x => x.ApplicationUsers.Any(z => z.Id == userId)).FirstOrDefaultAsync();
 
 
 
-            var currentTournament = this.tournamentRepository.All().Where(x => x.Id == tournamentId).FirstOrDefault();
+            var currentTournament = await this.tournamentRepository.All().Where(x => x.Id == tournamentId).FirstOrDefaultAsync();
 
             if(currentTeam == null || currentTournament == null)
             {
@@ -201,9 +201,9 @@ namespace TMXN.Services.Data
 
         public async Task<int> RemoveTeamFromTournamentAsync(int tournamentId,string userId)
         {
-            Tournament currentTournament = this.tournamentRepository.All().Where(x => x.Id == tournamentId).FirstOrDefault();
+            Tournament currentTournament = await this.tournamentRepository.All().Where(x => x.Id == tournamentId).FirstOrDefaultAsync();
 
-            Team currentTeam = this.userRepo.All().Where(x => x.Id == userId).Select(x => x.Team).FirstOrDefault();
+            Team currentTeam = await this.userRepo.All().Where(x => x.Id == userId).Select(x => x.Team).FirstOrDefaultAsync();
 
             
             var currentTournamentTeam = this.tournamentsTeamsRepo.All().Where(x => x.TournamentId == currentTournament.Id && x.TeamId == currentTeam.Id).FirstOrDefault();
