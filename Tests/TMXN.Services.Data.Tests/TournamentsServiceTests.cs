@@ -97,7 +97,7 @@ namespace TMXN.Services.Data.Tests
 
             var expectedResult = 1;
 
-            Assert.Equal(expectedResult, this.tournamentRepository.All().Count());
+            Assert.Equal(expectedResult, await this.tournamentRepository.All().CountAsync());
 
         }
 
@@ -204,7 +204,7 @@ namespace TMXN.Services.Data.Tests
             await tournamentsService.RemoveAsync(1);
             var expectedResult = 1;
 
-            Assert.Equal(expectedResult, this.tournamentRepository.All().Count());
+            Assert.Equal(expectedResult, await this.tournamentRepository.All().CountAsync());
 
         }
 

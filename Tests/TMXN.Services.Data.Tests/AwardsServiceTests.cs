@@ -119,7 +119,7 @@ namespace TMXN.Services.Data.Tests
 
             var expectedResult = 1;
 
-            Assert.Equal(expectedResult, this.awardsRepository.All().Count());
+            Assert.Equal(expectedResult, await this.awardsRepository.All().CountAsync());
 
             
 
@@ -139,7 +139,7 @@ namespace TMXN.Services.Data.Tests
             await awardsService.RemoveAsync(firstAward.Id);
             var expectedResult = 1;
 
-            Assert.Equal(expectedResult, this.awardsRepository.All().Count());
+            Assert.Equal(expectedResult, await this.awardsRepository.All().CountAsync());
         }
     }
 

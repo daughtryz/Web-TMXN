@@ -27,7 +27,7 @@ namespace TMXN.Services.Data
         public async Task CreateNewsAsync(string title, string content, IFormFile image)
         {
             var imageUrlCloudinary = await this.cloudinaryService
-                .UploadAsync(image,image.Name);
+                .UploadAsync(image,image.FileName);
             var newsFeed = new NewsFeed
             {
                 Title = title,
@@ -52,7 +52,7 @@ namespace TMXN.Services.Data
         public async Task EditAsync(string id,string title, string content, IFormFile image)
         {
             var imageUrlCloudinary = await this.cloudinaryService
-               .UploadAsync(image, image.Name);
+               .UploadAsync(image, image.FileName);
 
             var currentNews = this.newsFeedRepository.All().Where(x => x.Id == id).FirstOrDefault();
 

@@ -38,7 +38,7 @@ namespace TMXN.Services.Data.Tests
 
 
 
-            Assert.Equal(expectedResult,teamRepository.All().Count());
+            Assert.Equal(expectedResult,await teamRepository.All().CountAsync());
 
         }
 
