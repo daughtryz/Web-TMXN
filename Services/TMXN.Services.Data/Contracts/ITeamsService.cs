@@ -22,9 +22,9 @@ namespace TMXN.Services.Data
         public IEnumerable<TViewModel> GetRanklist<TViewModel>();
 
 
-        public Task WinAsync(string teamId);
+        public Task<int> WinAsync(string teamId);
 
-        public Task LoseAsync(string teamId);
+        public Task<int> LoseAsync(string teamId);
 
         public Task SendAwardAsync(string teamId,string awardId);
 

@@ -16,6 +16,7 @@ namespace TMXN.Services.Data
 {
     public class TeamsService : ITeamsService
     {
+        private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
         private readonly IDeletableEntityRepository<Team> teamsRepository;
         private readonly IDeletableEntityRepository<Award> awardsRepository;
         private readonly ICloudinaryService cloudinaryService;
@@ -24,9 +25,10 @@ namespace TMXN.Services.Data
         private const string TeamsOrderedByDateDescending = "teams-ordered-by-date-descending";
         private const string TeamsOrderedByPointsDescending = "teams-ordered-by-points-descending";
         private const string TeamsOrderedByAwardsDescending = "teams-ordered-by-awards-descending";
-       
-        public TeamsService(IDeletableEntityRepository<Team> teamsRepository,IDeletableEntityRepository<Award> awardsRepository,ICloudinaryService cloudinaryService)
+
+        public TeamsService(IDeletableEntityRepository<ApplicationUser> userRepository,IDeletableEntityRepository<Team> teamsRepository,IDeletableEntityRepository<Award> awardsRepository,ICloudinaryService cloudinaryService)
         {
+            this.userRepository = userRepository;
             this.teamsRepository = teamsRepository;
             this.awardsRepository = awardsRepository;
             this.cloudinaryService = cloudinaryService;
@@ -40,7 +42,7 @@ namespace TMXN.Services.Data
         {
 
             var logoCloudinary = await this.cloudinaryService
-               .UploadAsync(logo, logo.Name);
+               .UploadAsync(logo, logo.FileName);
             var team = new Team
             {
                 Name = name,
@@ -63,8 +65,8 @@ namespace TMXN.Services.Data
         public async Task EditAsync(string name, IFormFile logo, string tag,string teamId)
         {
             var logoCloudinary = await this.cloudinaryService
-              .UploadAsync(logo, logo.Name);
-            var currentTeam = this.teamsRepository.All().Where(x => x.Id == teamId).FirstOrDefault();
+              .UploadAsync(logo, logo.FileName);
+            var currentTeam = await this.teamsRepository.All().Where(x => x.Id == teamId).FirstOrDefaultAsync();
             if(currentTeam == null)
             {
                 return;
@@ -134,24 +136,26 @@ namespace TMXN.Services.Data
             return this.teamsRepository.All().OrderByDescending(x => x.Points).To<TViewModel>().ToList();
         }
 
-        public async Task LoseAsync(string teamId)
+        public async Task<int> LoseAsync(string teamId)
         {
-            var currentTeam = this.teamsRepository.All().Where(x => x.Id == teamId).FirstOrDefault();
+            var currentTeam = await this.teamsRepository.All().Where(x => x.Id == teamId).FirstOrDefaultAsync();
 
             if(currentTeam.Points <= 0)
             {
-                return;
+                throw new Exception("Team points cannot be less than zero!");
             }
 
             currentTeam.Points -= GlobalConstants.PointsDecrease;
 
             this.teamsRepository.Update(currentTeam);
             await this.teamsRepository.SaveChangesAsync();
+
+            return currentTeam.Points;
         }
 
         public async Task RemoveAsync(string id)
         {
-            var currentTeam = this.teamsRepository.All().Where(x => x.Id == id).FirstOrDefault();
+            var currentTeam = await this.teamsRepository.All().Where(x => x.Id == id).FirstOrDefaultAsync();
 
             this.teamsRepository.Delete(currentTeam);
 
@@ -160,22 +164,25 @@ namespace TMXN.Services.Data
 
         public async Task RemovePlayerAsync(ApplicationUser user)
         {
-            var currentTeam = this.teamsRepository.All().Where(x => x.Id == user.TeamId).FirstOrDefault();
+            var currentTeam = await this.teamsRepository.All().Where(x => x.Id == user.TeamId).FirstOrDefaultAsync();
             if(user == null || currentTeam == null)
             {
                 return;
             }
 
             currentTeam.ApplicationUsers.Remove(user);
-            this.teamsRepository.Update(currentTeam);
+            //this.teamsRepository.Update(currentTeam);
             user.TeamId = null;
-            await this.teamsRepository.SaveChangesAsync();
+            await this.userRepository.SaveChangesAsync();
+            //await this.teamsRepository.SaveChangesAsync();
         }
 
         public async Task SendAwardAsync(string teamId,string awardId)
         {
-            var currentTeam = this.teamsRepository.All().Where(x => x.Id == teamId).FirstOrDefault();
-            var currentAward = this.awardsRepository.All().Where(x => x.Id == awardId).FirstOrDefault();
+            var currentTeam = await this.teamsRepository.All().Where(x => x.Id == teamId).FirstOrDefaultAsync();
+            var currentAward = await this.awardsRepository.All().Where(x => x.Id == awardId).FirstOrDefaultAsync();
+
+
             if(currentTeam == null || currentAward == null)
             {
                 return;
@@ -186,23 +193,26 @@ namespace TMXN.Services.Data
                
             }
             currentTeam.Awards.Add(currentAward);
-            this.teamsRepository.Update(currentTeam);
-            await this.teamsRepository.SaveChangesAsync();
+           // this.teamsRepository.Update(currentTeam);
+            await this.awardsRepository.SaveChangesAsync();
         }
 
-        public async Task WinAsync(string teamId)
+        public async Task<int> WinAsync(string teamId)
         {
-            var currentTeam = this.teamsRepository.All().Where(x => x.Id == teamId).FirstOrDefault();
+            var currentTeam = await this.teamsRepository.All().Where(x => x.Id == teamId).FirstOrDefaultAsync();
 
             if (currentTeam.Points >= 200)
             {
-                return;
+                throw new Exception("You exceeded the maximum points");
             }
 
             currentTeam.Points += GlobalConstants.PointsIncrease;
 
             this.teamsRepository.Update(currentTeam);
             await this.teamsRepository.SaveChangesAsync();
+
+            return currentTeam.Points;
+
         }
     }
 }

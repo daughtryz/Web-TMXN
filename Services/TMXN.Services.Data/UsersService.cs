@@ -98,8 +98,8 @@ namespace TMXN.Services.Data
 
         public async Task JoinAsync(string teamId, ApplicationUser user)
         {
-            var currentTeam = this.teamRepository.All().Where(x => x.Id == teamId)
-                .FirstOrDefault();
+            var currentTeam = await this.teamRepository.All().Where(x => x.Id == teamId)
+                .FirstOrDefaultAsync();
            
             
 
@@ -109,9 +109,8 @@ namespace TMXN.Services.Data
             }
 
             
-            currentTeam.ApplicationUsers.Add(user);
-
-            await this.teamRepository.SaveChangesAsync();
+             currentTeam.ApplicationUsers.Add(user);
+            await this.userRepository.SaveChangesAsync();
 
             
         }
@@ -121,8 +120,8 @@ namespace TMXN.Services.Data
         {
           
 
-            var currentTeam = this.teamRepository.All().Where(x => x.Id == teamId)
-               .FirstOrDefault();
+            var currentTeam = await this.teamRepository.All().Where(x => x.Id == teamId)
+               .FirstOrDefaultAsync();
             currentTeam.ApplicationUsers.Remove(user);
 
 
