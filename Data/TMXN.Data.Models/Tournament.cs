@@ -13,7 +13,7 @@ namespace TMXN.Data.Models
 
         public Tournament()
         {
-           
+            this.IsFinished = false;
         }
         [Required]
         [MinLength(2)]
@@ -27,6 +27,8 @@ namespace TMXN.Data.Models
         public string TeamId { get; set; }
 
         public virtual Team Team { get; set; }
+
+        public bool IsFinished { get; set; }
 
         public bool IsDeleted { get  ; set ; }
         public DateTime? DeletedOn { get ; set ; }

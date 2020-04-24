@@ -8,7 +8,8 @@
     this.ViewData["Title"] = "Available Tournaments";
 }
 
-@{var currentUser = await this.userManager.GetUserAsync(this.User); }
+@{var currentUser = await this.userManager.GetUserAsync(this.User);
+    }
 
 
 
@@ -58,34 +59,53 @@ else
 
             @foreach (var tournament in Model.Tournaments)
             {
-                <tbody>
-                    <tr>
-                        <th scope="row">#</th>
-                        <td>@tournament.Name</td>
-                        <td>@tournament.Organizer</td>
+                if (tournament.IsEliminate)
+                {
+                    <h1>Your team can no longer participate in any tournaments since it was eliminated!</h1>
+                }
+                else
+                {
+                    <tbody>
+                        <tr>
+                            <th scope="row">#</th>
 
 
 
-                        @if (tournament.TeamId != currentUser.TeamId)
-                        {
+                            @if (!tournament.IsFinished)
+                            {
+                                <td>@tournament.Name</td>
+                                <td>@tournament.Organizer</td>
 
-                            @*<td><a asp-controller="Tournaments" asp-action="Out" asp-route-id="@tournament.Id" type="button" class="btn btn-primary center-block btn-sm">Out!</a></td>*@
-                            <td><a asp-controller="Tournaments" asp-action="Participate" asp-route-id="@tournament.Id" type="button" class="btn btn-primary center-block btn-sm">Participate!</a></td>
-                        }
-                        else
-                        {
-                            <td>Already enrolled</td>
-                        }
+                                @if (tournament.TeamId != currentUser.TeamId)
+                                {
+
+                                    @*<td><a asp-controller="Tournaments" asp-action="Out" asp-route-id="@tournament.Id" type="button" class="btn btn-primary center-block btn-sm">Out!</a></td>*@
+                                    <td><a asp-controller="Tournaments" asp-action="Participate" asp-route-id="@tournament.Id" type="button" class="btn btn-primary center-block btn-sm">Participate!</a></td>
+                                }
+                                else
+                                {
+                                    <td>Already enrolled</td>
+                                }
+                            }
+                            else
+                            {
+                                <td><span class="badge badge-dark">Finished</span> @tournament.Name</td>
+                                <td>@tournament.Organizer</td>
+
+                            }
 
 
 
 
 
-                        <td><a asp-controller="Tournaments" asp-action="Info" asp-route-id="@tournament.Id" type="button" class="btn btn-primary">Info</a></td>
 
-                    </tr>
+                            <td><a asp-controller="Tournaments" asp-action="Info" asp-route-id="@tournament.Id" type="button" class="btn btn-primary">Info</a></td>
 
-                </tbody>
+                        </tr>
+
+                    </tbody>
+                }
+
             }
 
 

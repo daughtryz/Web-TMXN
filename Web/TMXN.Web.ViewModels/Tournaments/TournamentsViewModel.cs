@@ -6,7 +6,7 @@ using TMXN.Services.Mapping;
 
 namespace TMXN.Web.ViewModels.Tournaments
 {
-    public class TournamentsViewModel : IMapFrom<Tournament>
+    public class TournamentsViewModel : IMapFrom<Tournament>, IMapFrom<Team>
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -15,6 +15,8 @@ namespace TMXN.Web.ViewModels.Tournaments
 
         public string TeamId { get; set; }
 
+        public bool IsFinished { get; set; }
 
+        public bool IsEliminate { get; set; }
     }
 }

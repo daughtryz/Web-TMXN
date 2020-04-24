@@ -39,47 +39,48 @@
     <div class="row">
         @foreach (var kvp in data)
         {
-
-            <div class="row-sm-6">
-                <div class="card mr-3" style="width: 15rem;">
-                    @if (kvp.Value.Count != 0)
-                    {
-                        <div class="card-header">
-                            @kvp.Key
-                        </div>
-
-                        @foreach (var team in kvp.Value.OrderByDescending(x => x.Points))
+            if (kvp.Value.Count != 0)
+            {
+                <div class="row-sm-6">
+                    <div class="card mr-3" style="width: 15rem;">
+                        @if (kvp.Value.Count != 0)
                         {
+                            <div class="card-header">
+                                @kvp.Key
+                            </div>
 
-                            <ul class="list-group list-group-flush">
-                                @if (team.IsWinner)
-                                {
+                            @foreach (var team in kvp.Value.OrderByDescending(x => x.Points))
+                            {
 
-                                    <li class="list-group-item"><img src="@team.Logo" alt="Responsive image" class="img-fluid" width="40"> @team.Name <div><span class="badge badge-info">Winner</span></div></li>
-                                }
-                                else if (team.IsEliminate)
-                                {
-                                    <li class="list-group-item"><img src="@team.Logo" alt="Responsive image" class="img-fluid" width="40"> @team.Name <div><span class="badge badge-danger">Eliminated</span></div></li>
+                                <ul class="list-group list-group-flush">
+                                    @if (!team.IsWinner)
+                                    {
+                                        if (!team.IsEliminate)
+                                        {
 
-                                }
-                                else
-                                {
-                                    <li class="list-group-item"><img src="@team.Logo" alt="Responsive image" class="img-fluid" width="40"> @team.Name</li>
-                                }
+                                            <li class="list-group-item"><img src="@team.Logo" alt="Responsive image" class="img-fluid" width="40"> @team.Name</li>
+
+                                        }
+
+                                    }
 
 
-                            </ul>
+
+                                </ul>
+
+
+                            }
 
 
                         }
 
 
-                    }
 
-
-
+                    </div>
                 </div>
-            </div>
+            }
+
+
 
         }
     </div>
@@ -99,6 +100,7 @@
         {
             foreach (var team in kvp.Value)
             {
+                
                 if (team.IsWinner)
                 {
                     <li class="list-group-item"><img src="@team.Logo" alt="Responsive image" class="img-fluid" width="40"> @team.Name <div><span class="badge badge-info">Winner</span></div></li>

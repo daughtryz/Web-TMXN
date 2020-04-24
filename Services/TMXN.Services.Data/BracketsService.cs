@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,20 +15,20 @@ namespace TMXN.Services.Data
     {
         private readonly IDeletableEntityRepository<Bracket> bracketRepository;
         private readonly IDeletableEntityRepository<Team> teamsRepository;
-       
+        private readonly IDeletableEntityRepository<Tournament> tournamentRepository;
 
-        public BracketsService(IDeletableEntityRepository<Bracket> bracketRepository,IDeletableEntityRepository<Team> teamsRepository)
+        public BracketsService(IDeletableEntityRepository<Bracket> bracketRepository,IDeletableEntityRepository<Team> teamsRepository,IDeletableEntityRepository<Tournament> tournamentRepository)
         {
             this.bracketRepository = bracketRepository;
             this.teamsRepository = teamsRepository;
-            
+            this.tournamentRepository = tournamentRepository;
         }
 
        
 
         public async Task EliminateAsync(string teamId)
         {
-            var currentTeam = this.teamsRepository.All().Where(x => x.Id == teamId).FirstOrDefault();
+            var currentTeam = await this.teamsRepository.All().Where(x => x.Id == teamId).FirstOrDefaultAsync();
 
             if (currentTeam == null)
             {
@@ -44,13 +45,18 @@ namespace TMXN.Services.Data
 
         public async Task WinAsync(string teamId)
         {
-            var currentTeam = this.teamsRepository.All().Where(x => x.Id == teamId).FirstOrDefault();
+            var currentTeam = await this.teamsRepository.All().Where(x => x.Id == teamId).FirstOrDefaultAsync();
+            var currentTournament = await this.tournamentRepository.All().Where(x => x.TeamId == currentTeam.Id).FirstOrDefaultAsync();
 
             if(currentTeam == null)
             {
                 return;
             }
             currentTeam.IsWinner = true;
+            currentTournament.IsFinished = true;
+            this.tournamentRepository.Update(currentTournament);
+            await this.tournamentRepository.SaveChangesAsync();
+
             this.teamsRepository.Update(currentTeam);
             await this.teamsRepository.SaveChangesAsync();
 

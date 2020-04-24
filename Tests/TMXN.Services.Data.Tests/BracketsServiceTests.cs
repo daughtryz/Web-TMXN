@@ -16,20 +16,19 @@ namespace TMXN.Services.Data.Tests
         
         private EfDeletableEntityRepository<Bracket> bracketsRepository;
         private EfDeletableEntityRepository<Team> teamsRepository;
-        
+        private EfDeletableEntityRepository<Tournament> tournamentsRepository;
         public BracketsServiceTests()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
             this.bracketsRepository = new EfDeletableEntityRepository<Bracket>(new ApplicationDbContext(options.Options));
             this.teamsRepository = new EfDeletableEntityRepository<Team>(new ApplicationDbContext(options.Options));
-           
-
+            this.tournamentsRepository = new EfDeletableEntityRepository<Tournament>(new ApplicationDbContext(options.Options));
         }
 
         [Fact]
         public async Task TestIfWinnerWorks()
         {
-            BracketsService bracketsService = new BracketsService(this.bracketsRepository,this.teamsRepository);
+            BracketsService bracketsService = new BracketsService(this.bracketsRepository,this.teamsRepository,this.tournamentsRepository);
 
             await this.teamsRepository.AddAsync(new Team { Name = "Tested", Tag = "TSTS" });
             await this.teamsRepository.SaveChangesAsync();
@@ -48,7 +47,7 @@ namespace TMXN.Services.Data.Tests
         [Fact]
         public async Task TestIfEliminateWorks()
         {
-            BracketsService bracketsService = new BracketsService(this.bracketsRepository, this.teamsRepository);
+            BracketsService bracketsService = new BracketsService(this.bracketsRepository, this.teamsRepository,this.tournamentsRepository);
 
             await this.teamsRepository.AddAsync(new Team { Name = "Tested", Tag = "TSTS" });
             await this.teamsRepository.SaveChangesAsync();
@@ -62,5 +61,7 @@ namespace TMXN.Services.Data.Tests
 
             Assert.Equal(expectedResult, currentTeam.IsEliminate);
         }
+
+       
     }
 }
