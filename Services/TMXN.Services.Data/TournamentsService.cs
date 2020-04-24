@@ -162,18 +162,26 @@ namespace TMXN.Services.Data
 
             var currentTournament = await this.tournamentRepository.All().Where(x => x.Id == tournamentId).FirstOrDefaultAsync();
 
+
+
             if(currentTeam == null || currentTournament == null)
             {
                 return;
             }
-            var tournamentTeam = new TournamentTeam
-            {
-                TournamentId = currentTournament.Id,
-                TeamId = currentTeam.Id,
-            };
 
-            await this.tournamentsTeamsRepo.AddAsync(tournamentTeam);
-            await this.tournamentsTeamsRepo.SaveChangesAsync();
+            var currentTournamentTeam = await this.tournamentsTeamsRepo.All().Where(x => x.TeamId == currentTeam.Id && x.TournamentId == currentTournament.Id).FirstOrDefaultAsync();
+            if(currentTournamentTeam == null)
+            {
+                var tournamentTeam = new TournamentTeam
+                {
+                    TournamentId = currentTournament.Id,
+                    TeamId = currentTeam.Id,
+                };
+
+                await this.tournamentsTeamsRepo.AddAsync(tournamentTeam);
+                await this.tournamentsTeamsRepo.SaveChangesAsync();
+            }
+           
             currentTournament.TeamId = currentTeam.Id;
 
             this.tournamentRepository.Update(currentTournament);

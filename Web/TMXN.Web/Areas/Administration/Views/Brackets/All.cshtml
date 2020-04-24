@@ -34,7 +34,8 @@
     <div class="row">
         @foreach (var kvp in data)
         {
-
+            if (!kvp.Value.Any(x => x.IsWinner))
+            {
             <div class="row-sm-6">
                 <div class="card mr-3" style="width: 15rem;">
                     @if (kvp.Value.Count != 0)
@@ -45,12 +46,12 @@
 
                         @foreach (var team in kvp.Value.OrderByDescending(x => x.Points))
                         {
-                            
+
                 <ul class="list-group list-group-flush">
                     @if (!team.IsWinner && !team.IsEliminate)
                     {
                         <li class="list-group-item"><img src="@team.Logo" alt="Responsive image" class="img-fluid" width="40"> @team.Name <div><a asp-area="Administration" asp-controller="Brackets" asp-action="Win" asp-route-id="@team.Id" type="button" class="btn btn-primary">Win</a></div> <div><a asp-area="Administration" asp-controller="Brackets" asp-action="Eliminate" asp-route-id="@team.Id" type="button" class="btn btn-danger">Eliminate</a></div></li>
-                        
+
                     }
 
 
@@ -65,6 +66,7 @@
 
                 </div>
             </div>
+            }
 
         }
     </div>

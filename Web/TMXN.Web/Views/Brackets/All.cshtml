@@ -39,7 +39,7 @@
     <div class="row">
         @foreach (var kvp in data)
         {
-            if (kvp.Value.Count != 0)
+            if (!kvp.Value.Any(x => x.IsWinner))
             {
                 <div class="row-sm-6">
                     <div class="card mr-3" style="width: 15rem;">
@@ -53,15 +53,10 @@
                             {
 
                                 <ul class="list-group list-group-flush">
-                                    @if (!team.IsWinner)
+                                    @if (!team.IsWinner && !team.IsEliminate)
                                     {
-                                        if (!team.IsEliminate)
-                                        {
 
-                                            <li class="list-group-item"><img src="@team.Logo" alt="Responsive image" class="img-fluid" width="40"> @team.Name</li>
-
-                                        }
-
+                                        <li class="list-group-item"><img src="@team.Logo" alt="Responsive image" class="img-fluid" width="40"> @team.Name</li>
                                     }
 
 
@@ -79,7 +74,6 @@
                     </div>
                 </div>
             }
-
 
 
         }
