@@ -14,6 +14,8 @@ namespace TMXN.Services.Data
         public Task EliminateAsync(string id);
 
         public Task WinAsync(string teamId);
+
+
        
     }
 }

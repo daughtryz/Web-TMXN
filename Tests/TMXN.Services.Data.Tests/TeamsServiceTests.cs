@@ -21,27 +21,7 @@ namespace TMXN.Services.Data.Tests
     public class TeamsServiceTests
     {
 
-        //public IEnumerable<TViewModel> GetAll<TViewModel>(string criteria = null);//
-
-        //public Task AddAsync(string name, IFormFile logo, string tag, ApplicationUser user);//gotovo
-
-
-        //public TViewModel GetInfo<TViewModel>(string teamId);//gotovo
-
-        //public Task RemoveAsync(string id);//gotovo
-
-        //public IEnumerable<TViewModel> GetRanklist<TViewModel>();//gotovo
-
-
-        //public Task WinAsync(string teamId);//gotov
-
-        //public Task LoseAsync(string teamId);//gotov
-
-        //public Task SendAwardAsync(string teamId, string awardId);// v process na obrabotka
-
-        //public Task EditAsync(string name, IFormFile logo, string tag, string teamId);//gotovo
-
-        //public Task RemovePlayerAsync(ApplicationUser user);// v process na obrabotka
+        
 
         private const int DefaultPoints = 50;
        

@@ -14,15 +14,13 @@ namespace TMXN.Services.Data
     {
         private readonly IDeletableEntityRepository<Bracket> bracketRepository;
         private readonly IDeletableEntityRepository<Team> teamsRepository;
-        private readonly IDeletableEntityRepository<Tournament> tournamentsRepository;
-        private readonly IRepository<TournamentTeam> tournamentsTeamsRepo;
+       
 
-        public BracketsService(IDeletableEntityRepository<Bracket> bracketRepository,IDeletableEntityRepository<Team> teamsRepository,IDeletableEntityRepository<Tournament> tournamentsRepository,IRepository<TournamentTeam> tournamentsTeamsRepo)
+        public BracketsService(IDeletableEntityRepository<Bracket> bracketRepository,IDeletableEntityRepository<Team> teamsRepository)
         {
             this.bracketRepository = bracketRepository;
             this.teamsRepository = teamsRepository;
-            this.tournamentsRepository = tournamentsRepository;
-            this.tournamentsTeamsRepo = tournamentsTeamsRepo;
+            
         }
 
        
