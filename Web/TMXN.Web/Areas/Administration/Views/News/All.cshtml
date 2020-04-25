@@ -5,7 +5,7 @@
 <div class="row">
     @foreach (var news in this.Model.News)
     {
-        <div class="card mr-4" style="width: 18rem;">
+        <div id="changeToHover" class="card mr-4" style="width: 18rem;">
             <img class="card-img-top" src="@news.ImageUrl" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">@news.Title</h5>
@@ -20,3 +20,19 @@
 
 
 </div>
+@section Scripts {
+    <script>
+        $('#changeToHover').hover(
+            function () {
+                $(this).append($("<span> ***</span>"));
+            }, function () {
+                $(this).find("span").last().remove();
+            }
+        );
+
+        $($'#changeToHover').hover(function () {
+            $(this).fadeOut(100);
+            $(this).fadeIn(500);
+        });
+    </script>
+}
