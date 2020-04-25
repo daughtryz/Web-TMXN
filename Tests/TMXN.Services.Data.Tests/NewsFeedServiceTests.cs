@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using TMXN.Common;
 using TMXN.Data;
 using TMXN.Data.Models;
 using TMXN.Data.Repositories;
@@ -26,7 +27,7 @@ namespace TMXN.Services.Data.Tests
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
             this.newsRepository = new EfDeletableEntityRepository<NewsFeed>(new ApplicationDbContext(options.Options));
-            this.cloudinaryService = new CloudinaryService(new Cloudinary("cloudinary://139762851849643:BUAw31H4Q2VBJpC_DBa8zSRr10Q@degdnz5ro"));
+            this.cloudinaryService = new CloudinaryService(new Cloudinary(GlobalConstants.CloudinaryUrl));
         }
 
 

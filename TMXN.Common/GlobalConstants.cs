@@ -32,5 +32,7 @@
 
         public const int TakeLatestTournaments = 3;
 
+        public const string CloudinaryUrl = "cloudinary://139762851849643:BUAw31H4Q2VBJpC_DBa8zSRr10Q@degdnz5ro";
+
     }
 }

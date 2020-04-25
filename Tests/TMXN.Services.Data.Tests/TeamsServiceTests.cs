@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TMXN.Common;
 using TMXN.Data;
 using TMXN.Data.Common.InputModels.Enums;
 using TMXN.Data.Common.Repositories;
@@ -36,7 +37,7 @@ namespace TMXN.Services.Data.Tests
             this.teamsRepository = new EfDeletableEntityRepository<Team>(new ApplicationDbContext(options.Options));
             this.awardsRepository = new EfDeletableEntityRepository<Award>(new ApplicationDbContext(options.Options));
             this.userRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
-            this.cloudinaryService = new CloudinaryService(new Cloudinary("cloudinary://139762851849643:BUAw31H4Q2VBJpC_DBa8zSRr10Q@degdnz5ro"));
+            this.cloudinaryService = new CloudinaryService(new Cloudinary(GlobalConstants.CloudinaryUrl));
         }
 
         //[Fact]

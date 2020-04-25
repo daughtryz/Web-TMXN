@@ -13,8 +13,7 @@ namespace TMXN.Web.Controllers
     public class BracketsController : BaseController
     {
         private readonly IBracketsService bracketsService;
-        private readonly ITournamentsService tournamentsService;
-        private readonly ITeamsService teamsService;
+        
 
         public BracketsController(IBracketsService bracketsService)
         {
