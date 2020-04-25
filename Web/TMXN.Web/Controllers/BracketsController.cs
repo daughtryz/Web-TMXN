@@ -16,11 +16,10 @@ namespace TMXN.Web.Controllers
         private readonly ITournamentsService tournamentsService;
         private readonly ITeamsService teamsService;
 
-        public BracketsController(IBracketsService bracketsService,ITournamentsService tournamentsService,ITeamsService teamsService)
+        public BracketsController(IBracketsService bracketsService)
         {
             this.bracketsService = bracketsService;
-            this.tournamentsService = tournamentsService;
-            this.teamsService = teamsService;
+            
         }
 
         public IActionResult All()
