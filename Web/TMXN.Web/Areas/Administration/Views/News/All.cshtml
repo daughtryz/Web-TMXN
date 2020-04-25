@@ -20,19 +20,4 @@
 
 
 </div>
-@section Scripts {
-    <script>
-        $('#changeToHover').hover(
-            function () {
-                $(this).append($("<span> ***</span>"));
-            }, function () {
-                $(this).find("span").last().remove();
-            }
-        );
 
-        $($'#changeToHover').hover(function () {
-            $(this).fadeOut(100);
-            $(this).fadeIn(500);
-        });
-    </script>
-}

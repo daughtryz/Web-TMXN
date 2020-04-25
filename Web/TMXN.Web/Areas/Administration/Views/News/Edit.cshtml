@@ -5,6 +5,18 @@
     this.ViewData["Title"] = "Edit News";
 
 }
+
+
+<script src="/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    tinymce.init({
+        selector: "textarea",
+        plugins: [
+            "image paste table link code media"
+        ]
+    });
+</script>
+
 <form asp-area="Administration" asp-controller="News" asp-action="Edit" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label for="title">New Title:</label>
