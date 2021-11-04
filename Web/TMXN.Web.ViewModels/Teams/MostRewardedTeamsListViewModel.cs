@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TMXN.Web.ViewModels.Teams
 {
-    public class MostRewardedTeamsListViewModel
+    public class MostRewardedTeamsListViewModel : Topic
     {
         public IEnumerable<MostRewardedTeamViewModel> Teams { get; set; }
     }

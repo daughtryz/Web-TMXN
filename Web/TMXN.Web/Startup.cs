@@ -43,7 +43,7 @@
 
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
-
+            
             services.Configure<CookiePolicyOptions>(
                 options =>
                     {

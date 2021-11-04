@@ -3,7 +3,7 @@
 
 
     <div class="h-50 d-inline-block" style="width: 220px; background-color: rgba(0,0,255,.1)">
-        Top teams
+        @Model.Header
         @foreach (var team in this.Model.Teams)
         {
 
@@ -15,4 +15,5 @@
 
 
         }
+        @Model.Footer
     </div>

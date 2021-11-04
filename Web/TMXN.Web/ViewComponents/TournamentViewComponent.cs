@@ -5,11 +5,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using TMXN.Common;
 using TMXN.Services.Data;
+using TMXN.Web.CustomAttributes;
 using TMXN.Web.ViewModels.Tournaments;
 
 namespace TMXN.Web.ViewComponents
 {
     [ViewComponent(Name = "Tournament")]
+    [ListingViewComponents("Latest tournamentss", "Tournaments")]
+
     public class TournamentViewComponent : ViewComponent
     {
         private readonly ITournamentsService tournamentsService;
@@ -21,11 +24,14 @@ namespace TMXN.Web.ViewComponents
 
         public IViewComponentResult Invoke()
         {
+            ListingViewComponentsAttribute attr = (ListingViewComponentsAttribute)Attribute.GetCustomAttribute(typeof(TournamentViewComponent), typeof(ListingViewComponentsAttribute));
+
             var viewModel = new ListingLatestTournamentsViewModel
             {
                 LatestTournaments = this.tournamentsService.All<LatestTournamentViewModel>().OrderByDescending(x => x.CreatedOn).Take(GlobalConstants.TakeLatestTournaments).ToList(),
             };
-
+            viewModel.Header = attr.Header;
+            viewModel.Footer = attr.Footer;
             return this.View(viewModel);
 
         }

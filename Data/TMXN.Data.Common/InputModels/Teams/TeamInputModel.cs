@@ -10,12 +10,15 @@ namespace TMXN.Data.Common.InputModels.Teams
     {
 
         [Required]
+
         [MinLength(3)]
+
         [MaxLength(20)]
         public string Name { get; set; }
 
        
         [Required]
+
         [MaxLength(6)]
         public string Tag { get; set; }
       
